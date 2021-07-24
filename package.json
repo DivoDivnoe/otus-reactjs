@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,8 @@
   },
   "homepage": "https://github.com/DivoDivnoe/otus-reactjs#readme",
   "devDependencies": {
-    "webpack": "^5.46.0"
-  },
-  "dependencies": {
+    "jest": "^27.0.6",
+    "webpack": "^5.46.0",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
   }
