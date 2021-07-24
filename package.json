@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/DivoDivnoe/otus-reactjs#readme",
   "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "babel-jest": "^27.0.6",
     "jest": "^27.0.6",
     "webpack": "^5.46.0",
     "webpack-cli": "^4.7.2",
