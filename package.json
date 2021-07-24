@@ -1,0 +1,26 @@
+{
+  "name": "otus-reactjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DivoDivnoe/otus-reactjs.git"
+  },
+  "author": "Andrey Ivanov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DivoDivnoe/otus-reactjs/issues"
+  },
+  "homepage": "https://github.com/DivoDivnoe/otus-reactjs#readme",
+  "devDependencies": {
+    "webpack": "^5.46.0"
+  },
+  "dependencies": {
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
