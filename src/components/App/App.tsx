@@ -1,4 +1,4 @@
-import React, { Component, ReactNode, ReactElement } from "react";
+import React, { Component, ReactElement } from "react";
 import Field from "../Field/Field";
 
 type Binary = 0 | 1;
