@@ -11,7 +11,8 @@
     "check": "npm run lint",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=2ae71491695e"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "@typescript-eslint/parser": "^4.28.4",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
+    "chromatic": "^5.9.2",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
