@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 
-const Cell = () => <div></div>;
+import Field from "./components/Field";
+import { gameSize } from "./model";
 
-render(<Cell />, document.querySelector("#root"));
+render(<Field size={gameSize} />, document.querySelector("#root"));
