@@ -5,8 +5,8 @@ type Binary = 0 | 1;
 export type Model = Array<Array<Binary>>;
 
 interface SizeProps {
-  WIDTH: number;
-  HEIGHT: number;
+  width: number;
+  height: number;
 }
 
 export interface Coords {
@@ -15,7 +15,7 @@ export interface Coords {
 }
 
 export interface Props {
-  children?: ReactNode;
+  size?: SizeProps;
 }
 
 export interface State {
@@ -23,8 +23,8 @@ export interface State {
 }
 
 const gameSize: SizeProps = {
-  WIDTH: 40,
-  HEIGHT: 25,
+  width: 40,
+  height: 25,
 };
 
 export type ClickCellType = (coords: Coords) => void;
@@ -33,8 +33,10 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const size: SizeProps = props.size || gameSize;
+
     this.state = {
-      model: App.buildModel(gameSize),
+      model: App.buildModel(size),
     };
   }
 
@@ -51,8 +53,8 @@ class App extends Component<Props, State> {
   };
 
   static buildModel(size: SizeProps): Model {
-    return Array.from({ length: size.HEIGHT }, () => {
-      return Array.from({ length: size.WIDTH }, () => 0);
+    return Array.from({ length: size.height }, () => {
+      return Array.from({ length: size.width }, () => 0);
     });
   }
 }

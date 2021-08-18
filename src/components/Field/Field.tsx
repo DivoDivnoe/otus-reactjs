@@ -2,7 +2,7 @@ import React, { FC, CSSProperties } from "react";
 import Cell from "../Cell/Cell";
 import { Model, ClickCellType } from "../App/App";
 
-interface FieldProps {
+export interface FieldProps {
   model: Model;
   clickHandler: ClickCellType;
 }

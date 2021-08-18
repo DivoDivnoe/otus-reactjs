@@ -10,4 +10,10 @@ export default {
 
 const Template: ComponentStory<typeof App> = (args) => <App {...args} />;
 
-export const AppStory = Template.bind({});
+export const Default = Template.bind({});
+Default.args = {};
+
+export const Small = Template.bind({});
+Small.args = {
+  size: { width: 10, height: 10 },
+};
