@@ -1,5 +1,5 @@
 import React, { FC, CSSProperties } from 'react';
-import { Coords, ClickCellType } from '../App/App';
+import { Coords, ClickCellType } from '@/components/App/App';
 
 export interface CellProps {
   coords: Coords;

@@ -10,7 +10,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
-      '@': path.rosolve(__dirname, 'srxc'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   devtool: 'source-map',

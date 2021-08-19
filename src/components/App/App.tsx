@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react';
-import Field from '../Field/Field';
+import Field from '@/components/Field/Field';
 
 type Binary = 0 | 1;
 export type Model = Array<Array<Binary>>;
