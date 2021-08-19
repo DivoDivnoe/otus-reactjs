@@ -1,5 +1,5 @@
-import React, { FC, CSSProperties } from "react";
-import { Coords, ClickCellType } from "../App/App";
+import React, { FC, CSSProperties } from 'react';
+import { Coords, ClickCellType } from '../App/App';
 
 export interface CellProps {
   coords: Coords;
@@ -8,17 +8,17 @@ export interface CellProps {
 }
 
 const style: CSSProperties = {
-  boxSizing: "border-box",
+  boxSizing: 'border-box',
   flexShrink: 0,
-  display: "inline-flex",
-  justifyContent: "center",
-  alignItems: "center",
+  display: 'inline-flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   width: 20,
   height: 20,
-  border: "1px solid #dddddd",
+  border: '1px solid #dddddd',
   fontSize: 8,
-  lineHeight: "20px",
-  cursor: "pointer",
+  lineHeight: '20px',
+  cursor: 'pointer',
 };
 
 const Cell: FC<CellProps> = (props) => {

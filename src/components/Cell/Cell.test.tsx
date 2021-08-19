@@ -1,11 +1,11 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import Cell, { CellProps } from "./Cell";
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import Cell, { CellProps } from './Cell';
 
 let mocks: CellProps;
 
-describe("Cell", () => {
-  it("renders active Cell component", () => {
+describe('Cell', () => {
+  it('renders active Cell component', () => {
     mocks = {
       coords: { x: 0, y: 0 },
       isActive: true,
@@ -13,10 +13,10 @@ describe("Cell", () => {
     };
     render(<Cell {...mocks} />);
 
-    expect(screen.getByText("0.0")).toBeInTheDocument();
+    expect(screen.getByText('0.0')).toBeInTheDocument();
   });
 
-  it("renders inactive Cell component", () => {
+  it('renders inactive Cell component', () => {
     mocks = {
       coords: { x: 0, y: 0 },
       isActive: false,
@@ -24,10 +24,10 @@ describe("Cell", () => {
     };
     render(<Cell {...mocks} />);
 
-    expect(screen.queryByText("0.0")).toBeNull();
+    expect(screen.queryByText('0.0')).toBeNull();
   });
 
-  it("handles click event correctly", () => {
+  it('handles click event correctly', () => {
     mocks = {
       coords: { x: 0, y: 0 },
       isActive: true,
@@ -35,7 +35,7 @@ describe("Cell", () => {
     };
     render(<Cell {...mocks} />);
 
-    fireEvent.click(screen.getByText("0.0"));
+    fireEvent.click(screen.getByText('0.0'));
     expect(mocks.clickHandler).toHaveBeenCalledWith(mocks.coords);
   });
 });

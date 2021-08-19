@@ -1,5 +1,5 @@
-import React, { Component, ReactElement } from "react";
-import Field from "../Field/Field";
+import React, { Component, ReactElement } from 'react';
+import Field from '../Field/Field';
 
 type Binary = 0 | 1;
 export type Model = Array<Array<Binary>>;
@@ -48,6 +48,7 @@ class App extends Component<Props, State> {
     const { x, y } = coords;
     const { model } = this.state;
     model[y][x] = model[y][x] ? 0 : 1;
+    console.log('model', JSON.stringify(this.state.model));
 
     this.setState({ model });
   };

@@ -1,10 +1,10 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Cell from "./Cell";
+import Cell from './Cell';
 
 export default {
-  title: "Example/Cell",
+  title: 'Example/Cell',
   component: Cell,
 } as ComponentMeta<typeof Cell>;
 

@@ -1,11 +1,11 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Field from "./Field";
-import { Model } from "../App/App";
+import Field from './Field';
+import { Model } from '../App/App';
 
 export default {
-  title: "Example/Field",
+  title: 'Example/Field',
   component: Field,
 } as ComponentMeta<typeof Field>;
 

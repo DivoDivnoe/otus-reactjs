@@ -1,6 +1,6 @@
-import React, { FC, CSSProperties } from "react";
-import Cell from "../Cell/Cell";
-import { Model, ClickCellType } from "../App/App";
+import React, { FC, CSSProperties } from 'react';
+import Cell from '../Cell/Cell';
+import { Model, ClickCellType } from '../App/App';
 
 export interface FieldProps {
   model: Model;
@@ -8,14 +8,14 @@ export interface FieldProps {
 }
 
 const fieldStyle: CSSProperties = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
 };
 
 const rowStyle: CSSProperties = {
-  display: "flex",
+  display: 'flex',
 };
 
 const Field: FC<FieldProps> = (props) => {
@@ -25,7 +25,7 @@ const Field: FC<FieldProps> = (props) => {
     <div style={fieldStyle}>
       {model.map((modelRow, rowIndex) => {
         return (
-          <div style={rowStyle} key={`row-${rowIndex}`} className="field__row">
+          <div style={rowStyle} key={`row-${rowIndex}`}>
             {modelRow.map((item, columnIndex) => {
               const coords = { x: columnIndex, y: rowIndex };
 
