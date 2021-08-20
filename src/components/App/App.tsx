@@ -22,18 +22,24 @@ export interface State {
   model: Model;
 }
 
+export type ClickCellType = (coords: Coords) => void;
+
+const createZeroMatrix = (size: SizeProps): Model => {
+  return Array.from({ length: size.height }, () => {
+    return Array.from({ length: size.width }, () => 0);
+  });
+};
+
 const gameSize: SizeProps = {
   width: 40,
   height: 25,
 };
 
-export type ClickCellType = (coords: Coords) => void;
-
 class App extends Component<AppProps, State> {
   size: SizeProps = this.props.size || gameSize;
 
   state = {
-    model: App.buildModel(this.size),
+    model: createZeroMatrix(this.size),
   };
 
   render(): ReactElement {
@@ -47,12 +53,6 @@ class App extends Component<AppProps, State> {
 
     this.setState({ model });
   };
-
-  static buildModel(size: SizeProps): Model {
-    return Array.from({ length: size.height }, () => {
-      return Array.from({ length: size.width }, () => 0);
-    });
-  }
 }
 
 export default App;
