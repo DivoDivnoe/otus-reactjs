@@ -19,7 +19,7 @@ const model: Model = [
   [0, 0, 0, 0, 1],
 ];
 
-export const RandomField = Template.bind({});
+export const RandomField = Template;
 RandomField.args = {
   model,
 };

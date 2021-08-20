@@ -2,9 +2,9 @@ import React, { Component, ReactElement } from 'react';
 import Field from '@/components/Field/Field';
 
 type Binary = 0 | 1;
-export type Model = Array<Array<Binary>>;
+export type Model = Binary[][];
 
-interface SizeProps {
+export interface SizeProps {
   width: number;
   height: number;
 }
@@ -14,7 +14,7 @@ export interface Coords {
   y: number;
 }
 
-export interface Props {
+export interface AppProps {
   size?: SizeProps;
 }
 
@@ -29,16 +29,12 @@ const gameSize: SizeProps = {
 
 export type ClickCellType = (coords: Coords) => void;
 
-class App extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+class App extends Component<AppProps, State> {
+  size: SizeProps = this.props.size || gameSize;
 
-    const size: SizeProps = props.size || gameSize;
-
-    this.state = {
-      model: App.buildModel(size),
-    };
-  }
+  state = {
+    model: App.buildModel(this.size),
+  };
 
   render(): ReactElement {
     return <Field model={this.state.model} clickHandler={this.onClick} />;

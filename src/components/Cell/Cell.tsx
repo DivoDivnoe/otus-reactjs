@@ -26,7 +26,7 @@ const Cell: FC<CellProps> = (props) => {
   const { coords, isActive, clickHandler } = props;
 
   return (
-    <CellItem onClick={() => clickHandler(coords)}>
+    <CellItem onClick={() => clickHandler(coords)} role='cell'>
       {isActive && `${coords.y}.${coords.x}`}
     </CellItem>
   );

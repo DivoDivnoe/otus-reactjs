@@ -25,7 +25,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    port: '8081',
+    // port: '8081',
   },
   plugins: [
     new HtmlWebpackPlugin({

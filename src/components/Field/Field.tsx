@@ -25,13 +25,13 @@ const Field: FC<FieldProps> = (props) => {
     <FieldWrapper>
       {model.map((modelRow, rowIndex) => {
         return (
-          <RowWrapper key={`row-${rowIndex}`}>
+          <RowWrapper key={`index-${rowIndex}`}>
             {modelRow.map((item, columnIndex) => {
               const coords = { x: columnIndex, y: rowIndex };
 
               return (
                 <Cell
-                  key={`item-${rowIndex}.${columnIndex}`}
+                  key={`index-${rowIndex}.${columnIndex}`}
                   coords={coords}
                   isActive={!!item}
                   clickHandler={clickHandler}

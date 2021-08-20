@@ -2,11 +2,9 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Cell, { CellProps } from './Cell';
 
-let mocks: CellProps;
-
 describe('Cell', () => {
   it('renders active Cell component', () => {
-    mocks = {
+    const mocks: CellProps = {
       coords: { x: 0, y: 0 },
       isActive: true,
       clickHandler: jest.fn(),
@@ -17,7 +15,7 @@ describe('Cell', () => {
   });
 
   it('renders inactive Cell component', () => {
-    mocks = {
+    const mocks: CellProps = {
       coords: { x: 0, y: 0 },
       isActive: false,
       clickHandler: jest.fn(),
@@ -28,7 +26,7 @@ describe('Cell', () => {
   });
 
   it('handles click event correctly', () => {
-    mocks = {
+    const mocks: CellProps = {
       coords: { x: 0, y: 0 },
       isActive: true,
       clickHandler: jest.fn(),
