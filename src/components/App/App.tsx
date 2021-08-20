@@ -46,9 +46,8 @@ class App extends Component<Props, State> {
 
   onClick: ClickCellType = (coords) => {
     const { x, y } = coords;
-    const { model } = this.state;
+    const model = this.state.model.map((row) => row.slice());
     model[y][x] = model[y][x] ? 0 : 1;
-    console.log('model', JSON.stringify(this.state.model));
 
     this.setState({ model });
   };
