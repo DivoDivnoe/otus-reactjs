@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from 'react';
+import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import Cell from '../Cell/Cell';
 import { Model, ClickCellType } from '@/components/App/App';
