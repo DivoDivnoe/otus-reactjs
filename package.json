@@ -10,8 +10,7 @@
     "start": "webpack serve --mode development --open --hot",
     "check": "npm test && npm run lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "chromatic": "chromatic --project-token=2ae71491695e"
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
