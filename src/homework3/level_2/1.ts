@@ -14,7 +14,6 @@ const orderStates = [
 ] as const;
 
 type OrderState = typeof orderStates[number];
-type O = Extract<OrderState, 'initial'>;
 
 type Options<StateType extends OrderState> = {
   state: StateType;
@@ -29,6 +28,10 @@ type InitialStateOptions = Pick<
   Options<Extract<OrderState, 'initial'>>,
   'state' | 'sum'
 >;
+
+// Вот здесь вопрос: можно ли упростить запись вот так, без использования extract?
+// По ощущениям семантически больше Extract подходит, но, возможно, я ошибаюсь?
+// type InitialStateOptions = Pick<Options<'initial'>, 'state' | 'sum'>;
 
 type InWorkStateOptions = Pick<
   Options<Extract<OrderState, 'inWork'>>,
