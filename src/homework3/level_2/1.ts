@@ -24,31 +24,14 @@ type Options<StateType extends OrderState> = {
   fullfillmentDate: Date;
 };
 
-type InitialStateOptions = Pick<
-  Options<Extract<OrderState, 'initial'>>,
-  'state' | 'sum'
->;
-
-// Вот здесь вопрос: можно ли упростить запись вот так, без использования extract?
-// По ощущениям семантически больше Extract подходит, но, возможно, я ошибаюсь?
-// type InitialStateOptions = Pick<Options<'initial'>, 'state' | 'sum'>;
-
-type InWorkStateOptions = Pick<
-  Options<Extract<OrderState, 'inWork'>>,
-  'state' | 'sum' | 'workerId'
->;
-
+type InitialStateOptions = Pick<Options<'initial'>, 'state' | 'sum'>;
+type InWorkStateOptions = Pick<Options<'inWork'>, 'state' | 'sum' | 'workerId'>;
 type BuyingSuppliesStateOptions = Omit<
-  Options<Extract<OrderState, 'buyingSupplies'>>,
+  Options<'buyingSupplies'>,
   'produceEstimate' | 'fullfillmentDate'
 >;
-
-type ProducingStateOptions = Omit<
-  Options<Extract<OrderState, 'producing'>>,
-  'fullfillmentDate'
->;
-
-type FullfilledStateOptions = Options<Extract<OrderState, 'fullfilled'>>;
+type ProducingStateOptions = Omit<Options<'producing'>, 'fullfillmentDate'>;
+type FullfilledStateOptions = Options<'fullfilled'>;
 
 type Order =
   | InitialStateOptions
