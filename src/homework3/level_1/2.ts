@@ -3,46 +3,38 @@
 // Нужно заменить FIXME на тип который достанет из Order все возможные состояния (state)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const orderStates = [
-  'initial',
-  'inWork',
-  'buyingSupplies',
-  'producing',
-  'fullfilled',
-] as const;
-
-type FIXME = typeof orderStates[number];
-
 type Order =
   | {
-      state: Extract<FIXME, 'initial'>;
+      state: 'initial';
       sum: number;
     }
   | {
-      state: Extract<FIXME, 'inWork'>;
+      state: 'inWork';
       sum: number;
       workerId: number;
     }
   | {
-      state: Extract<FIXME, 'buyingSupplies'>;
+      state: 'buyingSupplies';
       sum: number;
       workerId: number;
       suppliesSum: number;
     }
   | {
-      state: Extract<FIXME, 'producing'>;
+      state: 'producing';
       sum: number;
       workerId: number;
       suppliesSum: number;
       produceEstimate: Date;
     }
   | {
-      state: Extract<FIXME, 'fullfilled'>;
+      state: 'fullfilled';
       sum: number;
       workerId: number;
       suppliesSum: number;
       produceEstimate: Date;
       fullfillmentDate: Date;
     };
+
+type FIXME = Order['state'];
 
 export const getOrderState = (order: Order): FIXME => order.state;
