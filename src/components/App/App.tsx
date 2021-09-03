@@ -2,7 +2,6 @@ import _ from 'underscore';
 import React, { Component, ReactNode } from 'react';
 import Field from '@/components/Field/Field';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
-import fetch from 'node-fetch';
 
 type Binary = 0 | 1;
 export type Model = Binary[][];
@@ -21,11 +20,11 @@ export interface AppProps {
   size?: SizeProps;
 }
 
-type user = Record<string, unknown>;
+export type User = Record<string, unknown>;
 
 export interface State {
   model: Model;
-  user: user | null;
+  user: User | null;
 }
 
 export type ClickCellType = (coords: Coords) => void;
@@ -44,6 +43,7 @@ const gameSize: SizeProps = {
 class App extends Component<AppProps, State> {
   userSessionTime: number;
   userSessionTimerId: number | null;
+  _isMounted: boolean;
 
   constructor(props: AppProps) {
     super(props);
@@ -55,6 +55,8 @@ class App extends Component<AppProps, State> {
 
     this.userSessionTime = 0;
     this.userSessionTimerId = null;
+
+    this._isMounted = false;
 
     this._onClick = this._onClick.bind(this);
   }
@@ -68,11 +70,13 @@ class App extends Component<AppProps, State> {
   }
 
   async componentDidMount(): Promise<null> {
+    this._isMounted = true;
+
     const response = await fetch(
       ' https://jsonplaceholder.typicode.com/users/1'
     );
 
-    if (response.ok) {
+    if (response.ok && this._isMounted) {
       const userData = await response.json();
       this.setState({ user: userData });
 
@@ -116,6 +120,7 @@ class App extends Component<AppProps, State> {
   }
 
   componentWillUnmount(): void {
+    this._isMounted = false;
     this.userSessionTimerId && window.clearInterval(this.userSessionTimerId);
   }
 }

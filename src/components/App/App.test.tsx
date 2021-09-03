@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import App, { AppProps } from './App';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import App, { AppProps, User } from './App';
 
 describe('App', () => {
   it('handles click event correctly', async () => {
@@ -10,11 +10,23 @@ describe('App', () => {
         height: 2,
       },
     };
+
+    const mockUser: User = {
+      id: 1,
+      name: 'Andrey',
+    };
+    const mockFetch = jest.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockUser),
+      })
+    );
+
+    global.fetch = mockFetch; // eslint-disable-line no-use-before-define
+
     render(<App {...mocks} />);
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
+    await waitFor(() => mockFetch());
 
     fireEvent.click(screen.queryAllByRole('cell')[3]);
     expect(screen.getByText('1.1')).toBeInTheDocument();
