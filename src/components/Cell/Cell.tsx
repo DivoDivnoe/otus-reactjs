@@ -22,16 +22,6 @@ const CellItem = styled.div`
   cursor: pointer;
 `;
 
-// const Cell: FC<CellProps> = (props) => {
-//   const { coords, isActive, clickHandler } = props;
-
-//   return (
-//     <CellItem onClick={() => clickHandler(coords)} role='cell'>
-//       {isActive && `${coords.y}.${coords.x}`}
-//     </CellItem>
-//   );
-// };
-
 class Cell extends Component<CellProps, never> {
   render(): ReactNode {
     const { coords, isActive, clickHandler } = this.props;

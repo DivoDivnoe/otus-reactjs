@@ -22,7 +22,7 @@ describe('App', () => {
       })
     );
 
-    global.fetch = mockFetch; // eslint-disable-line no-use-before-define
+    global.fetch = mockFetch;
 
     render(<App {...mocks} />);
 
