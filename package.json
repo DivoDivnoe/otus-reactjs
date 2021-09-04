@@ -9,7 +9,7 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix ./",
     "build": "webpack --mode production --node-env production",
     "start": "webpack serve --mode development --open --hot",
-    "check": "npm test && npm run lint",
+    "check": "npm run test-ts && npm test && npm run lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
