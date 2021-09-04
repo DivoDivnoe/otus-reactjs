@@ -2,6 +2,7 @@ import _ from 'underscore';
 import React, { Component, ReactNode } from 'react';
 import Field from '@/components/Field/Field';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
+import { fetchUser } from '@/api/api';
 
 type Binary = 0 | 1;
 export type Model = Binary[][];
@@ -20,7 +21,7 @@ export interface AppProps {
   size?: SizeProps;
 }
 
-export type User = Record<string, unknown>;
+export type User = Record<string, unknown> | null;
 
 export interface State {
   model: Model;
@@ -72,19 +73,14 @@ class App extends Component<AppProps, State> {
   async componentDidMount(): Promise<null> {
     this._isMounted = true;
 
-    const response = await fetch(
-      ' https://jsonplaceholder.typicode.com/users/1'
-    );
+    const userData = await fetchUser();
 
-    if (response.ok && this._isMounted) {
-      const userData = await response.json();
+    if (userData && this._isMounted) {
       this.setState({ user: userData });
 
       this.userSessionTimerId = window.setInterval(() => {
         this.userSessionTime++;
       }, 1000);
-    } else {
-      console.error('Ошибка HTTP: ' + response.status);
     }
 
     return null;
