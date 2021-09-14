@@ -3,8 +3,9 @@ import React, { Component, ReactNode } from 'react';
 import Field from '@/components/Field/Field';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import { fetchUser } from '@/api/api';
+import { CellState, CellStateValue } from '@/constants';
 
-type Binary = 0 | 1;
+export type Binary = 0 | 1;
 export type Model = Binary[][];
 
 export interface SizeProps {
@@ -30,9 +31,12 @@ export interface State {
 
 export type ClickCellType = (coords: Coords) => void;
 
-const createZeroMatrix = (size: SizeProps): Model => {
+const getRandomState = (): Binary =>
+  CellStateValue[Math.random() < 0.5 ? CellState.DEAD : CellState.ALIVE];
+
+const createRandomMatrix = (size: SizeProps): Model => {
   return Array.from({ length: size.height }, () => {
-    return Array.from({ length: size.width }, () => 0);
+    return Array.from({ length: size.width }, () => getRandomState());
   });
 };
 
@@ -50,7 +54,7 @@ class App extends Component<AppProps, State> {
     super(props);
 
     this.state = {
-      model: createZeroMatrix(this.props.size || gameSize),
+      model: createRandomMatrix(this.props.size || gameSize),
       user: null,
     };
 
@@ -110,7 +114,7 @@ class App extends Component<AppProps, State> {
 
     if (clickedItemsAmount >= 10) {
       this.setState({
-        model: createZeroMatrix(this.props.size || gameSize),
+        model: createRandomMatrix(this.props.size || gameSize),
       });
     }
   }

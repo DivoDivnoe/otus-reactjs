@@ -9,13 +9,14 @@ export interface CellProps {
 }
 
 const CellItem = styled.div`
-  box-sizing: border-box;
   flex-shrink: 0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 20px;
   height: 20px;
+  background-color: ${(props: Pick<CellProps, 'isActive'>) =>
+    props.isActive ? '#000071' : 'transparent'};
   border: 1px solid #dddddd;
   font-size: 8px;
   line-height: 20px;
@@ -27,9 +28,11 @@ class Cell extends Component<CellProps, never> {
     const { coords, isActive, clickHandler } = this.props;
 
     return (
-      <CellItem onClick={() => clickHandler(coords)} role='cell'>
-        {isActive && `${coords.y}.${coords.x}`}
-      </CellItem>
+      <CellItem
+        isActive={isActive}
+        onClick={() => clickHandler(coords)}
+        role='cell'
+      ></CellItem>
     );
   }
 
