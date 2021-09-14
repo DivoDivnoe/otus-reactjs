@@ -27,6 +27,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': 0,
+    // '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/prop-types': 0,
   },
   settings: {
