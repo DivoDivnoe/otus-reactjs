@@ -2,16 +2,14 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App, { AppProps, User } from './App';
 import { fetchUser, FetchUser } from '@/api/api';
+import { BoardSize } from '@/constants';
 
 jest.mock('@/api/api');
 
 describe('App', () => {
   it('works correctly', async () => {
     const mocks: AppProps = {
-      size: {
-        width: 2,
-        height: 2,
-      },
+      size: 'small' as BoardSize,
     };
 
     const mockUser: User = {

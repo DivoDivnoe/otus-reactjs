@@ -13,8 +13,8 @@ const CellItem = styled.div`
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   background-color: ${(props: Pick<CellProps, 'isActive'>) =>
     props.isActive ? '#000071' : 'transparent'};
   border: 1px solid #dddddd;

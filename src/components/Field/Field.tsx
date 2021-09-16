@@ -8,13 +8,10 @@ export interface FieldProps {
 }
 
 const FieldWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  margin: 16px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   box-shadow: 0 0 0 16px #ffffff;
-  transform: translate(-50%, -50%);
 `;
 
 const RowWrapper = styled.div`
