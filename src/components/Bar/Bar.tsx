@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import { BoardSize, SpeedType, FillType, Controls } from '@/constants';
 import Button from '@/components/Button/Button';
-import { BoardSizeValue, SpeedValue, BoardFillPercentage } from '@/configs';
+import { BoardSizeValue, BoardFillPercentage } from '@/configs';
 
 interface BarProps {
   sizes: BoardSize[];
@@ -11,6 +11,9 @@ interface BarProps {
   changeSizeHandler: (size: BoardSize) => void;
   changeSpeedHandler: (speedType: SpeedType) => void;
   changeFillType: (fill: FillType) => void;
+  [Controls.PLAY]: () => void;
+  [Controls.PAUSE]: () => void;
+  [Controls.CLEAR]: () => void;
 }
 
 const ButtonsWrapper = styled.div`
@@ -56,10 +59,6 @@ const BarItem = styled.div`
   background-color: white;
 `;
 
-/* ${BarRowItem}:not(:last-child) {
-    margin-bottom: 10px;
-  } */
-
 const Bar: FC<BarProps> = (props) => {
   const {
     sizes,
@@ -70,62 +69,79 @@ const Bar: FC<BarProps> = (props) => {
     changeFillType,
   } = props;
 
+  const sizeButtons = sizes.map((sizeType) => {
+    const { width, height } = BoardSizeValue[sizeType];
+    const text = `Size: ${width}x${height}`;
+
+    return (
+      <Button
+        key={`size-${sizeType}`}
+        isActive={false}
+        clickHandler={() => changeSizeHandler(sizeType)}
+      >
+        {text}
+      </Button>
+    );
+  });
+
+  const speedButtons = speedTypes.map((speedType) => {
+    return (
+      <Button
+        key={`speed-${speedType}`}
+        isActive={false}
+        clickHandler={() => changeSpeedHandler(speedType)}
+      >
+        {speedType}
+      </Button>
+    );
+  });
+
+  const fillButtons = fillTypes.map((fillType) => {
+    const percentage = BoardFillPercentage[fillType];
+    const text = `${percentage * 100}%`;
+
+    return (
+      <Button
+        key={`fill-${fillType}`}
+        isActive={false}
+        clickHandler={() => changeFillType(fillType)}
+      >
+        {text}
+      </Button>
+    );
+  });
+
+  const controlsButtons = [Controls.PLAY, Controls.PAUSE, Controls.CLEAR].map(
+    (controlType) => {
+      return (
+        <Button
+          key={`control-${controlType}`}
+          isActive={false}
+          clickHandler={() => props[controlType]()}
+        >
+          {controlType}
+        </Button>
+      );
+    }
+  );
+
+  const compConfig = [
+    { title: 'Board Size: ', buttons: sizeButtons },
+    { title: 'Sim Speed: ', buttons: speedButtons },
+    { title: 'Fill Percentage: ', buttons: fillButtons },
+    { title: 'Controls: ', buttons: controlsButtons },
+  ];
+
   return (
     <BarItem>
-      <BarRowItem>
-        <BarRowTitle>Board Size: </BarRowTitle>
-        <ButtonsWrapper>
-          {sizes.map((sizeType) => {
-            const { width, height } = BoardSizeValue[sizeType];
-            const text = `Size: ${width}x${height}`;
-
-            return (
-              <Button
-                key={`size-${sizeType}`}
-                isActive={false}
-                clickHandler={() => changeSizeHandler(sizeType)}
-              >
-                {text}
-              </Button>
-            );
-          })}
-        </ButtonsWrapper>
-      </BarRowItem>
-      <BarRowItem>
-        <BarRowTitle>Sim Speed: </BarRowTitle>
-        <ButtonsWrapper>
-          {speedTypes.map((speedType) => {
-            return (
-              <Button
-                key={`speed-${speedType}`}
-                isActive={false}
-                clickHandler={() => changeSpeedHandler(speedType)}
-              >
-                {speedType}
-              </Button>
-            );
-          })}
-        </ButtonsWrapper>
-      </BarRowItem>
-      <BarRowItem>
-        <BarRowTitle>Fill Percentage: </BarRowTitle>
-        <ButtonsWrapper>
-          {fillTypes.map((fillType) => {
-            const percentage = BoardFillPercentage[fillType];
-            const text = `${percentage}%`;
-
-            return (
-              <Button
-                key={`fill-${fillType}`}
-                isActive={false}
-                clickHandler={() => changeFillType(fillType)}
-              >
-                {text}
-              </Button>
-            );
-          })}
-        </ButtonsWrapper>
-      </BarRowItem>
+      {compConfig.map(({ title, buttons }) => {
+        return (
+          <BarRowItem key={title}>
+            <BarRowTitle>{title}</BarRowTitle>
+            <ButtonsWrapper>{buttons}</ButtonsWrapper>
+          </BarRowItem>
+        );
+      })}
     </BarItem>
   );
 };

@@ -1,7 +1,4 @@
-export enum CellState {
-  DEAD = 'dead',
-  ALIVE = 'alive',
-}
+import { Binary } from '@/components/App/App';
 
 export enum SpeedType {
   FAST = 'fast',
@@ -20,3 +17,19 @@ export enum BoardSize {
   MEDIUM = 'medium',
   SMALL = 'small',
 }
+
+export enum Controls {
+  PLAY = 'play',
+  PAUSE = 'pause',
+  CLEAR = 'clear',
+}
+
+export interface CellStateType {
+  DEAD: Binary;
+  ALIVE: Binary;
+}
+
+export const CellState: CellStateType = {
+  DEAD: 0,
+  ALIVE: 1,
+};

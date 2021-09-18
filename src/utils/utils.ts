@@ -1,3 +1,5 @@
+import { SizeProps } from '@/components/App/App';
+
 export const getRandomValuesArr = (
   maxValue: number,
   amount: number
@@ -25,4 +27,54 @@ export const getRandomValuesArr = (
 
 export const getRandomValue = (maxValue: number): number => {
   return Math.floor(Math.random() * maxValue);
+};
+
+export const getMatrixItemNeighbours = (
+  matrix: number[][],
+  rowIndex: number,
+  columnIndex: number
+): number[] => {
+  const neighBours = [];
+
+  if (columnIndex > 0) {
+    neighBours.push(matrix[rowIndex][columnIndex - 1]);
+
+    if (rowIndex > 0) {
+      neighBours.push(matrix[rowIndex - 1][columnIndex - 1]);
+    }
+
+    if (rowIndex < matrix.length - 1) {
+      neighBours.push(matrix[rowIndex + 1][columnIndex - 1]);
+    }
+  }
+
+  if (columnIndex < matrix[rowIndex].length - 1) {
+    neighBours.push(matrix[rowIndex][columnIndex + 1]);
+
+    if (rowIndex > 0) {
+      neighBours.push(matrix[rowIndex - 1][columnIndex + 1]);
+    }
+
+    if (rowIndex < matrix.length - 1) {
+      neighBours.push(matrix[rowIndex + 1][columnIndex + 1]);
+    }
+  }
+
+  if (rowIndex > 0) {
+    neighBours.push(matrix[rowIndex - 1][columnIndex]);
+  }
+
+  if (rowIndex < matrix.length - 1) {
+    neighBours.push(matrix[rowIndex + 1][columnIndex]);
+  }
+
+  return neighBours;
+};
+
+export const getZeroMatrix = (size: SizeProps) => {
+  const { width, height } = size;
+
+  return Array.from({ length: height }, () => {
+    return Array.from({ length: width }, () => 0);
+  });
 };

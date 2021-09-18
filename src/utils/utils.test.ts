@@ -1,4 +1,4 @@
-import { getRandomValuesArr } from './utils';
+import { getRandomValuesArr, getMatrixItemNeighbours } from './utils';
 
 describe('getRandomValuesArr function', () => {
   describe('returns array of correctLength', () => {
@@ -30,6 +30,74 @@ describe('getRandomValuesArr function', () => {
       expect(() => getRandomValuesArr(10, 20)).toThrowError(
         'items amount cannot be more then max value'
       );
+    });
+  });
+});
+
+describe('getMatrixItemNeighbours function', () => {
+  describe('returns correct values, if item is not of edge type', () => {
+    it('arr [[1, 2, 3], [4, 5, 6], [7, 8, 9]], row: 1, col: 1', () => {
+      const arr = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ];
+      expect(getMatrixItemNeighbours(arr, 1, 1).sort()).toEqual([
+        1, 2, 3, 4, 6, 7, 8, 9,
+      ]);
+    });
+
+    it('arr [[1, 2, 3], [4, 5, 6], [7, 8, 9]], row: 0, col: 0', () => {
+      const arr = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ];
+      expect(getMatrixItemNeighbours(arr, 0, 0).sort()).toEqual([2, 4, 5]);
+    });
+
+    it('arr [[1, 2, 3], [4, 5, 6], [7, 8, 9]], row: 1, col: 0', () => {
+      const arr = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ];
+      expect(getMatrixItemNeighbours(arr, 1, 0).sort()).toEqual([
+        1, 2, 5, 7, 8,
+      ]);
+    });
+
+    it('arr [[1, 2, 3], [4, 5, 6], [7, 8, 9]], row: 0, col: 1', () => {
+      const arr = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ];
+      expect(getMatrixItemNeighbours(arr, 0, 1).sort()).toEqual([
+        1, 3, 4, 5, 6,
+      ]);
+    });
+
+    it('arr [[1, 2, 3], [4, 5, 6], [7, 8, 9]], row: 1, col: 2', () => {
+      const arr = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ];
+      expect(getMatrixItemNeighbours(arr, 1, 2).sort()).toEqual([
+        2, 3, 5, 8, 9,
+      ]);
+    });
+
+    it('arr [[1, 2, 3], [4, 5, 6], [7, 8, 9]], row: 2, col: 1', () => {
+      const arr = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+      ];
+      expect(getMatrixItemNeighbours(arr, 2, 1).sort()).toEqual([
+        4, 5, 6, 7, 9,
+      ]);
     });
   });
 });

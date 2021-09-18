@@ -3,9 +3,17 @@ import React, { Component, ReactNode } from 'react';
 import Field from '@/components/Field/Field';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 import { fetchUser } from '@/api/api';
-import { CellState, SpeedType, BoardSize, FillType } from '@/constants';
-import { CellStateValue, gameOptions, BoardSizeValue } from '@/configs';
+import { SpeedType, BoardSize, FillType, CellState } from '@/constants';
+import {
+  gameOptions,
+  BoardSizeValue,
+  gameProps,
+  BoardFillPercentage,
+  SpeedValue,
+} from '@/configs';
 import Bar from '@/components/Bar/Bar';
+import { getRandomValuesArr, getZeroMatrix } from '@/utils/utils';
+import { getNextGenMatrix } from '@/core/core';
 
 export type Binary = 0 | 1;
 export type Model = Binary[][];
@@ -22,6 +30,8 @@ export interface Coords {
 
 export interface AppProps {
   size?: BoardSize;
+  speed?: SpeedType;
+  fill?: FillType;
 }
 
 export type User = Record<string, unknown> | null;
@@ -33,40 +43,64 @@ export interface State {
 
 export type ClickCellType = (coords: Coords) => void;
 
-const getRandomState = (): Binary =>
-  CellStateValue[Math.random() < 0.5 ? CellState.DEAD : CellState.ALIVE];
+export const getRandomMatrix = (size: SizeProps, fill: number): Model => {
+  const { width, height } = size;
+  const maxValue = width * height;
+  const amount = Math.round(fill * maxValue);
+  const randomIndexes = getRandomValuesArr(maxValue, amount);
 
-const createRandomMatrix = (size: SizeProps): Model => {
-  return Array.from({ length: size.height }, () => {
-    return Array.from({ length: size.width }, () => 0);
+  return Array.from({ length: height }, (_, rowIndex) => {
+    return Array.from({ length: width }, (_, columnIndex) => {
+      return randomIndexes.includes(rowIndex * width + columnIndex)
+        ? CellState.ALIVE
+        : CellState.DEAD;
+    });
   });
 };
 
-const DEFAULT_GAME_SIZE_TYPE = BoardSize.MEDIUM;
+const createRandomMatrix = (sizeType: BoardSize, fillType: FillType): Model => {
+  const size = BoardSizeValue[sizeType];
+  const fill = BoardFillPercentage[fillType];
+
+  return getRandomMatrix(size, fill);
+};
+
+const getNewSizeMatrix = (size: SizeProps, prevMatrix: Model): Model => {
+  const { width, height } = size;
+
+  return Array.from({ length: height }, (_, rowIndex) => {
+    return Array.from({ length: width }, (_, columnIndex) => {
+      const prevItem = prevMatrix[rowIndex]?.[columnIndex];
+
+      return prevItem === undefined ? CellState.DEAD : prevItem;
+    });
+  });
+};
+
+const createNewSizeMatrix = (sizeType: BoardSize, prevMatrix: Model): Model => {
+  const size = BoardSizeValue[sizeType];
+
+  return getNewSizeMatrix(size, prevMatrix);
+};
+
+const createZeroMatrix = (sizeType: BoardSize): Model => {
+  const size = BoardSizeValue[sizeType];
+
+  return getZeroMatrix(size) as Model;
+};
 
 class App extends Component<AppProps, State> {
-  boardSize: BoardSize;
-  userSessionTime: number;
-  userSessionTimerId: number | null;
-  _isMounted: boolean;
+  boardSize = this.props.size || gameProps.boardSize;
+  speed = this.props.speed || gameProps.speed;
+  fill = this.props.fill || gameProps.fill;
 
-  constructor(props: AppProps) {
-    super(props);
+  state = {
+    model: createRandomMatrix(this.boardSize, this.fill),
+    user: null,
+  };
 
-    this.boardSize = this.props.size || DEFAULT_GAME_SIZE_TYPE;
-
-    this.state = {
-      model: createRandomMatrix(BoardSizeValue[this.boardSize]),
-      user: null,
-    };
-
-    this.userSessionTime = 0;
-    this.userSessionTimerId = null;
-
-    this._isMounted = false;
-
-    this._onClick = this._onClick.bind(this);
-  }
+  _gameTimeoutId = -1;
+  _isMounted = false;
 
   render(): ReactNode {
     const { boardSizes, speedTypes, fillTypes } = gameOptions;
@@ -81,29 +115,13 @@ class App extends Component<AppProps, State> {
           changeSizeHandler={this._onChangeSize}
           changeSpeedHandler={this._onChangeSpeedType}
           changeFillType={this._onChangeFillType}
+          play={this._onClickPlay}
+          pause={this._stop}
+          clear={this._clear}
         />
       </ErrorBoundary>
     );
   }
-
-  _onChangeSize = (sizeType: BoardSize): void => {
-    if (this.boardSize === sizeType) return;
-
-    this.boardSize = sizeType;
-
-    const size = BoardSizeValue[sizeType];
-    const model = createRandomMatrix(size);
-
-    this.setState({ model });
-  };
-
-  _onChangeSpeedType = (speedType: SpeedType): void => {
-    console.log('change speed type', speedType);
-  };
-
-  _onChangeFillType = (fillPercentage: FillType) => {
-    console.log('change percentage', fillPercentage);
-  };
 
   async componentDidMount(): Promise<null> {
     this._isMounted = true;
@@ -112,10 +130,6 @@ class App extends Component<AppProps, State> {
 
     if (userData && this._isMounted) {
       this.setState({ user: userData });
-
-      this.userSessionTimerId = window.setInterval(() => {
-        this.userSessionTime++;
-      }, 1000);
     }
 
     return null;
@@ -129,31 +143,79 @@ class App extends Component<AppProps, State> {
     return true;
   }
 
-  _onClick(coords: Coords): void {
+  componentWillUnmount(): void {
+    this._isMounted = false;
+    this._stop();
+  }
+
+  _onChangeSize = (sizeType: BoardSize): void => {
+    if (this.boardSize === sizeType) return;
+
+    this.boardSize = sizeType;
+
+    const model = createNewSizeMatrix(sizeType, this.state.model);
+
+    this._stop();
+    this.setState({ model }, this._start);
+  };
+
+  _onChangeSpeedType = (speed: SpeedType): void => {
+    if (this.speed === speed) return;
+
+    this.speed = speed;
+
+    this._restart();
+  };
+
+  _onChangeFillType = (fill: FillType): void => {
+    this.fill = fill;
+
+    const model = createRandomMatrix(this.boardSize, this.fill);
+
+    this._stop();
+    this.setState({ model }, this._start);
+  };
+
+  _onClick = (coords: Coords): void => {
     const { x, y } = coords;
     const model = this.state.model.map((row) => row.slice());
     model[y][x] = model[y][x] ? 0 : 1;
 
     this.setState({ model });
-  }
+  };
 
-  // Сбрасываю model, если кликнули на 10 клеток
-  componentDidUpdate(): void {
-    const clickedItemsAmount = this.state.model.reduce((acc1, row) => {
-      return acc1 + row.reduce((acc2, cur) => acc2 + cur, Number(0));
-    }, 0);
+  _start = (): void => {
+    this._gameTimeoutId = window.setTimeout(() => {
+      const model = getNextGenMatrix(this.state.model);
 
-    if (clickedItemsAmount >= 10) {
-      this.setState({
-        model: createRandomMatrix(BoardSizeValue[this.boardSize]),
-      });
-    }
-  }
+      this.setState({ model }, this._start);
+    }, SpeedValue[this.speed]);
+  };
 
-  componentWillUnmount(): void {
-    this._isMounted = false;
-    this.userSessionTimerId && window.clearInterval(this.userSessionTimerId);
-  }
+  _onClickPlay = (): void => {
+    if (this._gameTimeoutId > -1) return;
+
+    this._start();
+  };
+
+  _stop = (): void => {
+    if (this._gameTimeoutId === -1) return;
+
+    window.clearTimeout(this._gameTimeoutId);
+    this._gameTimeoutId = -1;
+  };
+
+  _restart = (): void => {
+    this._stop();
+    this._start();
+  };
+
+  _clear = (): void => {
+    this._stop();
+
+    const model = createZeroMatrix(this.boardSize);
+    this.setState({ model });
+  };
 }
 
 export default App;

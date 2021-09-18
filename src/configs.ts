@@ -1,10 +1,5 @@
-import { BoardSize, SpeedType, CellState, FillType } from '@/constants';
-import { Binary, SizeProps } from '@/components/App/App';
-
-export interface CellStateValuetype {
-  [CellState.DEAD]: Binary;
-  [CellState.ALIVE]: Binary;
-}
+import { BoardSize, SpeedType, FillType } from '@/constants';
+import { SizeProps } from '@/components/App/App';
 
 export interface SpeedValueType {
   [SpeedType.FAST]: number;
@@ -30,10 +25,11 @@ export interface GameOptionsType {
   fillTypes: FillType[];
 }
 
-export const CellStateValue: CellStateValuetype = {
-  [CellState.DEAD]: 0,
-  [CellState.ALIVE]: 1,
-};
+export interface gamePropsType {
+  boardSize: BoardSize;
+  speed: SpeedType;
+  fill: FillType;
+}
 
 export const BoardSizeValue: BoardSizeValueType = {
   [BoardSize.LARGE]: { width: 100, height: 80 },
@@ -41,21 +37,27 @@ export const BoardSizeValue: BoardSizeValueType = {
   [BoardSize.SMALL]: { width: 50, height: 30 },
 };
 
-// frames per second
+// timeout interval ms
 export const SpeedValue: SpeedValueType = {
-  [SpeedType.FAST]: 15,
-  [SpeedType.MEDIUM]: 10,
-  [SpeedType.SLOW]: 5,
+  [SpeedType.FAST]: 30,
+  [SpeedType.MEDIUM]: 150,
+  [SpeedType.SLOW]: 500,
 };
 
 export const BoardFillPercentage: BoardFillPercentageType = {
-  [FillType.HIGH]: 30,
-  [FillType.MEDIUM]: 20,
-  [FillType.LOW]: 10,
+  [FillType.HIGH]: 0.3,
+  [FillType.MEDIUM]: 0.2,
+  [FillType.LOW]: 0.1,
 };
 
 export const gameOptions = {
   boardSizes: [BoardSize.SMALL, BoardSize.MEDIUM, BoardSize.LARGE],
   speedTypes: [SpeedType.SLOW, SpeedType.MEDIUM, SpeedType.FAST],
   fillTypes: [FillType.LOW, FillType.MEDIUM, FillType.HIGH],
+};
+
+export const gameProps = {
+  boardSize: BoardSize.MEDIUM,
+  speed: SpeedType.MEDIUM,
+  fill: FillType.MEDIUM,
 };

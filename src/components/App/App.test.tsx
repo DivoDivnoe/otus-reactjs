@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App, { AppProps, User } from './App';
 import { fetchUser, FetchUser } from '@/api/api';
-import { BoardSize } from '@/constants';
+import { BoardSize, FillType, SpeedType } from '@/constants';
 
 jest.mock('@/api/api');
 
@@ -10,6 +10,8 @@ describe('App', () => {
   it('works correctly', async () => {
     const mocks: AppProps = {
       size: 'small' as BoardSize,
+      speed: 'slow' as SpeedType,
+      fill: 'medium' as FillType,
     };
 
     const mockUser: User = {
