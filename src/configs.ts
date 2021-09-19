@@ -29,6 +29,7 @@ export interface gamePropsType {
   boardSize: BoardSize;
   speed: SpeedType;
   fill: FillType;
+  autoplay: boolean;
 }
 
 export const BoardSizeValue: BoardSizeValueType = {
@@ -60,4 +61,5 @@ export const gameProps = {
   boardSize: BoardSize.MEDIUM,
   speed: SpeedType.MEDIUM,
   fill: FillType.MEDIUM,
+  autoplay: true,
 };

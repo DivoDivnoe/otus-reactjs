@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 interface ButtonProps {
   children?: string;
   isActive: boolean;
+  isDisabled?: boolean;
   clickHandler: () => void;
 }
 
@@ -20,14 +21,25 @@ const ButtonItem = styled.button`
   text-align: center;
   border: none;
   border-radius: 7px;
-  background-color: ${(props: Pick<ButtonProps, 'isActive'>) =>
-    props.isActive ? 'lightblue' : 'blue'};
   cursor: pointer;
+  background-color: ${(props: Omit<ButtonProps, 'clickHandler'>) =>
+    props.isActive ? 'lightblue' : 'blue'};
+  pointer-events: ${(props: Omit<ButtonProps, 'clickHandler'>) =>
+    props.isDisabled ? 'none' : 'auto'};
 `;
 
-const Button: FC<ButtonProps> = ({ isActive, clickHandler, children }) => {
+const Button: FC<ButtonProps> = ({
+  isActive,
+  isDisabled,
+  clickHandler,
+  children,
+}) => {
   return (
-    <ButtonItem isActive={isActive} onClick={clickHandler}>
+    <ButtonItem
+      isDisabled={isDisabled}
+      isActive={isActive}
+      onClick={clickHandler}
+    >
       {children}
     </ButtonItem>
   );

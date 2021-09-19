@@ -31,7 +31,7 @@ class Cell extends Component<CellProps, never> {
       <CellItem
         isActive={isActive}
         onClick={() => clickHandler(coords)}
-        role='cell'
+        data-testid='cell'
       ></CellItem>
     );
   }

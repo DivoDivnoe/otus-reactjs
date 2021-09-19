@@ -24,7 +24,7 @@ export const getNextGenMatrix = (prevGenMatrix: Model): Model => {
           prevGenMatrix,
           rowIndex,
           columnIndex
-        ).filter((item) => item == CellState.ALIVE).length;
+        ).filter((item) => item === CellState.ALIVE).length;
 
         if (
           currentItem === CellState.DEAD &&

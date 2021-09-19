@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import Button from './Button';
 
-describe('Button', () => {
+describe('Button component', () => {
   it('renders Button component with correct text', () => {
     const mocks = {
       isActive: false,

@@ -8,6 +8,9 @@ interface BarProps {
   sizes: BoardSize[];
   speedTypes: SpeedType[];
   fillTypes: FillType[];
+  size: BoardSize;
+  speed: SpeedType;
+  fill: FillType;
   changeSizeHandler: (size: BoardSize) => void;
   changeSpeedHandler: (speedType: SpeedType) => void;
   changeFillType: (fill: FillType) => void;
@@ -53,10 +56,12 @@ const BarItem = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 680px;
+  width: 632px;
   padding: 10px 15px;
-  border-radius: 0 0 10px 10px;
   background-color: white;
+  /* border-radius: ${(props: Pick<BarProps, 'size'>) =>
+    props.size === BoardSize.SMALL ? '10px' : '0 0 10px 10px'}; */
+  border-radius: 0 0 10px 10px;
 `;
 
 const Bar: FC<BarProps> = (props) => {
@@ -64,6 +69,9 @@ const Bar: FC<BarProps> = (props) => {
     sizes,
     speedTypes,
     fillTypes,
+    size,
+    speed,
+    fill,
     changeSizeHandler,
     changeSpeedHandler,
     changeFillType,
@@ -72,10 +80,12 @@ const Bar: FC<BarProps> = (props) => {
   const sizeButtons = sizes.map((sizeType) => {
     const { width, height } = BoardSizeValue[sizeType];
     const text = `Size: ${width}x${height}`;
+    const name = `size-${sizeType}`;
 
     return (
       <Button
-        key={`size-${sizeType}`}
+        key={name}
+        isDisabled={sizeType === size}
         isActive={false}
         clickHandler={() => changeSizeHandler(sizeType)}
       >
@@ -85,9 +95,12 @@ const Bar: FC<BarProps> = (props) => {
   });
 
   const speedButtons = speedTypes.map((speedType) => {
+    const name = `speed-${speedType}`;
+
     return (
       <Button
-        key={`speed-${speedType}`}
+        key={name}
+        isDisabled={speedType === speed}
         isActive={false}
         clickHandler={() => changeSpeedHandler(speedType)}
       >
@@ -99,10 +112,11 @@ const Bar: FC<BarProps> = (props) => {
   const fillButtons = fillTypes.map((fillType) => {
     const percentage = BoardFillPercentage[fillType];
     const text = `${percentage * 100}%`;
+    const name = `fill-${fillType}`;
 
     return (
       <Button
-        key={`fill-${fillType}`}
+        key={name}
         isActive={false}
         clickHandler={() => changeFillType(fillType)}
       >
@@ -113,9 +127,11 @@ const Bar: FC<BarProps> = (props) => {
 
   const controlsButtons = [Controls.PLAY, Controls.PAUSE, Controls.CLEAR].map(
     (controlType) => {
+      const name = `control-${controlType}`;
+
       return (
         <Button
-          key={`control-${controlType}`}
+          key={name}
           isActive={false}
           clickHandler={() => props[controlType]()}
         >
@@ -128,12 +144,12 @@ const Bar: FC<BarProps> = (props) => {
   const compConfig = [
     { title: 'Board Size: ', buttons: sizeButtons },
     { title: 'Sim Speed: ', buttons: speedButtons },
-    { title: 'Fill Percentage: ', buttons: fillButtons },
+    { title: 'Fill: ', buttons: fillButtons },
     { title: 'Controls: ', buttons: controlsButtons },
   ];
 
   return (
-    <BarItem>
+    <BarItem size={size}>
       {compConfig.map(({ title, buttons }) => {
         return (
           <BarRowItem key={title}>

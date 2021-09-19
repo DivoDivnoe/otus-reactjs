@@ -99,6 +99,7 @@ class App extends Component<AppProps, State> {
     user: null,
   };
 
+  _autoplay = gameProps.autoplay;
   _gameTimeoutId = -1;
   _isMounted = false;
 
@@ -107,11 +108,18 @@ class App extends Component<AppProps, State> {
 
     return (
       <ErrorBoundary>
-        <Field model={this.state.model} clickHandler={this._onClick} />
+        <Field
+          size={this.boardSize}
+          model={this.state.model}
+          clickHandler={this._onClick}
+        />
         <Bar
           sizes={boardSizes}
           speedTypes={speedTypes}
           fillTypes={fillTypes}
+          size={this.boardSize}
+          speed={this.speed}
+          fill={this.fill}
           changeSizeHandler={this._onChangeSize}
           changeSpeedHandler={this._onChangeSpeedType}
           changeFillType={this._onChangeFillType}
@@ -129,7 +137,9 @@ class App extends Component<AppProps, State> {
     const userData = await fetchUser();
 
     if (userData && this._isMounted) {
-      this.setState({ user: userData });
+      this.setState({ user: userData }, () => {
+        this._autoplay && this._start();
+      });
     }
 
     return null;
