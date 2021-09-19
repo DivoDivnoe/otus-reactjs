@@ -17,7 +17,10 @@ const CellItem = styled.div`
   height: 12px;
   background-color: ${(props: Pick<CellProps, 'isActive'>) =>
     props.isActive ? '#000071' : 'transparent'};
+  background-color: ${(props: Pick<CellProps, 'isActive'>) =>
+    props.isActive ? '#F9FF00' : '#073081'};
   border: 1px solid #dddddd;
+  border: 1px solid #021a60;
   font-size: 8px;
   line-height: 20px;
   cursor: pointer;

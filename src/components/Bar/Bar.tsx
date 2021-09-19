@@ -39,7 +39,7 @@ const BarRowTitle = styled.span`
   font-size: 20px;
   line-height: 23px;
   font-family: Courier;
-  color: blue;
+  color: #ffffff;
   text-align: left;
 `;
 
@@ -58,7 +58,7 @@ const BarItem = styled.div`
   flex-direction: column;
   width: 632px;
   padding: 10px 15px;
-  background-color: white;
+  background-color: #021a60;
   border-radius: 0 0 10px 10px;
 `;
 

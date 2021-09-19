@@ -14,6 +14,7 @@ const FieldWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   box-shadow: 0 0 0 16px #ffffff;
+  box-shadow: 0 0 0 16px #021a60;
   border-radius: ${(props: Pick<FieldProps, 'size'>) =>
     props.size === BoardSize.SMALL ? '8px 8px 0 0' : '8px'};
 `;
