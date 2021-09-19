@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App, { AppProps, User } from './App';
 import { fetchUser, FetchUser } from '@/api/api';
 import { BoardSize, FillType, SpeedType } from '@/constants';

@@ -59,8 +59,6 @@ const BarItem = styled.div`
   width: 632px;
   padding: 10px 15px;
   background-color: white;
-  /* border-radius: ${(props: Pick<BarProps, 'size'>) =>
-    props.size === BoardSize.SMALL ? '10px' : '0 0 10px 10px'}; */
   border-radius: 0 0 10px 10px;
 `;
 
@@ -71,7 +69,6 @@ const Bar: FC<BarProps> = (props) => {
     fillTypes,
     size,
     speed,
-    fill,
     changeSizeHandler,
     changeSpeedHandler,
     changeFillType,
@@ -149,7 +146,7 @@ const Bar: FC<BarProps> = (props) => {
   ];
 
   return (
-    <BarItem size={size}>
+    <BarItem>
       {compConfig.map(({ title, buttons }) => {
         return (
           <BarRowItem key={title}>

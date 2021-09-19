@@ -1,4 +1,8 @@
-import { getRandomValuesArr, getMatrixItemNeighbours } from './utils';
+import {
+  getRandomValuesArr,
+  getMatrixItemNeighbours,
+  getZeroMatrix,
+} from './utils';
 
 describe('getRandomValuesArr function', () => {
   describe('returns array of correctLength', () => {
@@ -99,5 +103,14 @@ describe('getMatrixItemNeighbours function', () => {
         4, 5, 6, 7, 9,
       ]);
     });
+  });
+});
+
+describe('getZeroMatrix function', () => {
+  it('works correctly', () => {
+    expect(getZeroMatrix({ width: 3, height: 2 })).toEqual([
+      [0, 0, 0],
+      [0, 0, 0],
+    ]);
   });
 });

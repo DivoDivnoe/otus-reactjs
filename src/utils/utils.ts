@@ -71,7 +71,7 @@ export const getMatrixItemNeighbours = (
   return neighBours;
 };
 
-export const getZeroMatrix = (size: SizeProps) => {
+export const getZeroMatrix = (size: SizeProps): number[][] => {
   const { width, height } = size;
 
   return Array.from({ length: height }, () => {
