@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Field from './Field';
-import { Model, createRandomMatrix } from '../App/App';
+import { createRandomMatrix } from '../App/App';
 import { BoardSize, FillType } from '@/constants';
 
 export default {
