@@ -1,6 +1,5 @@
-import React, { Component, ReactNode, SyntheticEvent } from 'react';
+import React, { Component, ReactNode } from 'react';
 import styled from '@emotion/styled';
-import { Model, ClickCellType } from '@/components/App/App';
 import Button from '@/components/Button/Button';
 
 export interface PopupProps {

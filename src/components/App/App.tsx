@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import React, { PureComponent, ReactNode } from 'react';
 import styled from '@emotion/styled';
 import Field from '@/components/Field/Field';
