@@ -58,7 +58,10 @@ export const getRandomMatrix = (size: SizeProps, fill: number): Model => {
   });
 };
 
-const createRandomMatrix = (sizeType: BoardSize, fillType: FillType): Model => {
+export const createRandomMatrix = (
+  sizeType: BoardSize,
+  fillType: FillType
+): Model => {
   const size = BoardSizeValue[sizeType];
   const fill = BoardFillPercentage[fillType];
 
