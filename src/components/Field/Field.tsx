@@ -10,6 +10,8 @@ export interface FieldProps {
 }
 
 const FieldWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: column;
   margin: 16px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
@@ -19,7 +21,7 @@ const FieldWrapper = styled.div`
 `;
 
 const RowWrapper = styled.div`
-  display: flex;
+  display: inline-flex;
 `;
 
 const Field: FC<FieldProps> = (props) => {

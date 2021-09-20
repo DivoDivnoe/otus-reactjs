@@ -96,6 +96,12 @@ const Title = styled.h1`
   color: #ffffff;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 class App extends PureComponent<AppProps, State> {
   boardSize = this.props.size || gameProps.boardSize;
   fill = this.props.fill || gameProps.fill;
@@ -115,27 +121,29 @@ class App extends PureComponent<AppProps, State> {
 
     return (
       <ErrorBoundary>
-        {this.state.user && <Title>Hello, {this.state.user}.</Title>}
-        <Field
-          size={this.boardSize}
-          model={this.state.model}
-          clickHandler={this._onClick}
-        />
-        <Bar
-          sizes={boardSizes}
-          speedTypes={speedTypes}
-          fillTypes={fillTypes}
-          size={this.boardSize}
-          speed={this.state.speed}
-          fill={this.fill}
-          isPlaying={this.state.isPlaying}
-          changeSizeHandler={this._onChangeSize}
-          changeSpeedHandler={this._onChangeSpeedType}
-          changeFillType={this._onChangeFillType}
-          play={this._onClickPlay}
-          pause={this._stop}
-          clear={this._clear}
-        />
+        <Wrapper>
+          {this.state.user && <Title>Hello, {this.state.user}.</Title>}
+          <Field
+            size={this.boardSize}
+            model={this.state.model}
+            clickHandler={this._onClick}
+          />
+          <Bar
+            sizes={boardSizes}
+            speedTypes={speedTypes}
+            fillTypes={fillTypes}
+            size={this.boardSize}
+            speed={this.state.speed}
+            fill={this.fill}
+            isPlaying={this.state.isPlaying}
+            changeSizeHandler={this._onChangeSize}
+            changeSpeedHandler={this._onChangeSpeedType}
+            changeFillType={this._onChangeFillType}
+            play={this._onClickPlay}
+            pause={this._stop}
+            clear={this._clear}
+          />
+        </Wrapper>
         <StartPopup
           isVisible={!this.state.user}
           submitHandler={this._setUser}

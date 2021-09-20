@@ -14,8 +14,8 @@ const Template: ComponentStory<typeof App> = (args) => <App {...args} />;
 export const Default = Template.bind({});
 Default.args = {};
 
-export const Small = Template.bind({});
-Small.args = {
+export const Large = Template.bind({});
+Large.args = {
   size: BoardSize.LARGE,
   fill: FillType.HIGH,
 };
