@@ -39,6 +39,8 @@ export type User = Record<string, unknown> | null;
 export interface State {
   model: Model;
   user: User | null;
+  speed: SpeedType;
+  isPlaying: boolean;
 }
 
 export type ClickCellType = (coords: Coords) => void;
@@ -91,11 +93,12 @@ const createZeroMatrix = (sizeType: BoardSize): Model => {
 
 class App extends Component<AppProps, State> {
   boardSize = this.props.size || gameProps.boardSize;
-  speed = this.props.speed || gameProps.speed;
   fill = this.props.fill || gameProps.fill;
 
   state = {
     model: createRandomMatrix(this.boardSize, this.fill),
+    speed: this.props.speed || gameProps.speed,
+    isPlaying: false,
     user: null,
   };
 
@@ -118,8 +121,9 @@ class App extends Component<AppProps, State> {
           speedTypes={speedTypes}
           fillTypes={fillTypes}
           size={this.boardSize}
-          speed={this.speed}
+          speed={this.state.speed}
           fill={this.fill}
+          isPlaying={this.state.isPlaying}
           changeSizeHandler={this._onChangeSize}
           changeSpeedHandler={this._onChangeSpeedType}
           changeFillType={this._onChangeFillType}
@@ -146,7 +150,7 @@ class App extends Component<AppProps, State> {
   }
 
   shouldComponentUpdate(nextProps: AppProps, nextState: State): boolean {
-    if (_.isEqual(this.state.model, nextState.model)) {
+    if (nextState.user !== this.state.user) {
       return false;
     }
 
@@ -170,11 +174,9 @@ class App extends Component<AppProps, State> {
   };
 
   _onChangeSpeedType = (speed: SpeedType): void => {
-    if (this.speed === speed) return;
+    if (this.state.speed === speed) return;
 
-    this.speed = speed;
-
-    this._restart();
+    this.setState({ speed });
   };
 
   _onChangeFillType = (fill: FillType): void => {
@@ -183,7 +185,7 @@ class App extends Component<AppProps, State> {
     const model = createRandomMatrix(this.boardSize, this.fill);
 
     this._stop();
-    this.setState({ model }, this._start);
+    this.setState({ model });
   };
 
   _onClick = (coords: Coords): void => {
@@ -198,8 +200,8 @@ class App extends Component<AppProps, State> {
     this._gameTimeoutId = window.setTimeout(() => {
       const model = getNextGenMatrix(this.state.model);
 
-      this.setState({ model }, this._start);
-    }, SpeedValue[this.speed]);
+      this.setState({ model, isPlaying: true }, this._start);
+    }, SpeedValue[this.state.speed]);
   };
 
   _onClickPlay = (): void => {
@@ -213,6 +215,8 @@ class App extends Component<AppProps, State> {
 
     window.clearTimeout(this._gameTimeoutId);
     this._gameTimeoutId = -1;
+
+    this.setState({ isPlaying: false });
   };
 
   _restart = (): void => {

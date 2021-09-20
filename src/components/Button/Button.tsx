@@ -18,20 +18,31 @@ const ButtonItem = styled.button`
   font-size: 16px;
   line-height: 22px;
   font-family: Arial, Helvetica, sans-serif;
-  color: #058aba;
+  color: ${(props: Omit<ButtonProps, 'clickHandler'>) => {
+    if (props.isActive) {
+      return '#ffffff';
+    }
+
+    return props.isDisabled ? '#8c8c8c' : '#058aba';
+  }};
   text-align: center;
-  border: none;
+  border: ${(props: Omit<ButtonProps, 'clickHandler'>) => {
+    if (props.isActive) {
+      return 'none';
+    }
+
+    return `2px solid ${props.isDisabled ? '#8c8c8c' : '#058aba'}`;
+  }};
   border-radius: 6px;
-  cursor: pointer;
-  border: 2px solid #058aba;
   background-color: ${(props: Omit<ButtonProps, 'clickHandler'>) =>
-    props.isActive ? 'lightblue' : '#058aba'};
-  background-color: transparent;
+    props.isActive ? '#058aba' : 'transparent'};
   pointer-events: ${(props: Omit<ButtonProps, 'clickHandler'>) =>
     props.isDisabled ? 'none' : 'auto'};
+  cursor: pointer;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background-color: ${(props: Omit<ButtonProps, 'clickHandler'>) =>
+      props.isActive ? '#006C93' : 'rgba(255, 255, 255, 0.1)'};
   }
 `;
 

@@ -17,6 +17,7 @@ describe('Button component', () => {
   it('handles click event correctly', () => {
     const mocks = {
       isActive: false,
+      isDisabled: false,
       clickHandler: jest.fn(),
     };
     const text = 'Run';

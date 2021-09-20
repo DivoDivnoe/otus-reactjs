@@ -11,6 +11,7 @@ interface BarProps {
   size: BoardSize;
   speed: SpeedType;
   fill: FillType;
+  isPlaying: boolean;
   changeSizeHandler: (size: BoardSize) => void;
   changeSpeedHandler: (speedType: SpeedType) => void;
   changeFillType: (fill: FillType) => void;
@@ -69,6 +70,8 @@ const Bar: FC<BarProps> = (props) => {
     fillTypes,
     size,
     speed,
+    fill,
+    isPlaying,
     changeSizeHandler,
     changeSpeedHandler,
     changeFillType,
@@ -82,8 +85,8 @@ const Bar: FC<BarProps> = (props) => {
     return (
       <Button
         key={name}
+        isActive={sizeType === size}
         isDisabled={sizeType === size}
-        isActive={false}
         clickHandler={() => changeSizeHandler(sizeType)}
       >
         {text}
@@ -97,8 +100,8 @@ const Bar: FC<BarProps> = (props) => {
     return (
       <Button
         key={name}
+        isActive={speedType === speed}
         isDisabled={speedType === speed}
-        isActive={false}
         clickHandler={() => changeSpeedHandler(speedType)}
       >
         {speedType}
@@ -114,7 +117,7 @@ const Bar: FC<BarProps> = (props) => {
     return (
       <Button
         key={name}
-        isActive={false}
+        isActive={fillType === fill}
         clickHandler={() => changeFillType(fillType)}
       >
         {text}
@@ -129,7 +132,16 @@ const Bar: FC<BarProps> = (props) => {
       return (
         <Button
           key={name}
-          isActive={false}
+          isActive={
+            false ||
+            (controlType === Controls.PLAY && isPlaying) ||
+            (controlType === Controls.PAUSE && !isPlaying)
+          }
+          isDisabled={
+            false ||
+            (controlType === Controls.PLAY && isPlaying) ||
+            (controlType === Controls.PAUSE && !isPlaying)
+          }
           clickHandler={() => props[controlType]()}
         >
           {controlType}
