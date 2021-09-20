@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Coords, ClickCellType } from '@/components/App/App';
 import styled from '@emotion/styled';
 
@@ -26,24 +26,14 @@ const CellItem = styled.div`
   cursor: pointer;
 `;
 
-class Cell extends Component<CellProps, never> {
-  render(): ReactNode {
-    const { coords, isActive, clickHandler } = this.props;
-
-    return (
-      <CellItem
-        isActive={isActive}
-        onClick={() => clickHandler(coords)}
-        data-testid='cell'
-      ></CellItem>
-    );
-  }
-
-  shouldComponentUpdate(nextProps: CellProps): boolean {
-    if (this.props.isActive === nextProps.isActive) return false;
-
-    return true;
-  }
-}
+const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
+  return (
+    <CellItem
+      data-testid='cell'
+      isActive={isActive}
+      onClick={() => clickHandler(coords)}
+    ></CellItem>
+  );
+};
 
 export default Cell;

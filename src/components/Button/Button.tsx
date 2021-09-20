@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 
 interface ButtonProps {
   children?: string;
-  isActive: boolean;
+  isActive?: boolean;
   isDisabled?: boolean;
-  clickHandler: () => void;
+  clickHandler?: () => void;
 }
 
 const ButtonItem = styled.button`

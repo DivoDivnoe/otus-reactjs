@@ -61,5 +61,4 @@ export const gameProps = {
   boardSize: BoardSize.MEDIUM,
   speed: SpeedType.MEDIUM,
   fill: FillType.MEDIUM,
-  autoplay: true,
 };

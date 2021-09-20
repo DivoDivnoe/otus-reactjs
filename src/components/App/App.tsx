@@ -1,8 +1,8 @@
 import _ from 'underscore';
-import React, { Component, ReactNode } from 'react';
+import React, { PureComponent, ReactNode } from 'react';
+import styled from '@emotion/styled';
 import Field from '@/components/Field/Field';
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
-import { fetchUser } from '@/api/api';
 import { SpeedType, BoardSize, FillType, CellState } from '@/constants';
 import {
   gameOptions,
@@ -12,6 +12,7 @@ import {
   SpeedValue,
 } from '@/configs';
 import Bar from '@/components/Bar/Bar';
+import StartPopup from '@/components/StartPopup/StartPopup';
 import { getRandomValuesArr, getZeroMatrix } from '@/utils/utils';
 import { getNextGenMatrix } from '@/core/core';
 
@@ -34,11 +35,9 @@ export interface AppProps {
   fill?: FillType;
 }
 
-export type User = Record<string, unknown> | null;
-
 export interface State {
   model: Model;
-  user: User | null;
+  user: string | null;
   speed: SpeedType;
   isPlaying: boolean;
 }
@@ -91,7 +90,11 @@ const createZeroMatrix = (sizeType: BoardSize): Model => {
   return getZeroMatrix(size) as Model;
 };
 
-class App extends Component<AppProps, State> {
+const Title = styled.h1`
+  color: #ffffff;
+`;
+
+class App extends PureComponent<AppProps, State> {
   boardSize = this.props.size || gameProps.boardSize;
   fill = this.props.fill || gameProps.fill;
 
@@ -102,7 +105,6 @@ class App extends Component<AppProps, State> {
     user: null,
   };
 
-  _autoplay = gameProps.autoplay;
   _gameTimeoutId = -1;
   _isMounted = false;
 
@@ -111,6 +113,7 @@ class App extends Component<AppProps, State> {
 
     return (
       <ErrorBoundary>
+        {this.state.user && <Title>Hello, {this.state.user}.</Title>}
         <Field
           size={this.boardSize}
           model={this.state.model}
@@ -131,6 +134,10 @@ class App extends Component<AppProps, State> {
           pause={this._stop}
           clear={this._clear}
         />
+        <StartPopup
+          isVisible={!this.state.user}
+          submitHandler={this._setUser}
+        />
       </ErrorBoundary>
     );
   }
@@ -138,23 +145,7 @@ class App extends Component<AppProps, State> {
   async componentDidMount(): Promise<null> {
     this._isMounted = true;
 
-    const userData = await fetchUser();
-
-    if (userData && this._isMounted) {
-      this.setState({ user: userData }, () => {
-        this._autoplay && this._start();
-      });
-    }
-
     return null;
-  }
-
-  shouldComponentUpdate(nextProps: AppProps, nextState: State): boolean {
-    if (nextState.user !== this.state.user) {
-      return false;
-    }
-
-    return true;
   }
 
   componentWillUnmount(): void {
@@ -168,9 +159,7 @@ class App extends Component<AppProps, State> {
     this.boardSize = sizeType;
 
     const model = createNewSizeMatrix(sizeType, this.state.model);
-
-    this._stop();
-    this.setState({ model }, this._start);
+    this.setState({ model });
   };
 
   _onChangeSpeedType = (speed: SpeedType): void => {
@@ -229,6 +218,10 @@ class App extends Component<AppProps, State> {
 
     const model = createZeroMatrix(this.boardSize);
     this.setState({ model });
+  };
+
+  _setUser = (name: string): void => {
+    this.setState({ user: name });
   };
 }
 

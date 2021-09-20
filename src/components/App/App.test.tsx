@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import App, { AppProps, User } from './App';
-import { fetchUser, FetchUser } from '@/api/api';
+import App, { AppProps } from './App';
 import { BoardSize, FillType, SpeedType } from '@/constants';
 
 jest.mock('@/api/api');
@@ -14,15 +13,6 @@ describe('App', () => {
       fill: 'medium' as FillType,
     };
 
-    const mockUser: User = {
-      id: 1,
-      name: 'Andrey',
-    };
-
-    const mockFetchUser = fetchUser as jest.MockedFunction<FetchUser>;
-    mockFetchUser.mockResolvedValueOnce(mockUser);
-
     render(<App {...mocks} />);
-    expect(mockFetchUser).toHaveBeenCalledTimes(1);
   });
 });
