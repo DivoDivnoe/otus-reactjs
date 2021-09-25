@@ -2,27 +2,33 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import Cell from '../Cell/Cell';
 import { Model, ClickCellType } from '@/components/App/App';
+import { BoardSize } from '@/constants';
 export interface FieldProps {
+  size: BoardSize;
   model: Model;
   clickHandler: ClickCellType;
 }
 
 const FieldWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 0 0 16px #021a60;
+  border-radius: ${(props: Pick<FieldProps, 'size'>) =>
+    props.size === BoardSize.SMALL ? '8px 8px 0 0' : '8px'};
 `;
 
 const RowWrapper = styled.div`
-  display: flex;
+  display: inline-flex;
 `;
 
 const Field: FC<FieldProps> = (props) => {
-  const { model, clickHandler } = props;
+  const { size, model, clickHandler } = props;
 
   return (
-    <FieldWrapper>
+    <FieldWrapper size={size}>
       {model.map((modelRow, rowIndex) => {
         return (
           <RowWrapper key={`index-${rowIndex}`}>

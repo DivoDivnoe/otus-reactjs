@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { BoardSize, FillType } from '@/constants';
 
 import App from './App';
 
@@ -13,7 +14,8 @@ const Template: ComponentStory<typeof App> = (args) => <App {...args} />;
 export const Default = Template.bind({});
 Default.args = {};
 
-export const Small = Template.bind({});
-Small.args = {
-  size: { width: 10, height: 10 },
+export const Large = Template.bind({});
+Large.args = {
+  size: BoardSize.LARGE,
+  fill: FillType.HIGH,
 };

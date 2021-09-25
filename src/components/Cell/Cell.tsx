@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { FC } from 'react';
 import { Coords, ClickCellType } from '@/components/App/App';
 import styled from '@emotion/styled';
 
@@ -9,35 +9,31 @@ export interface CellProps {
 }
 
 const CellItem = styled.div`
-  box-sizing: border-box;
   flex-shrink: 0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
+  background-color: ${(props: Pick<CellProps, 'isActive'>) =>
+    props.isActive ? '#000071' : 'transparent'};
+  background-color: ${(props: Pick<CellProps, 'isActive'>) =>
+    props.isActive ? '#F9FF00' : '#073081'};
   border: 1px solid #dddddd;
+  border: 1px solid #021a60;
   font-size: 8px;
   line-height: 20px;
   cursor: pointer;
 `;
 
-class Cell extends Component<CellProps, never> {
-  render(): ReactNode {
-    const { coords, isActive, clickHandler } = this.props;
-
-    return (
-      <CellItem onClick={() => clickHandler(coords)} role='cell'>
-        {isActive && `${coords.y}.${coords.x}`}
-      </CellItem>
-    );
-  }
-
-  shouldComponentUpdate(nextProps: CellProps): boolean {
-    if (this.props.isActive === nextProps.isActive) return false;
-
-    return true;
-  }
-}
+const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
+  return (
+    <CellItem
+      data-testid='cell'
+      isActive={isActive}
+      onClick={() => clickHandler(coords)}
+    ></CellItem>
+  );
+};
 
 export default Cell;

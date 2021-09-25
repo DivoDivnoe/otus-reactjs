@@ -1,5 +1,4 @@
-import { User } from '@/components/App/App';
-import { fetchUser, FetchUser } from './api';
+import { fetchUser, FetchUser, User } from './api';
 
 jest.mock('./api');
 

@@ -1,4 +1,4 @@
-import { User } from '@/components/App/App';
+export type User = Record<string, unknown> | null;
 
 export type FetchUser = () => Promise<User>;
 

@@ -2,7 +2,8 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Field from './Field';
-import { Model } from '../App/App';
+import { createRandomMatrix } from '../App/App';
+import { BoardSize, FillType } from '@/constants';
 
 export default {
   title: 'Example/Field',
@@ -11,15 +12,23 @@ export default {
 
 const Template: ComponentStory<typeof Field> = (args) => <Field {...args} />;
 
-const model: Model = [
-  [0, 0, 1, 0, 0],
-  [1, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0],
-  [0, 1, 0, 0, 0],
-  [0, 0, 0, 0, 1],
-];
+let size = BoardSize.SMALL;
+let fill = FillType.LOW;
+let model = createRandomMatrix(size, fill);
 
-export const RandomField = Template;
-RandomField.args = {
-  model,
-};
+export const SmallField = Template.bind({});
+SmallField.args = { model, size };
+
+size = BoardSize.MEDIUM;
+fill = FillType.MEDIUM;
+model = createRandomMatrix(size, fill);
+
+export const MediumField = Template.bind({});
+MediumField.args = { model, size };
+
+size = BoardSize.LARGE;
+fill = FillType.HIGH;
+model = createRandomMatrix(size, fill);
+
+export const LargeField = Template.bind({});
+LargeField.args = { model, size };
