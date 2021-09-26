@@ -1,5 +1,5 @@
 import { BoardSize, SpeedType, FillType } from '@/constants';
-import { SizeProps } from '@/components/App/App';
+import { SizeProps } from '@/hocs/withGameLogicHOC';
 
 export interface SpeedValueType {
   [SpeedType.FAST]: number;

@@ -1,4 +1,4 @@
-import { Model } from '@/components/App/App';
+import { Model } from '@/hocs/withGameLogicHOC';
 import { getMatrixItemNeighbours } from '@/utils/utils';
 import { CellState } from '@/constants';
 

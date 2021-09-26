@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Coords, ClickCellType } from '@/components/App/App';
+import { Coords, ClickCellType } from '@/hocs/withGameLogicHOC';
 import styled from '@emotion/styled';
 
 export interface CellProps {
