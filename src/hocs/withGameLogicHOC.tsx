@@ -86,8 +86,13 @@ export const createRandomMatrix = (
   return getRandomMatrix(size, fill);
 };
 
-const getNewSizeMatrix = (size: SizeProps, prevMatrix: Model): Model => {
+export const getNewSizeMatrix = (size: SizeProps, prevMatrix: Model): Model => {
+  const prevMatrixHeight = prevMatrix.length;
+  const prevMatrixWidth = prevMatrix[0].length;
   const { width, height } = size;
+
+  if (width === prevMatrixWidth && height === prevMatrixHeight)
+    return prevMatrix;
 
   return Array.from({ length: height }, (_, rowIndex) => {
     return Array.from({ length: width }, (_, columnIndex) => {
