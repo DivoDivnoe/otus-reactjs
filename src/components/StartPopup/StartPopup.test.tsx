@@ -9,8 +9,10 @@ describe('StartPopup', () => {
       submitHandler: jest.fn(),
     };
 
-    render(<StartPopup {...mocks} />);
+    const { asFragment } = render(<StartPopup {...mocks} />);
     expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
+
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('input is empty', () => {

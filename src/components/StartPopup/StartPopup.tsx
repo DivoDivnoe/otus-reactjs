@@ -71,7 +71,7 @@ const StartPopup: FC<PopupProps> = (props) => {
   const { submitHandler } = props;
 
   return (
-    <PopupWrapper>
+    <PopupWrapper data-testid='start-popup'>
       <PopupItem>
         <FormWithSignInData submitHandler={submitHandler} />
       </PopupItem>

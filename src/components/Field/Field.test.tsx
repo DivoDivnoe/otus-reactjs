@@ -13,6 +13,17 @@ const model: Model = [
 ];
 
 describe('Field', () => {
+  it('renders correctly', () => {
+    const mocks: FieldProps = {
+      size: 'small' as BoardSize,
+      model,
+      clickHandler: jest.fn(),
+    };
+
+    const { asFragment } = render(<Field {...mocks} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('handles click event correctly', () => {
     const mocks: FieldProps = {
       size: 'small' as BoardSize,

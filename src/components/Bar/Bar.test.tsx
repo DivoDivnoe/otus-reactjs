@@ -21,7 +21,8 @@ describe('Bar component', () => {
       clear: jest.fn(),
     };
 
-    render(<Bar {...mocks} />);
+    const { asFragment } = render(<Bar {...mocks} />);
+    expect(asFragment()).toMatchSnapshot();
 
     expect(
       screen.getByRole('button', { name: 'Size: 50x30' })
