@@ -12,6 +12,9 @@ export default {
       y: 0,
     },
   },
+  argTypes: {
+    clickHandler: { action: 'clickHandler' },
+  },
 } as ComponentMeta<typeof Cell>;
 
 const Template: ComponentStory<typeof Cell> = (args) => <Cell {...args} />;

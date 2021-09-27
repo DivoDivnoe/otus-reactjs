@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import _ from 'underscore';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import withGameLogicHOC, {
   WithGameProps,
   getRandomMatrix,

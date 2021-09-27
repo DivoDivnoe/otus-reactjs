@@ -10,6 +10,7 @@ export interface CellProps {
 
 const CellItem = styled.div`
   flex-shrink: 0;
+  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   align-items: center;

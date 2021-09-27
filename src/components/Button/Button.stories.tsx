@@ -10,6 +10,9 @@ export default {
     children: 'Button',
     isDisabled: false,
   },
+  argTypes: {
+    clickHandler: { action: 'clicked' },
+  },
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
