@@ -103,13 +103,16 @@ export const getNewSizeMatrix = (size: SizeProps, prevMatrix: Model): Model => {
   });
 };
 
-const createNewSizeMatrix = (sizeType: BoardSize, prevMatrix: Model): Model => {
+export const createNewSizeMatrix = (
+  sizeType: BoardSize,
+  prevMatrix: Model
+): Model => {
   const size = BoardSizeValue[sizeType];
 
   return getNewSizeMatrix(size, prevMatrix);
 };
 
-const createZeroMatrix = (sizeType: BoardSize): Model => {
+export const createZeroMatrix = (sizeType: BoardSize): Model => {
   const size = BoardSizeValue[sizeType];
 
   return getZeroMatrix(size) as Model;

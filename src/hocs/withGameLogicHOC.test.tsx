@@ -7,8 +7,8 @@ import withGameLogicHOC, {
   getRandomMatrix,
   createRandomMatrix,
   getNewSizeMatrix,
-  // createNewSizeMatrix,
-  // createZeroMatrix,
+  createNewSizeMatrix,
+  createZeroMatrix,
   Model,
 } from './withGameLogicHOC';
 import { CellState, BoardSize, FillType } from '@/constants';
@@ -156,6 +156,80 @@ describe('getNewSizeMatrix', () => {
         [1, 1],
         [0, 0],
       ]);
+    });
+  });
+});
+
+describe('createNewSizeMatrix', () => {
+  describe('create matrix of right sizes', () => {
+    it('size type SMALL', () => {
+      const prevMatrix: Model = [
+        [0, 1],
+        [1, 0],
+      ];
+      const arr = createNewSizeMatrix(BoardSize.SMALL, prevMatrix);
+
+      expect(arr).toHaveLength(30);
+      arr.forEach((row) => expect(row).toHaveLength(50));
+    });
+
+    it('size type MEDIUM', () => {
+      const prevMatrix: Model = [
+        [0, 1],
+        [1, 0],
+      ];
+      const arr = createNewSizeMatrix(BoardSize.MEDIUM, prevMatrix);
+
+      expect(arr).toHaveLength(50);
+      arr.forEach((row) => expect(row).toHaveLength(70));
+    });
+
+    it('size type LARGE', () => {
+      const prevMatrix: Model = [
+        [0, 1],
+        [1, 0],
+      ];
+      const arr = createNewSizeMatrix(BoardSize.LARGE, prevMatrix);
+
+      expect(arr).toHaveLength(80);
+      arr.forEach((row) => expect(row).toHaveLength(100));
+    });
+  });
+});
+
+describe('createZeroMatrix', () => {
+  describe('create matrix of right sizes', () => {
+    it('size SMALL', () => {
+      const arr = createZeroMatrix(BoardSize.SMALL);
+
+      expect(arr).toHaveLength(30);
+      arr.forEach((row) => expect(row).toHaveLength(50));
+    });
+
+    it('size MEDIUM', () => {
+      const arr = createZeroMatrix(BoardSize.MEDIUM);
+
+      expect(arr).toHaveLength(50);
+      arr.forEach((row) => expect(row).toHaveLength(70));
+    });
+
+    it('size LARGE', () => {
+      const arr = createZeroMatrix(BoardSize.LARGE);
+
+      expect(arr).toHaveLength(80);
+      arr.forEach((row) => expect(row).toHaveLength(100));
+    });
+  });
+
+  describe('create matrix filled with zeroes', () => {
+    it('size LARGE', () => {
+      const arr = createZeroMatrix(BoardSize.LARGE);
+
+      const zeroesAmount = _.flatten(arr).filter(
+        (cell) => cell === CellState.DEAD
+      );
+
+      expect(zeroesAmount).toHaveLength(8000);
     });
   });
 });
