@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import Cell from '../Cell/Cell';
+import { Cell } from '../Cell';
 import { Model, ClickCellType } from '@/hocs/withGameLogicHOC';
 import { BoardSize } from '@/constants';
 export interface FieldProps {
@@ -24,7 +24,7 @@ const RowWrapper = styled.div`
   display: inline-flex;
 `;
 
-const Field: FC<FieldProps> = (props) => {
+export const Field: FC<FieldProps> = (props) => {
   const { size, model, clickHandler } = props;
 
   return (
@@ -50,5 +50,3 @@ const Field: FC<FieldProps> = (props) => {
     </FieldWrapper>
   );
 };
-
-export default Field;

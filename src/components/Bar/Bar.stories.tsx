@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { BoardSize, SpeedType, FillType } from '@/constants';
 
-import Bar from './Bar';
+import { Bar } from './Bar';
 
 export default {
   title: 'Example/Bar',

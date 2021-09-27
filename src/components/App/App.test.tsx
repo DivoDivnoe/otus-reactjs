@@ -3,7 +3,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import { App, AppProps } from './App';
 import { BoardSize, FillType, SpeedType } from '@/constants';
 import userEvent from '@testing-library/user-event';
-import { LogicProps, Model } from '@/hocs/withGameLogicHOC';
+import { Model } from '@/hocs/withGameLogicHOC';
 
 jest.mock('@/api/api');
 

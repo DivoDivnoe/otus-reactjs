@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import Button from '@/components/Button/Button';
+import { Button } from '@/components/Button/Button';
 import withSignInDataHOC from '@/hocs/withSignInDataHOC';
 
 export interface PopupProps {
@@ -67,7 +67,7 @@ const Form: FC<FormProps> = ({ name, onSubmit, onChange }) => {
 
 const FormWithSignInData = withSignInDataHOC(Form);
 
-const StartPopup: FC<PopupProps> = (props) => {
+export const StartPopup: FC<PopupProps> = (props) => {
   const { submitHandler } = props;
 
   return (
@@ -78,5 +78,3 @@ const StartPopup: FC<PopupProps> = (props) => {
     </PopupWrapper>
   );
 };
-
-export default StartPopup;

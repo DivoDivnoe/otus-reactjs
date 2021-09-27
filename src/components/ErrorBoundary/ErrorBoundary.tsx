@@ -8,7 +8,7 @@ export interface State {
   hasError: boolean;
 }
 
-class ErrorBoundary extends Component<Props, State> {
+export class ErrorBoundary extends Component<Props, State> {
   state = { hasError: false };
 
   static getDerivedStateFromError(): State {
@@ -30,5 +30,3 @@ class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
-
-export default ErrorBoundary;

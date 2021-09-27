@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Bar from './Bar';
+import { Bar } from './Bar';
 import { BoardSize, SpeedType, FillType } from '@/constants';
 
 describe('Bar component', () => {

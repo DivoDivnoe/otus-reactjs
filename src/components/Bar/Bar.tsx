@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { BoardSize, SpeedType, FillType, Controls } from '@/constants';
-import Button from '@/components/Button/Button';
+import { Button } from '@/components/Button';
 import { BoardSizeValue, BoardFillPercentage } from '@/configs';
 
 interface BarProps {
@@ -63,7 +63,7 @@ const BarItem = styled.div`
   border-radius: 0 0 10px 10px;
 `;
 
-const Bar: FC<BarProps> = (props) => {
+export const Bar: FC<BarProps> = (props) => {
   const {
     sizes,
     speedTypes,
@@ -170,5 +170,3 @@ const Bar: FC<BarProps> = (props) => {
     </BarItem>
   );
 };
-
-export default Bar;

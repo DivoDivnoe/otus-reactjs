@@ -27,7 +27,7 @@ const CellItem = styled.div`
   cursor: pointer;
 `;
 
-const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
+export const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
   return (
     <CellItem
       data-testid='cell'
@@ -36,5 +36,3 @@ const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
     ></CellItem>
   );
 };
-
-export default Cell;

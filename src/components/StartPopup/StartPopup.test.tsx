@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import StartPopup, { PopupProps } from './StartPopup';
+import { StartPopup, PopupProps } from './StartPopup';
 
 describe('StartPopup', () => {
   it('is rendered correctly', () => {

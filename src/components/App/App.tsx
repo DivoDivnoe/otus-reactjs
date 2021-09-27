@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import Field from '@/components/Field/Field';
-import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
-import Bar from '@/components/Bar/Bar';
-import StartPopup from '@/components/StartPopup/StartPopup';
+import { Field } from '@/components/Field';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Bar } from '@/components/Bar/Bar';
+import { StartPopup } from '@/components/StartPopup/';
 import withGameLogicHOC, {
   LogicProps,
   WithGameProps,
