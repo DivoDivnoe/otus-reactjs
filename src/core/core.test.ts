@@ -1,5 +1,5 @@
 import { getNextGenMatrix } from './core';
-import { Model } from '@/hocs/withGameLogicHOC';
+import { Model } from '@/core';
 
 describe('getNextGenMatrix function returns next gen correctly', () => {
   describe('arr 2x2', () => {

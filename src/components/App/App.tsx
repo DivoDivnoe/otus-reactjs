@@ -4,14 +4,14 @@ import { Field } from '@/components/Field';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Bar } from '@/components/Bar/Bar';
 import { StartPopup } from '@/components/StartPopup/';
-import withGameLogicHOC, {
-  LogicProps,
-  WithGameProps,
-} from '@/hocs/withGameLogicHOC';
-import withUserDataHOC, { WithUserProps } from '@/hocs/withUserDataHOC';
-
-export interface AppLogicAndUserProps extends WithUserProps, LogicProps {}
-export interface AppProps extends WithGameProps, WithUserProps {}
+import useUserData from '@/hooks/useUserData';
+import useGameLogic from '@/hooks/useGameLogic';
+import { BoardSize, SpeedType, FillType } from '@/constants';
+export interface AppProps {
+  size?: BoardSize;
+  speed?: SpeedType;
+  fill?: FillType;
+}
 
 const Title = styled.h1`
   color: #ffffff;
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const App: FC<AppProps> = (props) => {
+const App: FC<AppProps> = (props) => {
   const {
     size,
     speed,
@@ -31,18 +31,17 @@ export const App: FC<AppProps> = (props) => {
     sizes,
     speedTypes,
     fillTypes,
+    changeSize,
+    changeSpeed,
+    changeFill,
+    play,
+    pause,
     isPlaying,
     model,
     clickHandler,
-    changeSizeHandler,
-    changeSpeedHandler,
-    changeFillType,
-    play,
-    pause,
     clear,
-    user,
-    setUser,
-  } = props;
+  } = useGameLogic(props);
+  const { user, setUser } = useUserData();
 
   return (
     <ErrorBoundary>
@@ -57,9 +56,9 @@ export const App: FC<AppProps> = (props) => {
           speed={speed}
           fill={fill}
           isPlaying={isPlaying}
-          changeSizeHandler={changeSizeHandler}
-          changeSpeedHandler={changeSpeedHandler}
-          changeFillType={changeFillType}
+          changeSizeHandler={changeSize}
+          changeSpeedHandler={changeSpeed}
+          changeFillType={changeFill}
           play={play}
           pause={pause}
           clear={clear}
@@ -70,7 +69,4 @@ export const App: FC<AppProps> = (props) => {
   );
 };
 
-const AppWithGameLogic = withGameLogicHOC<AppLogicAndUserProps>(App);
-const AppWithGameLogicAndUserData =
-  withUserDataHOC<LogicProps>(AppWithGameLogic);
-export default AppWithGameLogicAndUserData;
+export default App;

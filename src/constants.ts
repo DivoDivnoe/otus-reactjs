@@ -1,4 +1,4 @@
-import { Binary } from '@/hocs/withGameLogicHOC';
+import { Binary } from '@/core';
 
 export enum SpeedType {
   FAST = 'fast',
