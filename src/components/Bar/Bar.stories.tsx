@@ -2,11 +2,19 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { BoardSize, SpeedType, FillType } from '@/constants';
 
-import Bar from './Bar';
+import { Bar } from './Bar';
 
 export default {
   title: 'Example/Bar',
   component: Bar,
+  argTypes: {
+    changeSizeHandler: { action: 'changeSizeHandler' },
+    changeSpeedHandler: { action: 'changeSpeedHandler' },
+    changeFillType: { action: 'changeFillType' },
+    play: { action: 'play' },
+    pause: { action: 'pause' },
+    clear: { action: 'clear' },
+  },
 } as ComponentMeta<typeof Bar>;
 
 const Template: ComponentStory<typeof Bar> = (args) => <Bar {...args} />;

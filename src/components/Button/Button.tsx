@@ -46,7 +46,7 @@ const ButtonItem = styled.button`
   }
 `;
 
-const Button: FC<ButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
   isActive,
   isDisabled,
   clickHandler,
@@ -62,5 +62,3 @@ const Button: FC<ButtonProps> = ({
     </ButtonItem>
   );
 };
-
-export default Button;

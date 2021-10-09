@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Cell from './Cell';
+import { Cell } from './Cell';
 
 export default {
   title: 'Example/Cell',
@@ -11,6 +11,9 @@ export default {
       x: 0,
       y: 0,
     },
+  },
+  argTypes: {
+    clickHandler: { action: 'clickHandler' },
   },
 } as ComponentMeta<typeof Cell>;
 

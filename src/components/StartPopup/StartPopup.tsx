@@ -1,14 +1,16 @@
-import React, { Component, ReactNode } from 'react';
+import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import Button from '@/components/Button/Button';
+import { Button } from '@/components/Button/Button';
+import withSignInDataHOC from '@/hocs/withSignInDataHOC';
 
 export interface PopupProps {
-  isVisible: boolean;
   submitHandler: (name: string) => void;
 }
 
-export interface PopupState {
+export interface FormProps {
   name: string;
+  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (evt: React.FormEvent) => void;
 }
 
 const PopupWrapper = styled.div`
@@ -48,43 +50,31 @@ const InputItem = styled.input`
   box-shadow: inset 1px 1px 3px rgb(0 0 0 / 30%), 1px 1px 0 rgb(0 0 0 / 10%);
 `;
 
-class StartPopup extends Component<PopupProps, PopupState> {
-  state = {
-    name: '',
-  };
+const Form: FC<FormProps> = ({ name, onSubmit, onChange }) => {
+  return (
+    <FormItem data-testid='start-form' onSubmit={onSubmit}>
+      <InputItem
+        data-testid='name-input'
+        value={name}
+        placeholder={'Enter Your Name:'}
+        onChange={onChange}
+        required
+      />
+      <Button>Start</Button>
+    </FormItem>
+  );
+};
 
-  render(): ReactNode {
-    const { isVisible } = this.props;
+const FormWithSignInData = withSignInDataHOC(Form);
 
-    return (
-      isVisible && (
-        <PopupWrapper>
-          <PopupItem>
-            <FormItem data-testid='start-form' onSubmit={this._onSubmit}>
-              <InputItem
-                data-testid='name-input'
-                value={this.state.name}
-                placeholder={'Enter Your Name:'}
-                onChange={this._onChange}
-                required
-              />
-              <Button>Start</Button>
-            </FormItem>
-          </PopupItem>
-        </PopupWrapper>
-      )
-    );
-  }
+export const StartPopup: FC<PopupProps> = (props) => {
+  const { submitHandler } = props;
 
-  _onSubmit = (evt: React.FormEvent): void => {
-    evt.preventDefault();
-
-    this.props.submitHandler(this.state.name);
-  };
-
-  _onChange = (evt: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ name: evt.target.value.trim() });
-  };
-}
-
-export default StartPopup;
+  return (
+    <PopupWrapper data-testid='start-popup'>
+      <PopupItem>
+        <FormWithSignInData submitHandler={submitHandler} />
+      </PopupItem>
+    </PopupWrapper>
+  );
+};

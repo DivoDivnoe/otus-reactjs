@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Coords, ClickCellType } from '@/components/App/App';
+import { Coords, ClickCellType } from '@/hocs/withGameLogicHOC';
 import styled from '@emotion/styled';
 
 export interface CellProps {
@@ -10,6 +10,7 @@ export interface CellProps {
 
 const CellItem = styled.div`
   flex-shrink: 0;
+  box-sizing: border-box;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +27,7 @@ const CellItem = styled.div`
   cursor: pointer;
 `;
 
-const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
+export const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
   return (
     <CellItem
       data-testid='cell'
@@ -35,5 +36,3 @@ const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
     ></CellItem>
   );
 };
-
-export default Cell;

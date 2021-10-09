@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Bar from './Bar';
+import { Bar } from './Bar';
 import { BoardSize, SpeedType, FillType } from '@/constants';
 
 describe('Bar component', () => {
@@ -21,7 +21,8 @@ describe('Bar component', () => {
       clear: jest.fn(),
     };
 
-    render(<Bar {...mocks} />);
+    const { asFragment } = render(<Bar {...mocks} />);
+    expect(asFragment()).toMatchSnapshot();
 
     expect(
       screen.getByRole('button', { name: 'Size: 50x30' })

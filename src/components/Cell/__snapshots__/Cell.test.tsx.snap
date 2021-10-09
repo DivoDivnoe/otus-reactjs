@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cell renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1cjnez2"
+    data-testid="cell"
+  />
+</DocumentFragment>
+`;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Field, { FieldProps } from './Field';
-import { Model } from '../App/App';
+import { Field, FieldProps } from './Field';
+import { Model } from '@/hocs/withGameLogicHOC';
 import { BoardSize } from '@/constants';
 
 const model: Model = [
@@ -13,6 +13,17 @@ const model: Model = [
 ];
 
 describe('Field', () => {
+  it('renders correctly', () => {
+    const mocks: FieldProps = {
+      size: 'small' as BoardSize,
+      model,
+      clickHandler: jest.fn(),
+    };
+
+    const { asFragment } = render(<Field {...mocks} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('handles click event correctly', () => {
     const mocks: FieldProps = {
       size: 'small' as BoardSize,

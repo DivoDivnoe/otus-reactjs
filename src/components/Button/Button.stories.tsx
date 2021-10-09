@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button from './Button';
+import { Button } from './Button';
 
 export default {
   title: 'Example/Button',
@@ -9,6 +9,9 @@ export default {
   args: {
     children: 'Button',
     isDisabled: false,
+  },
+  argTypes: {
+    clickHandler: { action: 'clicked' },
   },
 } as ComponentMeta<typeof Button>;
 
