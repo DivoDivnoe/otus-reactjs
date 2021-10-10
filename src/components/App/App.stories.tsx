@@ -1,7 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { BoardSize, FillType, SpeedType } from '@/constants';
-import { createRandomMatrix } from '@/core';
 
 import App from './App';
 

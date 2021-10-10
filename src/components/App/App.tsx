@@ -1,12 +1,15 @@
 import React, { FC } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Field } from '@/components/Field';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Bar } from '@/components/Bar/Bar';
 import { StartPopup } from '@/components/StartPopup/';
-import useUserData from '@/hooks/useUserData';
+import useAuth from '@/hooks/useAuth';
 import useGameLogic from '@/hooks/useGameLogic';
 import { BoardSize, SpeedType, FillType } from '@/constants';
+import { PrivateRoute } from '@/components/PrivateRoute';
+import { Logout } from '@/components/Logout';
 export interface AppProps {
   size?: BoardSize;
   speed?: SpeedType;
@@ -14,6 +17,9 @@ export interface AppProps {
 }
 
 const Title = styled.h1`
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
   color: #ffffff;
 `;
 
@@ -23,7 +29,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const App: FC<AppProps> = (props) => {
+export const AppRoutes: FC<AppProps> = (props) => {
   const {
     size,
     speed,
@@ -41,30 +47,48 @@ const App: FC<AppProps> = (props) => {
     clickHandler,
     clear,
   } = useGameLogic(props);
-  const { user, setUser } = useUserData();
+  const { user, signin, signout } = useAuth();
 
   return (
+    <Switch>
+      <Route path='/login'>
+        <StartPopup submitHandler={signin} />
+      </Route>
+      <PrivateRoute path='/' user='user'>
+        <Wrapper>
+          {user && (
+            <Title>
+              Hello, {user}! <Logout logout={signout} />
+            </Title>
+          )}
+          <Field size={size} model={model} clickHandler={clickHandler} />
+          <Bar
+            sizes={sizes}
+            speedTypes={speedTypes}
+            fillTypes={fillTypes}
+            size={size}
+            speed={speed}
+            fill={fill}
+            isPlaying={isPlaying}
+            changeSizeHandler={changeSize}
+            changeSpeedHandler={changeSpeed}
+            changeFillType={changeFill}
+            play={play}
+            pause={pause}
+            clear={clear}
+          />
+        </Wrapper>
+      </PrivateRoute>
+    </Switch>
+  );
+};
+
+const App: FC<AppProps> = (props) => {
+  return (
     <ErrorBoundary>
-      <Wrapper>
-        {user && <Title>Hello, {user}.</Title>}
-        <Field size={size} model={model} clickHandler={clickHandler} />
-        <Bar
-          sizes={sizes}
-          speedTypes={speedTypes}
-          fillTypes={fillTypes}
-          size={size}
-          speed={speed}
-          fill={fill}
-          isPlaying={isPlaying}
-          changeSizeHandler={changeSize}
-          changeSpeedHandler={changeSpeed}
-          changeFillType={changeFill}
-          play={play}
-          pause={pause}
-          clear={clear}
-        />
-      </Wrapper>
-      {!user && <StartPopup submitHandler={setUser} />}
+      <Router>
+        <AppRoutes {...props} />
+      </Router>
     </ErrorBoundary>
   );
 };

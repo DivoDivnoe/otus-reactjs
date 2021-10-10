@@ -45,6 +45,7 @@
     "@types/ramda": "^0.27.45",
     "@types/react": "^17.0.17",
     "@types/react-dom": "^17.0.9",
+    "@types/react-router-dom": "^5.3.1",
     "@types/underscore": "^1.11.3",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
@@ -78,6 +79,7 @@
     "ramda": "^0.27.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^5.3.0",
     "underscore": "^1.13.1"
   }
 }

@@ -18,7 +18,7 @@ export interface Coords {
 
 export type ClickCellType = (coords: Coords) => void;
 
-interface StartGameType {
+export interface StartGameType {
   size: BoardSize;
   speed: SpeedType;
   fill: FillType;
