@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Field } from '@/components/Field';
 import { ErrorBoundary } from '@/components/ErrorBoundary';

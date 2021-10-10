@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import useGameLogic from './useGameLogic';
-import { BoardSize, SpeedType, FillType, CellState } from '@/constants';
+import { SpeedType, CellState } from '@/constants';
 import { SpeedValue } from '@/configs';
 
 describe('useGameLogic hook', () => {

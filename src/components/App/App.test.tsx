@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
-import App, { AppProps, AppRoutes } from './App';
+import { AppProps, AppRoutes } from './App';
 import { BoardSize, FillType, SpeedType } from '@/constants';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';

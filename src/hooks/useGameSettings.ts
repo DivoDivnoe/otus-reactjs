@@ -1,19 +1,7 @@
 import { useState } from 'react';
 
-import {
-  SpeedType,
-  BoardSize,
-  FillType,
-  CellState,
-  Controls,
-} from '@/constants';
-import {
-  gameOptions,
-  BoardSizeValue,
-  gameProps,
-  BoardFillPercentage,
-  SpeedValue,
-} from '@/configs';
+import { SpeedType, BoardSize, FillType } from '@/constants';
+import { gameOptions, gameProps } from '@/configs';
 import { AppProps } from '@/components/App/App';
 
 export interface GameSettings {
