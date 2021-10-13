@@ -1,16 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { Button } from '@/components/Button/Button';
-import withSignInDataHOC from '@/hocs/withSignInDataHOC';
+import useSignInData from '@/hooks/useSignInData';
 
 export interface PopupProps {
   submitHandler: (name: string) => void;
-}
-
-export interface FormProps {
-  name: string;
-  onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (evt: React.FormEvent) => void;
 }
 
 const PopupWrapper = styled.div`
@@ -50,14 +44,26 @@ const InputItem = styled.input`
   box-shadow: inset 1px 1px 3px rgb(0 0 0 / 30%), 1px 1px 0 rgb(0 0 0 / 10%);
 `;
 
-const Form: FC<FormProps> = ({ name, onSubmit, onChange }) => {
+const Form: FC<PopupProps> = ({ submitHandler }) => {
+  const { name, onChangeName, resetName } = useSignInData();
+
+  const onSubmit = useCallback(
+    (evt: React.FormEvent): void => {
+      evt.preventDefault();
+
+      submitHandler(name.trim());
+      resetName();
+    },
+    [name]
+  );
+
   return (
     <FormItem data-testid='start-form' onSubmit={onSubmit}>
       <InputItem
         data-testid='name-input'
         value={name}
         placeholder={'Enter Your Name:'}
-        onChange={onChange}
+        onChange={onChangeName}
         required
       />
       <Button>Start</Button>
@@ -65,15 +71,13 @@ const Form: FC<FormProps> = ({ name, onSubmit, onChange }) => {
   );
 };
 
-const FormWithSignInData = withSignInDataHOC(Form);
-
 export const StartPopup: FC<PopupProps> = (props) => {
   const { submitHandler } = props;
 
   return (
     <PopupWrapper data-testid='start-popup'>
       <PopupItem>
-        <FormWithSignInData submitHandler={submitHandler} />
+        <Form submitHandler={submitHandler} />
       </PopupItem>
     </PopupWrapper>
   );

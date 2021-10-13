@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Field, FieldProps } from './Field';
-import { Model } from '@/hocs/withGameLogicHOC';
+import { Model } from '@/core';
 import { BoardSize } from '@/constants';
 
 const model: Model = [

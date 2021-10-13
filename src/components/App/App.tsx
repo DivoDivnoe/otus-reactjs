@@ -1,19 +1,25 @@
 import React, { FC } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Field } from '@/components/Field';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Bar } from '@/components/Bar/Bar';
 import { StartPopup } from '@/components/StartPopup/';
-import withGameLogicHOC, {
-  LogicProps,
-  WithGameProps,
-} from '@/hocs/withGameLogicHOC';
-import withUserDataHOC, { WithUserProps } from '@/hocs/withUserDataHOC';
-
-export interface AppLogicAndUserProps extends WithUserProps, LogicProps {}
-export interface AppProps extends WithGameProps, WithUserProps {}
+import useAuth from '@/hooks/useAuth';
+import useGameLogic from '@/hooks/useGameLogic';
+import { BoardSize, SpeedType, FillType } from '@/constants';
+import { PrivateRoute } from '@/components/PrivateRoute';
+import { Logout } from '@/components/Logout';
+export interface AppProps {
+  size?: BoardSize;
+  speed?: SpeedType;
+  fill?: FillType;
+}
 
 const Title = styled.h1`
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
   color: #ffffff;
 `;
 
@@ -23,7 +29,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const App: FC<AppProps> = (props) => {
+export const AppRoutes: FC<AppProps> = (props) => {
   const {
     size,
     speed,
@@ -31,46 +37,60 @@ export const App: FC<AppProps> = (props) => {
     sizes,
     speedTypes,
     fillTypes,
+    changeSize,
+    changeSpeed,
+    changeFill,
+    play,
+    pause,
     isPlaying,
     model,
     clickHandler,
-    changeSizeHandler,
-    changeSpeedHandler,
-    changeFillType,
-    play,
-    pause,
     clear,
-    user,
-    setUser,
-  } = props;
+  } = useGameLogic(props);
+  const { user, signin, signout } = useAuth();
 
   return (
+    <Switch>
+      <Route path='/login'>
+        <StartPopup submitHandler={signin} />
+      </Route>
+      <PrivateRoute path='/' user='user'>
+        <Wrapper>
+          {user && (
+            <Title>
+              Hello, {user}! <Logout logout={signout} />
+            </Title>
+          )}
+          <Field size={size} model={model} clickHandler={clickHandler} />
+          <Bar
+            sizes={sizes}
+            speedTypes={speedTypes}
+            fillTypes={fillTypes}
+            size={size}
+            speed={speed}
+            fill={fill}
+            isPlaying={isPlaying}
+            changeSizeHandler={changeSize}
+            changeSpeedHandler={changeSpeed}
+            changeFillType={changeFill}
+            play={play}
+            pause={pause}
+            clear={clear}
+          />
+        </Wrapper>
+      </PrivateRoute>
+    </Switch>
+  );
+};
+
+const App: FC<AppProps> = (props) => {
+  return (
     <ErrorBoundary>
-      <Wrapper>
-        {user && <Title>Hello, {user}.</Title>}
-        <Field size={size} model={model} clickHandler={clickHandler} />
-        <Bar
-          sizes={sizes}
-          speedTypes={speedTypes}
-          fillTypes={fillTypes}
-          size={size}
-          speed={speed}
-          fill={fill}
-          isPlaying={isPlaying}
-          changeSizeHandler={changeSizeHandler}
-          changeSpeedHandler={changeSpeedHandler}
-          changeFillType={changeFillType}
-          play={play}
-          pause={pause}
-          clear={clear}
-        />
-      </Wrapper>
-      {!user && <StartPopup submitHandler={setUser} />}
+      <Router>
+        <AppRoutes {...props} />
+      </Router>
     </ErrorBoundary>
   );
 };
 
-const AppWithGameLogic = withGameLogicHOC<AppLogicAndUserProps>(App);
-const AppWithGameLogicAndUserData =
-  withUserDataHOC<LogicProps>(AppWithGameLogic);
-export default AppWithGameLogicAndUserData;
+export default App;

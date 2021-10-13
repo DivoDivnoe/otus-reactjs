@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Cell } from '../Cell';
-import { Model, ClickCellType } from '@/hocs/withGameLogicHOC';
+import { Model } from '@/core';
+import { ClickCellType } from '@/hooks/useGameLogic';
 import { BoardSize } from '@/constants';
 export interface FieldProps {
   size: BoardSize;

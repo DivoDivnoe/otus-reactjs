@@ -1,4 +1,4 @@
-import { SizeProps } from '@/hocs/withGameLogicHOC';
+import { SizeProps } from '@/core';
 
 export const getRandomValuesArr = (
   maxValue: number,
