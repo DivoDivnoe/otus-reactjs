@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-type UserType = string | null;
+export type UserType = string | null;
 type SetUserType = (user: UserType) => void;
 
 interface UserStateType {
