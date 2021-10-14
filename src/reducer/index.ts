@@ -31,7 +31,6 @@ export const Operation = {
   getStateFromLocalStorage: (): ThunkResult<void> => {
     return (dispatch) => {
       const rawState = window.localStorage.getItem(APP_KEY);
-      console.log('raw state', rawState);
 
       if (rawState) {
         const state: State = JSON.parse(rawState);

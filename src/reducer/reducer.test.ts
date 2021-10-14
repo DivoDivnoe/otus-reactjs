@@ -15,12 +15,10 @@ class LocalStorageMock {
   }
 
   getItem(key: string) {
-    console.log('GET ITEM current store', this.store);
     return this.store[key] || null;
   }
 
   setItem(key: string, value: unknown) {
-    console.log('SET ITEM');
     this.store[key] = String(value);
   }
 
