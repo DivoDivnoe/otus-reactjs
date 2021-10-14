@@ -19,7 +19,6 @@ import { ActionCreator as FillActionCreator } from '@/reducer/game/fill/fill';
 import { getFill } from '@/reducer/game/fill/selectors';
 import { ActionCreator as IsPlayingActionCreator } from '@/reducer/game/isPlaying/isPlaying';
 import { getIsPlaying } from '@/reducer/game/isPlaying/selectors';
-import { raw } from '@storybook/react';
 
 export interface State {
   [NameSpace.GAME]: GameState;

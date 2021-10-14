@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore, AnyAction } from 'redux';
-import thunk, { ThunkAction, ThunkMiddleware } from 'redux-thunk';
+import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { State } from '@/reducer';
-import reducer, { Operation, ThunkResult } from '@/reducer';
+import reducer, { Operation } from '@/reducer';
 import { BoardSize, SpeedType, FillType } from '@/constants';
 import { APP_KEY } from './constants';
 import { ActionCreator as UserActionCreator } from '@/reducer/user/user';
