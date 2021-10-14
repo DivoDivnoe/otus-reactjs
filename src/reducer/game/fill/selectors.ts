@@ -4,4 +4,4 @@ import { FillType } from '@/constants';
 
 const NAME_SPACE = NameSpace.GAME;
 
-export const getSize = (state: State): FillType => state[NAME_SPACE].fill;
+export const getFill = (state: State): FillType => state[NAME_SPACE].fill;

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import ModelReducer from './model/model';
+
 import IsPlayingReducer from './isPlaying/isPlaying';
 import SizeReducer from './size/size';
 import SpeedReducer from './speed/speed';

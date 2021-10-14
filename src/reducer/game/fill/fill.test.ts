@@ -1,6 +1,25 @@
 import reducer, { ActionCreator } from './fill';
 import { AnyAction } from 'redux';
-import { FillType } from '@/constants';
+import { getFill } from './selectors';
+import { State } from '@/reducer';
+import { BoardSize, SpeedType, FillType } from '@/constants';
+
+describe('getFill selector', () => {
+  it('returns correct state', () => {
+    const state: State = {
+      game: {
+        isPlaying: false,
+        model: [[]],
+        size: BoardSize.LARGE,
+        speed: SpeedType.MEDIUM,
+        fill: FillType.MEDIUM,
+      },
+      user: { userData: null },
+    };
+
+    expect(getFill(state)).toEqual(FillType.MEDIUM);
+  });
+});
 
 describe('action creator', () => {
   describe('SET_FILL returns correct action', () => {

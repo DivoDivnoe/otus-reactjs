@@ -1,6 +1,7 @@
 export enum ActionType {
   SET_USER = 'SET_USER',
   RESET_USER = 'RESET_USER',
+  SET_PLAYING = 'SET_PLAYING',
   START_PLAYING = 'START_PLAYING',
   STOP_PLAYING = 'STOP_PLAYING',
   SET_SIZE = 'SET_SIZE',
@@ -9,3 +10,5 @@ export enum ActionType {
   SET_MODEL = 'SET_MODEL',
   RESET_MODEL = 'RESET_MODEL',
 }
+
+export const APP_KEY = 'gameOfLifeState';
