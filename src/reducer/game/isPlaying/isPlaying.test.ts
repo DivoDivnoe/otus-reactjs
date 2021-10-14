@@ -21,27 +21,27 @@ describe('reducer', () => {
       const action: Action = { type: 'START_PLAYING' };
       const state = reducer(undefined, action);
 
-      expect(state.isPlaying).toEqual(true);
+      expect(state).toEqual(true);
     });
   });
 
   describe('updates state correctly', () => {
     it('with START_PLAYING action', () => {
-      const initialState = { isPlaying: false };
+      const initialState = false;
       const action: Action = { type: 'START_PLAYING' };
       const state = reducer(initialState, action);
 
-      expect(state.isPlaying).toEqual(true);
+      expect(state).toEqual(true);
     });
   });
 
   describe('updates state correctly', () => {
     it('with STOP_PLAYING action', () => {
-      const initialState = { isPlaying: true };
+      const initialState = true;
       const action: Action = { type: 'STOP_PLAYING' };
       const state = reducer(initialState, action);
 
-      expect(state.isPlaying).toEqual(false);
+      expect(state).toEqual(false);
     });
   });
 });

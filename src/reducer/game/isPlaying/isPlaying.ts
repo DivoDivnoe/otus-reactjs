@@ -1,18 +1,12 @@
 import { Action } from 'redux';
 import { ActionType } from '@/reducer/constants';
 
-export interface GameIsPlayingState {
-  isPlaying: boolean;
-}
-
 export interface GameIsPlayingActionCreator {
   START_PLAYING: () => Action;
   STOP_PLAYING: () => Action;
 }
 
-const initialState: GameIsPlayingState = {
-  isPlaying: false,
-};
+const initialState = false;
 
 export const ActionCreator: GameIsPlayingActionCreator = {
   START_PLAYING: () => ({
@@ -23,15 +17,12 @@ export const ActionCreator: GameIsPlayingActionCreator = {
   }),
 };
 
-const reducer = (
-  state: GameIsPlayingState = initialState,
-  action: Action
-): GameIsPlayingState => {
+const reducer = (state: boolean = initialState, action: Action): boolean => {
   switch (action.type) {
     case ActionType.START_PLAYING:
-      return { ...state, isPlaying: true };
+      return true;
     case ActionType.STOP_PLAYING:
-      return { ...state, isPlaying: false };
+      return false;
   }
 
   return state;

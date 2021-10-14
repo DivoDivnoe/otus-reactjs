@@ -23,14 +23,14 @@ describe('reducer', () => {
       };
 
       const state = reducer(undefined, action);
-      expect(state.user).toEqual('some user');
+      expect(state.userData).toEqual('some user');
     });
   });
 
   describe('updates state correctly', () => {
     it('with SET_USER action', () => {
       const initialState = {
-        user: '',
+        userData: '',
       };
 
       const action: AnyAction = {
@@ -39,14 +39,14 @@ describe('reducer', () => {
       };
 
       const state = reducer(initialState, action);
-      expect(state.user).toEqual('Andrey');
+      expect(state.userData).toEqual('Andrey');
     });
   });
 
   describe('updates state correctly', () => {
     it('with RESET_USER action', () => {
       const initialState = {
-        user: 'Andrey',
+        userData: 'Andrey',
       };
 
       const action: Action = {
@@ -54,7 +54,7 @@ describe('reducer', () => {
       };
 
       const state = reducer(initialState, action);
-      expect(state.user).toBeNull();
+      expect(state.userData).toBeNull();
     });
   });
 });

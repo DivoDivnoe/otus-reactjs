@@ -3,7 +3,7 @@ import { Action, AnyAction } from 'redux';
 import { ActionType } from '../constants';
 
 export interface UserState {
-  user: UserType;
+  userData: UserType;
 }
 
 export interface UserActionCreator {
@@ -12,7 +12,7 @@ export interface UserActionCreator {
 }
 
 const initialState = {
-  user: null,
+  userData: null,
 };
 Object.freeze(initialState);
 
@@ -32,7 +32,7 @@ const reducer = (
 ): UserState => {
   switch (action.type) {
     case 'SET_USER':
-      return { ...state, user: action.payload };
+      return { ...state, userData: action.payload };
     case 'RESET_USER':
       return { ...initialState };
   }
