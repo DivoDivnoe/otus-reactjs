@@ -1,5 +1,5 @@
-import { getMatrixItemNeighbours } from '@/utils/utils';
-import { getRandomValuesArr, getZeroMatrix } from '@/utils/utils';
+import { getMatrixItemNeighbours } from '@/utils';
+import { getRandomValuesArr, getZeroMatrix } from '@/utils';
 import { BoardSize, FillType, CellState } from '@/constants';
 import { BoardSizeValue, BoardFillPercentage } from '@/configs';
 

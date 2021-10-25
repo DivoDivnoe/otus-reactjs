@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Field } from '@/components/Field';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { Bar } from '@/components/Bar/Bar';
-import { StartPopup } from '@/components/StartPopup/';
+import { Bar } from '@/components/Bar';
+import { StartPopup } from '@/components/StartPopup';
 import useAuth from '@/hooks/useAuth';
 import useGameLogic from '@/hooks/useGameLogic';
 import { BoardSize, SpeedType, FillType } from '@/constants';
@@ -86,7 +86,7 @@ export const AppRoutes: FC<AppProps> = (props) => {
   );
 };
 
-const App: FC<AppProps> = (props) => {
+export const App: FC<AppProps> = (props) => {
   return (
     <ErrorBoundary>
       <Router>
@@ -95,5 +95,3 @@ const App: FC<AppProps> = (props) => {
     </ErrorBoundary>
   );
 };
-
-export default App;

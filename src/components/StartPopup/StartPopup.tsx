@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import styled from '@emotion/styled';
-import { Button } from '@/components/Button/Button';
+import { Button } from '@/components/Button';
 import useSignInData from '@/hooks/useSignInData';
 
 export interface PopupProps {

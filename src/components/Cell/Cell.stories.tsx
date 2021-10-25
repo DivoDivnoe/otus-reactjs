@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Cell } from './Cell';
+import { Cell } from './';
 
 export default {
   title: 'Example/Cell',

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Cell } from '../Cell';
+import { Cell } from '@/components/Cell';
 import { Model } from '@/core';
 import { ClickCellType } from '@/hooks/useGameLogic';
 import { BoardSize } from '@/constants';

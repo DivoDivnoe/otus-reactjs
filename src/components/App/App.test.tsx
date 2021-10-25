@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
-import { AppProps, AppRoutes } from './App';
-import { BoardSize, FillType, SpeedType } from '@/constants';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
+import { AppProps, AppRoutes } from './';
+import { BoardSize, FillType, SpeedType } from '@/constants';
 
 describe('AppRoutes', () => {
   it('renders correctly', async () => {
