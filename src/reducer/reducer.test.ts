@@ -4,8 +4,8 @@ import { State } from '@/reducer';
 import reducer, { Operation } from '@/reducer';
 import { BoardSize, SpeedType, FillType } from '@/constants';
 import { APP_KEY } from './constants';
-import { ActionCreator as UserActionCreator } from '@/reducer/user/user';
-import { ActionCreator as IsPlayingActionCreator } from '@/reducer/game/isPlaying/isPlaying';
+import { ActionCreator as UserActionCreator } from '@/reducer/user';
+import { ActionCreator as IsPlayingActionCreator } from '@/reducer/game/isPlaying';
 
 class LocalStorageMock {
   store: Record<string, unknown> = {};
@@ -91,10 +91,10 @@ describe('Operation', () => {
         applyMiddleware(thunk as ThunkMiddleware<State, AnyAction>)
       );
 
-      store.dispatch(UserActionCreator.SET_USER('Andrey'));
+      store.dispatch(UserActionCreator.setUser('Andrey'));
       store.dispatch(Operation.saveStateToLocalStorage());
 
-      store.dispatch(IsPlayingActionCreator.START_PLAYING());
+      store.dispatch(IsPlayingActionCreator.startPlaying());
       store.dispatch(Operation.getStateFromLocalStorage());
 
       expect(store.getState()).toEqual({

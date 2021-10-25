@@ -1,42 +1,22 @@
-import reducer, { ActionCreator } from './isPlaying';
+import reducer, { ActionCreator } from './';
 import { Action, AnyAction } from 'redux';
-import { State } from '@/reducer';
-import { getIsPlaying } from './selectors';
-import { BoardSize, SpeedType, FillType } from '@/constants';
-
-describe('getIsPlaying selector', () => {
-  it('returns correct state', () => {
-    const state: State = {
-      game: {
-        isPlaying: false,
-        model: [[]],
-        size: BoardSize.LARGE,
-        speed: SpeedType.MEDIUM,
-        fill: FillType.MEDIUM,
-      },
-      user: { userData: null },
-    };
-
-    expect(getIsPlaying(state)).toEqual(false);
-  });
-});
 
 describe('action creator', () => {
   it('SET_PLAYING returns correct action', () => {
-    const action = ActionCreator.SET_PLAYING(true);
+    const action = ActionCreator.setPlaying(true);
 
     expect(action.type).toEqual('SET_PLAYING');
     expect(action.payload).toEqual(true);
   });
 
   it('START_PLAYING returns correct action', () => {
-    const action = ActionCreator.START_PLAYING();
+    const action = ActionCreator.startPlaying();
 
     expect(action.type).toEqual('START_PLAYING');
   });
 
   it('STOP_PLAYING returns correct action', () => {
-    const action = ActionCreator.STOP_PLAYING();
+    const action = ActionCreator.stopPlaying();
 
     expect(action.type).toEqual('STOP_PLAYING');
   });
@@ -49,6 +29,18 @@ describe('reducer', () => {
       const state = reducer(undefined, action);
 
       expect(state).toEqual(true);
+    });
+
+    it('with unknown action placed', () => {
+      const initialState = false;
+
+      const action: AnyAction = {
+        type: 'SOME_ACTION',
+        payload: 'some payload',
+      };
+
+      const state = reducer(initialState, action);
+      expect(state).toEqual(false);
     });
   });
 

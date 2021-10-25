@@ -4,13 +4,13 @@ import { SpeedType } from '@/constants';
 import { gameProps } from '@/configs';
 
 export interface GameSpeedActionCreator {
-  SET_SPEED: (speed: SpeedType) => AnyAction;
+  setSpeed: (speed: SpeedType) => AnyAction;
 }
 
 const initialState: SpeedType = gameProps.speed;
 
 export const ActionCreator: GameSpeedActionCreator = {
-  SET_SPEED: (speed: SpeedType) => ({
+  setSpeed: (speed: SpeedType) => ({
     type: ActionType.SET_SPEED,
     payload: speed,
   }),

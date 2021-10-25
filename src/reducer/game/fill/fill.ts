@@ -4,13 +4,13 @@ import { FillType } from '@/constants';
 import { gameProps } from '@/configs';
 
 export interface GameFillActionCreator {
-  SET_FILL: (fill: FillType) => AnyAction;
+  setFill: (fill: FillType) => AnyAction;
 }
 
 const initialState: FillType = gameProps.fill;
 
 export const ActionCreator: GameFillActionCreator = {
-  SET_FILL: (fill: FillType) => ({
+  setFill: (fill: FillType) => ({
     type: ActionType.SET_FILL,
     payload: fill,
   }),

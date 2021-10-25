@@ -4,13 +4,13 @@ import { BoardSize } from '@/constants';
 import { gameProps } from '@/configs';
 
 export interface GameSizeActionCreator {
-  SET_SIZE: (size: BoardSize) => AnyAction;
+  setSize: (size: BoardSize) => AnyAction;
 }
 
 const initialState: BoardSize = gameProps.boardSize;
 
 export const ActionCreator: GameSizeActionCreator = {
-  SET_SIZE: (size: BoardSize) => ({
+  setSize: (size: BoardSize) => ({
     type: ActionType.SET_SIZE,
     payload: size,
   }),

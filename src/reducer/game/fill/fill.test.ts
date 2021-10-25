@@ -1,31 +1,12 @@
-import reducer, { ActionCreator } from './fill';
+import reducer, { ActionCreator } from './';
 import { AnyAction } from 'redux';
-import { getFill } from './selectors';
-import { State } from '@/reducer';
-import { BoardSize, SpeedType, FillType } from '@/constants';
-
-describe('getFill selector', () => {
-  it('returns correct state', () => {
-    const state: State = {
-      game: {
-        isPlaying: false,
-        model: [[]],
-        size: BoardSize.LARGE,
-        speed: SpeedType.MEDIUM,
-        fill: FillType.MEDIUM,
-      },
-      user: { userData: null },
-    };
-
-    expect(getFill(state)).toEqual(FillType.MEDIUM);
-  });
-});
+import { FillType } from '@/constants';
 
 describe('action creator', () => {
   describe('SET_FILL returns correct action', () => {
     it('fill high', () => {
       const fill = FillType.HIGH;
-      const action = ActionCreator.SET_FILL(fill);
+      const action = ActionCreator.setFill(fill);
 
       expect(action.type).toEqual('SET_FILL');
       expect(action.payload).toEqual(fill);
@@ -43,6 +24,18 @@ describe('reducer', () => {
 
       const state = reducer(undefined, action);
       expect(state).toEqual(FillType.HIGH);
+    });
+
+    it('with unknown action placed', () => {
+      const initialState = FillType.HIGH;
+
+      const action: AnyAction = {
+        type: 'SOME_ACTION',
+        payload: 'some payload',
+      };
+
+      const state = reducer(initialState, action);
+      expect(state).toEqual(initialState);
     });
   });
 

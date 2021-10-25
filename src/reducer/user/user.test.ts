@@ -1,35 +1,23 @@
-import reducer, { ActionCreator } from './user';
+import reducer, { ActionCreator } from './';
 import { Action, AnyAction } from 'redux';
-import { State } from '@/reducer';
-import { getUser } from './selectors';
-import { BoardSize, SpeedType, FillType } from '@/constants';
-
-describe('getUser selector', () => {
-  it('returns correct state', () => {
-    const state: State = {
-      game: {
-        isPlaying: false,
-        model: [[]],
-        size: BoardSize.LARGE,
-        speed: SpeedType.MEDIUM,
-        fill: FillType.MEDIUM,
-      },
-      user: { userData: 'Andrey' },
-    };
-
-    expect(getUser(state)).toEqual('Andrey');
-  });
-});
 
 describe('action creator', () => {
-  describe('SET_USER returns correct action', () => {
-    it('user "Andrey"', () => {
+  describe('SET_USER', () => {
+    it('returns correct action', () => {
       const user = 'Andrey';
 
-      const action = ActionCreator.SET_USER(user);
+      const action = ActionCreator.setUser(user);
 
       expect(action.type).toEqual('SET_USER');
       expect(action.payload).toEqual('Andrey');
+    });
+  });
+
+  describe('RESET_USER ', () => {
+    it('returns correct action', () => {
+      const action = ActionCreator.resetUser();
+
+      expect(action.type).toEqual('RESET_USER');
     });
   });
 });
@@ -44,6 +32,18 @@ describe('reducer', () => {
 
       const state = reducer(undefined, action);
       expect(state.userData).toEqual('some user');
+    });
+
+    it('with unknown action placed', () => {
+      const initialState = { userData: 'Andrey' };
+
+      const action: AnyAction = {
+        type: 'SOME_ACTION',
+        payload: 'some payload',
+      };
+
+      const state = reducer(initialState, action);
+      expect(state).toEqual(initialState);
     });
   });
 

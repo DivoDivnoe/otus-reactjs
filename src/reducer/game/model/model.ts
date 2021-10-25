@@ -4,18 +4,18 @@ import { BoardSize } from '@/constants';
 import { createZeroMatrix, Model } from '@/core/core';
 
 export interface GameModelActionCreator {
-  SET_MODEL: (model: Model) => AnyAction;
-  RESET_MODEL: (size: BoardSize) => AnyAction;
+  setModel: (model: Model) => AnyAction;
+  resetModel: (size: BoardSize) => AnyAction;
 }
 
 const initialState: Model = [[]];
 
 export const ActionCreator: GameModelActionCreator = {
-  SET_MODEL: (model: Model) => ({
+  setModel: (model: Model) => ({
     type: ActionType.SET_MODEL,
     payload: model,
   }),
-  RESET_MODEL: (size: BoardSize) => {
+  resetModel: (size: BoardSize) => {
     const model = createZeroMatrix(size);
 
     return {

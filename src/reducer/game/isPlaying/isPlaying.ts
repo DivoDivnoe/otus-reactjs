@@ -2,22 +2,22 @@ import { Action, AnyAction } from 'redux';
 import { ActionType } from '@/reducer/constants';
 
 export interface GameIsPlayingActionCreator {
-  SET_PLAYING: (isPlaying: boolean) => AnyAction;
-  START_PLAYING: () => Action;
-  STOP_PLAYING: () => Action;
+  setPlaying: (isPlaying: boolean) => AnyAction;
+  startPlaying: () => Action;
+  stopPlaying: () => Action;
 }
 
 const initialState = false;
 
 export const ActionCreator: GameIsPlayingActionCreator = {
-  SET_PLAYING: (isPlaying: boolean) => ({
+  setPlaying: (isPlaying: boolean) => ({
     type: ActionType.SET_PLAYING,
     payload: isPlaying,
   }),
-  START_PLAYING: () => ({
+  startPlaying: () => ({
     type: ActionType.START_PLAYING,
   }),
-  STOP_PLAYING: () => ({
+  stopPlaying: () => ({
     type: ActionType.STOP_PLAYING,
   }),
 };

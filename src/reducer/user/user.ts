@@ -7,8 +7,8 @@ export interface UserState {
 }
 
 export interface UserActionCreator {
-  SET_USER: (user: UserType) => AnyAction;
-  RESET_USER: () => Action;
+  setUser: (user: UserType) => AnyAction;
+  resetUser: () => Action;
 }
 
 const initialState = {
@@ -17,11 +17,11 @@ const initialState = {
 Object.freeze(initialState);
 
 export const ActionCreator: UserActionCreator = {
-  SET_USER: (user) => ({
+  setUser: (user) => ({
     type: ActionType.SET_USER,
     payload: user,
   }),
-  RESET_USER: () => ({
+  resetUser: () => ({
     type: ActionType.RESET_USER,
   }),
 };

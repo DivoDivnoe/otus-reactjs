@@ -1,32 +1,13 @@
-import reducer, { ActionCreator } from './size';
+import reducer, { ActionCreator } from './';
 import { AnyAction } from 'redux';
-import { State } from '@/reducer';
-import { getSize } from './selectors';
-import { BoardSize, SpeedType, FillType } from '@/constants';
-
-describe('getSize selector', () => {
-  it('returns correct state', () => {
-    const state: State = {
-      game: {
-        isPlaying: false,
-        model: [[]],
-        size: BoardSize.LARGE,
-        speed: SpeedType.MEDIUM,
-        fill: FillType.MEDIUM,
-      },
-      user: { userData: null },
-    };
-
-    expect(getSize(state)).toEqual(BoardSize.LARGE);
-  });
-});
+import { BoardSize } from '@/constants';
 
 describe('action creator', () => {
   describe('SET_SIZE returns correct action', () => {
     it('size small', () => {
       const size = BoardSize.SMALL;
 
-      const action = ActionCreator.SET_SIZE(size);
+      const action = ActionCreator.setSize(size);
 
       expect(action.type).toEqual('SET_SIZE');
       expect(action.payload).toEqual(size);
@@ -44,6 +25,18 @@ describe('reducer', () => {
 
       const state = reducer(undefined, action);
       expect(state).toEqual(BoardSize.LARGE);
+    });
+
+    it('with unknown action placed', () => {
+      const initialState = BoardSize.SMALL;
+
+      const action: AnyAction = {
+        type: 'SOME_ACTION',
+        payload: 'some payload',
+      };
+
+      const state = reducer(initialState, action);
+      expect(state).toEqual(BoardSize.SMALL);
     });
   });
 
