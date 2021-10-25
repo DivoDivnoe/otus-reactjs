@@ -2,52 +2,40 @@ import reducer, { ActionCreator } from './';
 import { Action, AnyAction } from 'redux';
 
 describe('action creator', () => {
-  it('SET_PLAYING returns correct action', () => {
+  it('setPlaying returns correct action', () => {
     const action = ActionCreator.setPlaying(true);
 
-    expect(action.type).toEqual('SET_PLAYING');
+    expect(action.type).toEqual('isPlaying/setPlaying');
     expect(action.payload).toEqual(true);
   });
 
-  it('START_PLAYING returns correct action', () => {
+  it('startPlaying returns correct action', () => {
     const action = ActionCreator.startPlaying();
 
-    expect(action.type).toEqual('START_PLAYING');
+    expect(action.type).toEqual('isPlaying/startPlaying');
   });
 
-  it('STOP_PLAYING returns correct action', () => {
+  it('stopPlaying returns correct action', () => {
     const action = ActionCreator.stopPlaying();
 
-    expect(action.type).toEqual('STOP_PLAYING');
+    expect(action.type).toEqual('isPlaying/stopPlaying');
   });
 });
 
 describe('reducer', () => {
   describe('returns correct state', () => {
     it('with no state placed', () => {
-      const action: Action = { type: 'START_PLAYING' };
+      const action = ActionCreator.startPlaying();
       const state = reducer(undefined, action);
 
       expect(state).toEqual(true);
     });
-
-    it('with unknown action placed', () => {
-      const initialState = false;
-
-      const action: AnyAction = {
-        type: 'SOME_ACTION',
-        payload: 'some payload',
-      };
-
-      const state = reducer(initialState, action);
-      expect(state).toEqual(false);
-    });
   });
 
   describe('updates state correctly', () => {
-    it('with START_PLAYING action', () => {
+    it('with startPlaying action', () => {
       const initialState = false;
-      const action: Action = { type: 'START_PLAYING' };
+      const action = ActionCreator.startPlaying();
       const state = reducer(initialState, action);
 
       expect(state).toEqual(true);
@@ -55,15 +43,15 @@ describe('reducer', () => {
 
     it('with STOP_PLAYING action', () => {
       const initialState = true;
-      const action: Action = { type: 'STOP_PLAYING' };
+      const action = ActionCreator.stopPlaying();
       const state = reducer(initialState, action);
 
       expect(state).toEqual(false);
     });
 
-    it('with SET_PLAYING action', () => {
+    it('with setPlaying action', () => {
       const initialState = true;
-      const action: AnyAction = { type: 'SET_PLAYING', payload: false };
+      const action = ActionCreator.setPlaying(false);
       const state = reducer(initialState, action);
 
       expect(state).toEqual(false);

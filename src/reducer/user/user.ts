@@ -1,43 +1,25 @@
 import { UserType } from '@/hooks/useAuth';
-import { Action, AnyAction } from 'redux';
-import { ActionType } from '../constants';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface UserState {
   userData: UserType;
 }
 
-export interface UserActionCreator {
-  setUser: (user: UserType) => AnyAction;
-  resetUser: () => Action;
-}
-
-const initialState = {
+const initialState: UserState = {
   userData: null,
 };
 Object.freeze(initialState);
 
-export const ActionCreator: UserActionCreator = {
-  setUser: (user) => ({
-    type: ActionType.SET_USER,
-    payload: user,
-  }),
-  resetUser: () => ({
-    type: ActionType.RESET_USER,
-  }),
-};
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setUser: (state, action: PayloadAction<UserType>) => {
+      state.userData = action.payload;
+    },
+    resetUser: () => initialState,
+  },
+});
 
-const reducer = (
-  state: UserState = initialState,
-  action: AnyAction
-): UserState => {
-  switch (action.type) {
-    case 'SET_USER':
-      return { ...state, userData: action.payload };
-    case 'RESET_USER':
-      return { ...initialState };
-  }
-
-  return state;
-};
-
-export default reducer;
+export const ActionCreator = userSlice.actions;
+export default userSlice.reducer;
