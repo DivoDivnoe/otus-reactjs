@@ -1,8 +1,6 @@
 import { useState } from 'react';
-
 import { SpeedType, BoardSize, FillType } from '@/constants';
 import { gameOptions, gameProps } from '@/configs';
-import { AppProps } from '@/components/App';
 
 export interface GameSettings {
   size: BoardSize;
@@ -18,10 +16,10 @@ export interface GameSettings {
 
 const { boardSizes: sizes, speedTypes, fillTypes } = gameOptions;
 
-const useGameSettings = (props: AppProps): GameSettings => {
-  const [size, changeSize] = useState(props.size || gameProps.boardSize);
-  const [speed, changeSpeed] = useState(props.speed || gameProps.speed);
-  const [fill, changeFill] = useState(props.fill || gameProps.fill);
+const useGameSettings = (): GameSettings => {
+  const [size, changeSize] = useState(gameProps.boardSize);
+  const [speed, changeSpeed] = useState(gameProps.speed);
+  const [fill, changeFill] = useState(gameProps.fill);
 
   return {
     size,

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { SpeedType, BoardSize, FillType } from '@/constants';
 import { gameOptions } from '@/configs';
 import { State } from '@/reducer';

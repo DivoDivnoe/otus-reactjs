@@ -5,7 +5,7 @@ import { gameOptions } from '@/configs';
 
 describe('useGameSettings hook', () => {
   it('should have correct default settings', () => {
-    const { result } = renderHook(() => useGameSettings({}));
+    const { result } = renderHook(() => useGameSettings());
 
     const { size, speed, fill, sizes, speedTypes, fillTypes } = result.current;
 
@@ -18,7 +18,7 @@ describe('useGameSettings hook', () => {
   });
 
   it('should change game settings correctly', () => {
-    const { result } = renderHook(() => useGameSettings({}));
+    const { result } = renderHook(() => useGameSettings());
 
     const { changeSize, changeSpeed, changeFill } = result.current;
 

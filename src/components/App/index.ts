@@ -1,1 +1,1 @@
-export { App, AppProps, AppRoutes } from './App';
+export { App, AppRoutes } from './App';

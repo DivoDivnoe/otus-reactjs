@@ -9,7 +9,6 @@ import {
   createZeroMatrix,
   Model,
 } from '@/core/core';
-import { AppProps } from '@/components/App/App';
 
 export interface Coords {
   x: number;
@@ -37,7 +36,7 @@ export interface StartGameType {
   clickHandler: ClickCellType;
 }
 
-const useGameLogic = (props: AppProps): StartGameType => {
+const useGameLogic = (): StartGameType => {
   const {
     speed,
     size,
@@ -48,7 +47,7 @@ const useGameLogic = (props: AppProps): StartGameType => {
     sizes,
     speedTypes,
     fillTypes,
-  } = useGameSettings(props);
+  } = useGameSettings();
   const [isPlaying, setIsPlaying] = useState(false);
   const [model, updateModel] = useState(createRandomMatrix(size, fill));
 

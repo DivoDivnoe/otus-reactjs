@@ -11,7 +11,6 @@ import {
   createZeroMatrix,
   Model,
 } from '@/core';
-import { AppProps } from '@/components/App';
 import { State } from '@/reducer';
 import {
   getIsPlaying,
@@ -94,6 +93,10 @@ const useGameLogic = (): StartGameType => {
   }, [model]);
 
   const gameIterationRef: { current: () => void } = useRef(gameIteration);
+
+  useEffect(() => {
+    updateModel(createRandomMatrix(size, fill));
+  }, []);
 
   useEffect(() => {
     gameIterationRef.current = gameIteration;

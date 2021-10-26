@@ -1,12 +1,11 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import useGameLogic from './useGameLogicRedux';
-import { SpeedType, CellState, BoardSize, FillType } from '@/constants';
+import { SpeedType, CellState } from '@/constants';
 import { SpeedValue } from '@/configs';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from '@/reducer';
 import React, { FC } from 'react';
-import { createRandomMatrix } from '@/core';
 
 describe('useGameLogic hook', () => {
   it('should manage game isPlaying prop correctly', () => {
@@ -59,12 +58,10 @@ describe('useGameLogic hook', () => {
     );
     const { result } = renderHook(() => useGameLogic(), { wrapper });
 
-    const { updateModel, clickHandler } = result.current;
-    const newModel = createRandomMatrix(BoardSize.SMALL, FillType.LOW);
-    act(() => updateModel(newModel));
+    const { model, clickHandler } = result.current;
 
     const mockCoords = { x: 11, y: 29 };
-    const cellState = result.current.model[mockCoords.y][mockCoords.x];
+    const cellState = model[mockCoords.y][mockCoords.x];
 
     act(() => clickHandler(mockCoords));
     expect(result.current.model[mockCoords.y][mockCoords.x]).toEqual(
@@ -78,10 +75,7 @@ describe('useGameLogic hook', () => {
       <Provider store={store}>{children}</Provider>
     );
     const { result } = renderHook(() => useGameLogic(), { wrapper });
-    const { clear, updateModel } = result.current;
-
-    const newModel = createRandomMatrix(BoardSize.SMALL, FillType.LOW);
-    act(() => updateModel(newModel));
+    const { clear } = result.current;
 
     act(clear);
 

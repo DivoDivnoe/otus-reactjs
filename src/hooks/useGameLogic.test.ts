@@ -5,7 +5,7 @@ import { SpeedValue } from '@/configs';
 
 describe('useGameLogic hook', () => {
   it('should manage game isPlaying prop correctly', () => {
-    const { result } = renderHook(() => useGameLogic({}));
+    const { result } = renderHook(() => useGameLogic());
 
     const { play, pause, isPlaying } = result.current;
     expect(isPlaying).toEqual(false);
@@ -20,7 +20,7 @@ describe('useGameLogic hook', () => {
   it('should update state with speed interval', () => {
     const mockFn = jest.fn();
 
-    const { result } = renderHook(() => useGameLogic({}));
+    const { result } = renderHook(() => useGameLogic());
 
     const timeMustPass = 1000;
     const interval = SpeedValue[SpeedType.MEDIUM];
@@ -41,7 +41,7 @@ describe('useGameLogic hook', () => {
   });
 
   it('handles clickHandler correctly', () => {
-    const { result } = renderHook(() => useGameLogic({}));
+    const { result } = renderHook(() => useGameLogic());
 
     const { model, clickHandler } = result.current;
 
@@ -55,7 +55,7 @@ describe('useGameLogic hook', () => {
   });
 
   it('should clear game field correctly', () => {
-    const { result } = renderHook(() => useGameLogic({}));
+    const { result } = renderHook(() => useGameLogic());
     const { clear } = result.current;
 
     act(clear);
