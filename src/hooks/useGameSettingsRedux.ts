@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useCallback, useEffect } from 'react';
 import { SpeedType, BoardSize, FillType } from '@/constants';
 import { gameOptions } from '@/configs';
 import { State } from '@/reducer';
@@ -14,7 +15,6 @@ import {
   getFill,
   ActionCreator as FillActionCreator,
 } from '@/reducer/game/fill';
-import { SizeProps } from '@/core';
 
 export interface GameSettings {
   size: BoardSize;
@@ -37,14 +37,17 @@ const useGameSettings = (): GameSettings => {
 
   const dispatch = useDispatch();
 
-  const changeSize = (size: BoardSize) =>
+  const changeSize = useCallback((size: BoardSize) => {
     dispatch(SizeActionCreator.setSize(size));
+  }, []);
 
-  const changeSpeed = (speedType: SpeedType) =>
+  const changeSpeed = useCallback((speedType: SpeedType) => {
     dispatch(SpeedActionCreator.setSpeed(speedType));
+  }, []);
 
-  const changeFill = (fill: FillType) =>
+  const changeFill = useCallback((fill: FillType) => {
     dispatch(FillActionCreator.setFill(fill));
+  }, []);
 
   return {
     size,

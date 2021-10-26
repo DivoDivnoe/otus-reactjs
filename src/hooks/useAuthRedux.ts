@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '@/reducer';
@@ -19,8 +19,12 @@ const useAuth = (): UserStateType => {
 
   const user = useSelector<State, UserType>(getUser);
 
-  const signin = (user: UserType) => dispatch(UserActionCreator.setUser(user));
-  const signout = () => dispatch(UserActionCreator.resetUser());
+  const signin = useCallback((user: UserType) => {
+    dispatch(UserActionCreator.setUser(user));
+  }, []);
+  const signout = useCallback(() => {
+    dispatch(UserActionCreator.resetUser());
+  }, []);
 
   useEffect(() => {
     if (user) {

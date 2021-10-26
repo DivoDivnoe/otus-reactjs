@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import useGameSettings from './useGameSettings';
+import useGameSettings from './useGameSettingsRedux';
 import { SpeedType, BoardSize, FillType } from '@/constants';
 import { SpeedValue } from '@/configs';
 import {
@@ -48,7 +48,7 @@ export interface StartGameType {
   clickHandler: ClickCellType;
 }
 
-const useGameLogic = (props: AppProps): StartGameType => {
+const useGameLogic = (): StartGameType => {
   const {
     speed,
     size,
@@ -59,30 +59,28 @@ const useGameLogic = (props: AppProps): StartGameType => {
     sizes,
     speedTypes,
     fillTypes,
-  } = useGameSettings(props);
+  } = useGameSettings();
 
   const dispatch = useDispatch();
 
   const model = useSelector<State, Model>(getModel);
   const isPlaying = useSelector<State, boolean>(getIsPlaying);
 
-  const play = useCallback(
-    () => dispatch(IsPlayingActionCreator.startPlaying()),
-    []
-  );
-  const pause = useCallback(
-    () => dispatch(IsPlayingActionCreator.stopPlaying()),
-    []
-  );
+  const updateModel = useCallback((model) => {
+    dispatch(ModelActionCreator.setModel(model));
+  }, []);
+
   const clear = useCallback(() => {
     pause();
     updateModel(createZeroMatrix(size));
   }, [size]);
 
-  const updateModel = useCallback(
-    (model) => ModelActionCreator.setModel(model),
-    []
-  );
+  const play = useCallback(() => {
+    dispatch(IsPlayingActionCreator.startPlaying());
+  }, []);
+  const pause = useCallback(() => {
+    dispatch(IsPlayingActionCreator.stopPlaying());
+  }, []);
 
   const updateFill = useCallback((fill: FillType): void => {
     pause();
