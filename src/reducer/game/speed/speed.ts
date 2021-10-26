@@ -1,31 +1,16 @@
-import { AnyAction } from 'redux';
-import { ActionType } from '@/reducer/constants';
 import { SpeedType } from '@/constants';
 import { gameProps } from '@/configs';
-
-export interface GameSpeedActionCreator {
-  setSpeed: (speed: SpeedType) => AnyAction;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: SpeedType = gameProps.speed;
 
-export const ActionCreator: GameSpeedActionCreator = {
-  setSpeed: (speed: SpeedType) => ({
-    type: ActionType.SET_SPEED,
-    payload: speed,
-  }),
-};
+const speedSlice = createSlice({
+  name: 'speed',
+  initialState,
+  reducers: {
+    setSpeed: (_state, action: PayloadAction<SpeedType>) => action.payload,
+  },
+});
 
-const reducer = (
-  state: SpeedType = initialState,
-  action: AnyAction
-): SpeedType => {
-  switch (action.type) {
-    case ActionType.SET_SPEED:
-      return action.payload;
-  }
-
-  return state;
-};
-
-export default reducer;
+export const ActionCreator = speedSlice.actions;
+export default speedSlice.reducer;

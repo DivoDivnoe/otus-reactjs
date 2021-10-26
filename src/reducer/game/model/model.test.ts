@@ -1,5 +1,4 @@
 import reducer, { ActionCreator } from './';
-import { AnyAction } from 'redux';
 import { Model } from '@/core';
 import { BoardSize } from '@/constants';
 
@@ -21,10 +20,6 @@ describe('action creator', () => {
   describe('resetModel returns correct action', () => {
     it('size small', () => {
       const size = BoardSize.SMALL;
-      const model = Array.from({ length: 30 }, () =>
-        Array.from({ length: 50 }, () => 0)
-      );
-
       const action = ActionCreator.resetModel(size);
 
       expect(action.type).toEqual('model/resetModel');

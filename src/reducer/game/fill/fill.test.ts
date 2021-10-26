@@ -1,5 +1,4 @@
 import reducer, { ActionCreator } from './';
-import { AnyAction } from 'redux';
 import { FillType } from '@/constants';
 
 describe('action creator', () => {

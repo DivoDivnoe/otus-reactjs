@@ -1,31 +1,16 @@
-import { AnyAction } from 'redux';
-import { ActionType } from '@/reducer/constants';
 import { BoardSize } from '@/constants';
 import { gameProps } from '@/configs';
-
-export interface GameSizeActionCreator {
-  setSize: (size: BoardSize) => AnyAction;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: BoardSize = gameProps.boardSize;
 
-export const ActionCreator: GameSizeActionCreator = {
-  setSize: (size: BoardSize) => ({
-    type: ActionType.SET_SIZE,
-    payload: size,
-  }),
-};
+const sizeSlice = createSlice({
+  name: 'size',
+  initialState,
+  reducers: {
+    setSize: (_state, action: PayloadAction<BoardSize>) => action.payload,
+  },
+});
 
-const reducer = (
-  state: BoardSize = initialState,
-  action: AnyAction
-): BoardSize => {
-  switch (action.type) {
-    case ActionType.SET_SIZE:
-      return action.payload;
-  }
-
-  return state;
-};
-
-export default reducer;
+export const ActionCreator = sizeSlice.actions;
+export default sizeSlice.reducer;

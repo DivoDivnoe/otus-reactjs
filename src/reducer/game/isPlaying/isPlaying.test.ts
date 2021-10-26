@@ -1,5 +1,4 @@
 import reducer, { ActionCreator } from './';
-import { Action, AnyAction } from 'redux';
 
 describe('action creator', () => {
   it('setPlaying returns correct action', () => {
