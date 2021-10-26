@@ -1,5 +1,5 @@
 import { BoardSize } from '@/constants';
-import { createZeroMatrix, Model } from '@/core/core';
+import { createZeroMatrix, Model } from '@/core';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: Model = [[]];

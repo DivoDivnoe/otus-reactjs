@@ -10,9 +10,7 @@ import useGameLogic from '@/hooks/useGameLogic';
 import { BoardSize, SpeedType, FillType } from '@/constants';
 import { PrivateRoute } from '@/components/PrivateRoute';
 import { Logout } from '@/components/Logout';
-import reducer from '@/reducer';
 
-console.log('reducer', reducer);
 export interface AppProps {
   size?: BoardSize;
   speed?: SpeedType;

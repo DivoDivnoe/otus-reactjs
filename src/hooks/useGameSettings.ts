@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { SpeedType, BoardSize, FillType } from '@/constants';
 import { gameOptions, gameProps } from '@/configs';
-import { AppProps } from '@/components/App/App';
+import { AppProps } from '@/components/App';
 
 export interface GameSettings {
   size: BoardSize;
