@@ -2,11 +2,12 @@ import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
 import { AppRoutes } from './';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+
 import reducer from '@/reducer';
 
 describe('AppRoutes', () => {

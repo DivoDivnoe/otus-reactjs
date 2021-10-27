@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Cell, CellProps } from './Cell';
+import { Cell, CellProps } from './';
 
 describe('Cell', () => {
   it('renders correctly', () => {

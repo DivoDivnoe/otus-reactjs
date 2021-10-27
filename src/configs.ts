@@ -1,23 +1,6 @@
-import { BoardSize, SpeedType, FillType } from '@/constants';
-import { SizeProps } from '@/core';
-
-export interface SpeedValueType {
-  [SpeedType.FAST]: number;
-  [SpeedType.MEDIUM]: number;
-  [SpeedType.SLOW]: number;
-}
-
-export interface BoardSizeValueType {
-  [BoardSize.LARGE]: SizeProps;
-  [BoardSize.MEDIUM]: SizeProps;
-  [BoardSize.SMALL]: SizeProps;
-}
-
-export interface BoardFillPercentageType {
-  [FillType.HIGH]: number;
-  [FillType.MEDIUM]: number;
-  [FillType.LOW]: number;
-}
+import { BoardSize } from '@/reducer/game/size';
+import { SpeedType } from '@/reducer/game/speed';
+import { FillType } from '@/reducer/game/fill';
 
 export interface GameOptionsType {
   boardSizes: BoardSize[];
@@ -32,33 +15,8 @@ export interface gamePropsType {
   autoplay: boolean;
 }
 
-export const BoardSizeValue: BoardSizeValueType = {
-  [BoardSize.LARGE]: { width: 100, height: 80 },
-  [BoardSize.MEDIUM]: { width: 70, height: 50 },
-  [BoardSize.SMALL]: { width: 50, height: 30 },
-};
-
-// timeout interval ms
-export const SpeedValue: SpeedValueType = {
-  [SpeedType.FAST]: 30,
-  [SpeedType.MEDIUM]: 150,
-  [SpeedType.SLOW]: 500,
-};
-
-export const BoardFillPercentage: BoardFillPercentageType = {
-  [FillType.HIGH]: 0.3,
-  [FillType.MEDIUM]: 0.2,
-  [FillType.LOW]: 0.1,
-};
-
 export const gameOptions = {
   boardSizes: [BoardSize.SMALL, BoardSize.MEDIUM, BoardSize.LARGE],
   speedTypes: [SpeedType.SLOW, SpeedType.MEDIUM, SpeedType.FAST],
   fillTypes: [FillType.LOW, FillType.MEDIUM, FillType.HIGH],
-};
-
-export const gameProps = {
-  boardSize: BoardSize.MEDIUM,
-  speed: SpeedType.MEDIUM,
-  fill: FillType.MEDIUM,
 };

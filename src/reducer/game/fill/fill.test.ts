@@ -1,5 +1,4 @@
-import reducer, { ActionCreator } from './';
-import { FillType } from '@/constants';
+import reducer, { ActionCreator, FillType } from './';
 
 describe('action creator', () => {
   describe('setFill returns correct action', () => {

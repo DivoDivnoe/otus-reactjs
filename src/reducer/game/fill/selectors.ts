@@ -1,6 +1,6 @@
 import NameSpace from '@/reducer/nameSpace';
 import { State } from '@/reducer';
-import { FillType } from '@/constants';
+import { FillType } from './';
 
 const NAME_SPACE = NameSpace.GAME;
 

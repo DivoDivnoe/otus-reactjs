@@ -1,6 +1,5 @@
-import reducer, { ActionCreator } from './';
-import { Model } from '@/core';
-import { BoardSize } from '@/constants';
+import reducer, { ActionCreator, Model } from './';
+import { BoardSize } from '@/reducer/game/size';
 
 describe('action creator', () => {
   describe('setModel returns correct action', () => {

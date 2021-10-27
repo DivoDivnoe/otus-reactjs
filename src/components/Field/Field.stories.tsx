@@ -3,7 +3,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Field } from './';
 import { createRandomMatrix } from '@/core';
-import { BoardSize, FillType } from '@/constants';
+import { BoardSize } from '@/reducer/game/size';
+import { FillType } from '@/reducer/game/fill';
 
 export default {
   title: 'Example/Field',

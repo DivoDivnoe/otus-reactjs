@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { Coords, ClickCellType } from '@/hooks/useGameLogic';
 import styled from '@emotion/styled';
+import { Coords, ClickCellType } from '@/hooks/useGameLogicRedux';
 
 export interface CellProps {
   coords: Coords;

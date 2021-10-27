@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SpeedType } from '@/constants';
+import { SpeedType } from '@/reducer/game/speed';
 
 import { App } from './';
 

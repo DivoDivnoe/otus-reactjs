@@ -1,6 +1,7 @@
-import { getFill } from './';
+import { getFill, FillType } from './';
 import { State } from '@/reducer';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import { BoardSize } from '@/reducer/game/size';
+import { SpeedType } from '@/reducer/game/speed';
 
 describe('getFill selector', () => {
   it('returns correct state', () => {

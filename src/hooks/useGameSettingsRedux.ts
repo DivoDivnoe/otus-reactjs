@@ -1,18 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useCallback } from 'react';
-import { SpeedType, BoardSize, FillType } from '@/constants';
 import { gameOptions } from '@/configs';
 import { State } from '@/reducer';
 import {
   getSize,
+  BoardSize,
   ActionCreator as SizeActionCreator,
 } from '@/reducer/game/size';
 import {
   getSpeed,
+  SpeedType,
   ActionCreator as SpeedActionCreator,
 } from '@/reducer/game/speed';
 import {
   getFill,
+  FillType,
   ActionCreator as FillActionCreator,
 } from '@/reducer/game/fill';
 

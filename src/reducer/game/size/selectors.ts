@@ -1,6 +1,6 @@
 import NameSpace from '@/reducer/nameSpace';
 import { State } from '@/reducer';
-import { BoardSize } from '@/constants';
+import { BoardSize } from './';
 
 const NAME_SPACE = NameSpace.GAME;
 

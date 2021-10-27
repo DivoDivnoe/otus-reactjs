@@ -1,5 +1,4 @@
-import reducer, { ActionCreator } from './speed';
-import { SpeedType } from '@/constants';
+import reducer, { ActionCreator, SpeedType } from './';
 
 describe('action creator', () => {
   describe('setSpeed returns correct action', () => {

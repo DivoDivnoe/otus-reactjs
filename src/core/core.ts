@@ -1,15 +1,11 @@
-import { getMatrixItemNeighbours } from '@/utils';
-import { getRandomValuesArr, getZeroMatrix } from '@/utils';
-import { BoardSize, FillType, CellState } from '@/constants';
-import { BoardSizeValue, BoardFillPercentage } from '@/configs';
-
-export type Binary = 0 | 1;
-export type Model = Binary[][];
-
-export interface SizeProps {
-  width: number;
-  height: number;
-}
+import {
+  getRandomValuesArr,
+  getZeroMatrix,
+  getMatrixItemNeighbours,
+} from '@/utils';
+import { BoardSize, SizeProps, BoardSizeValue } from '@/reducer/game/size';
+import { FillType, BoardFillPercentage } from '@/reducer/game/fill';
+import { Model, CellState } from '@/reducer/game/model';
 
 export const GameCoreLogicConfig = {
   NEIGHBOURS_AMOUNT_TO_BORN_NEW_ITEM: 3,

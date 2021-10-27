@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Field, FieldProps } from './Field';
-import { Model } from '@/core';
-import { BoardSize } from '@/constants';
+import { Model } from '@/reducer/game/model';
+import { BoardSize } from '@/reducer/game/size';
 
 const model: Model = [
   [0, 0, 0, 0, 0],

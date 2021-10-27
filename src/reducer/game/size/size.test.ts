@@ -1,5 +1,4 @@
-import reducer, { ActionCreator } from './';
-import { BoardSize } from '@/constants';
+import reducer, { ActionCreator, BoardSize } from './';
 
 describe('action creator', () => {
   describe('setSize returns correct action', () => {

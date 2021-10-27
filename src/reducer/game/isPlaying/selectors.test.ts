@@ -1,6 +1,8 @@
 import { State } from '@/reducer';
 import { getIsPlaying } from './';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import { BoardSize } from '@/reducer/game/size';
+import { SpeedType } from '@/reducer/game/speed';
+import { FillType } from '@/reducer/game/fill';
 
 describe('getIsPlaying selector', () => {
   it('returns correct state', () => {

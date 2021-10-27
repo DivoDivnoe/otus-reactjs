@@ -1,11 +1,12 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useGameLogic from './useGameLogicRedux';
-import { SpeedType, CellState } from '@/constants';
-import { SpeedValue } from '@/configs';
+import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+
+import useGameLogic from './useGameLogicRedux';
+import { CellState } from '@/reducer/game/model';
+import { SpeedType, SpeedValue } from '@/reducer/game/speed';
 import reducer from '@/reducer';
-import React, { FC } from 'react';
 
 describe('useGameLogic hook', () => {
   it('should manage game isPlaying prop correctly', () => {

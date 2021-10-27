@@ -2,14 +2,15 @@ import { useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '@/reducer';
-import { getUser, ActionCreator as UserActionCreator } from '@/reducer/user';
-
-export type UserType = string | null;
-type SetUserType = (user: UserType) => void;
+import {
+  getUser,
+  ActionCreator as UserActionCreator,
+  UserType,
+} from '@/reducer/user';
 
 interface UserStateType {
   user: UserType;
-  signin: SetUserType;
+  signin: (user: UserType) => void;
   signout: () => void;
 }
 

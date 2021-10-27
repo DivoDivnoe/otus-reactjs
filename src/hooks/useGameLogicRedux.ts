@@ -2,24 +2,25 @@ import { useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useGameSettings from './useGameSettingsRedux';
-import { SpeedType, BoardSize, FillType } from '@/constants';
-import { SpeedValue } from '@/configs';
-import {
-  getNextGenMatrix,
-  createRandomMatrix,
-  createNewSizeMatrix,
-  createZeroMatrix,
-  Model,
-} from '@/core';
-import { State } from '@/reducer';
+import { BoardSize } from '@/reducer/game/size';
+import { SpeedType, SpeedValue } from '@/reducer/game/speed';
+import { FillType } from '@/reducer/game/fill';
 import {
   getIsPlaying,
   ActionCreator as IsPlayingActionCreator,
 } from '@/reducer/game/isPlaying';
 import {
   getModel,
+  Model,
   ActionCreator as ModelActionCreator,
 } from '@/reducer/game/model';
+import { State } from '@/reducer';
+import {
+  getNextGenMatrix,
+  createRandomMatrix,
+  createNewSizeMatrix,
+  createZeroMatrix,
+} from '@/core';
 
 export interface Coords {
   x: number;
