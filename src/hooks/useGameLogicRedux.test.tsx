@@ -7,6 +7,9 @@ import useGameLogic from './useGameLogicRedux';
 import { CellState } from '@/reducer/game/model';
 import { SpeedType, SpeedValue } from '@/reducer/game/speed';
 import reducer from '@/reducer';
+import { createRandomMatrix } from '@/core';
+import { BoardSize } from '@/reducer/game/size';
+import { FillType } from '@/reducer/game/fill';
 
 describe('useGameLogic hook', () => {
   it('should manage game isPlaying prop correctly', () => {
@@ -59,12 +62,14 @@ describe('useGameLogic hook', () => {
     );
     const { result } = renderHook(() => useGameLogic(), { wrapper });
 
-    const { model, clickHandler } = result.current;
+    const { updateModel } = result.current;
+    const model = createRandomMatrix(BoardSize.SMALL, FillType.LOW);
+    act(() => updateModel(model));
 
     const mockCoords = { x: 11, y: 29 };
-    const cellState = model[mockCoords.y][mockCoords.x];
+    const cellState = result.current.model[mockCoords.y][mockCoords.x];
 
-    act(() => clickHandler(mockCoords));
+    act(() => result.current.clickHandler(mockCoords));
     expect(result.current.model[mockCoords.y][mockCoords.x]).toEqual(
       cellState === CellState.ALIVE ? CellState.DEAD : CellState.ALIVE
     );

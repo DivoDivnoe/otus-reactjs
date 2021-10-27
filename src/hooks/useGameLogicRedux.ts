@@ -15,12 +15,7 @@ import {
   ActionCreator as ModelActionCreator,
 } from '@/reducer/game/model';
 import { State } from '@/reducer';
-import {
-  getNextGenMatrix,
-  createRandomMatrix,
-  createNewSizeMatrix,
-  createZeroMatrix,
-} from '@/core';
+import { getNextGenMatrix, createZeroMatrix } from '@/core';
 
 export interface Coords {
   x: number;
@@ -66,8 +61,8 @@ const useGameLogic = (): StartGameType => {
   const model = useSelector<State, Model>(getModel);
   const isPlaying = useSelector<State, boolean>(getIsPlaying);
 
-  const updateModel = useCallback((model) => {
-    dispatch(ModelActionCreator.setModel(model));
+  const updateModel = useCallback((someModel) => {
+    dispatch(ModelActionCreator.setModel(someModel));
   }, []);
 
   const clear = useCallback(() => {
@@ -96,10 +91,6 @@ const useGameLogic = (): StartGameType => {
   const gameIterationRef: { current: () => void } = useRef(gameIteration);
 
   useEffect(() => {
-    updateModel(createRandomMatrix(size, fill));
-  }, []);
-
-  useEffect(() => {
     gameIterationRef.current = gameIteration;
   }, [model]);
 
@@ -120,14 +111,6 @@ const useGameLogic = (): StartGameType => {
       }
     };
   }, [isPlaying, speed]);
-
-  useEffect(() => {
-    updateModel(createNewSizeMatrix(size, model));
-  }, [size]);
-
-  useEffect(() => {
-    updateModel(createRandomMatrix(size, fill));
-  }, [fill]);
 
   const onClickCell = useCallback(
     (coords: Coords): void => {
