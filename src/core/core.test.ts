@@ -1,5 +1,5 @@
 import { getNextGenMatrix } from './';
-import { Model } from '@/reducer/game/model';
+import { Model } from '@/modules/game/model';
 
 describe('getNextGenMatrix function returns next gen correctly', () => {
   describe('arr 2x2', () => {

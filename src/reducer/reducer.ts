@@ -1,40 +1,43 @@
 import { combineReducers, AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import NameSpace from './nameSpace';
-import gameReducer, { GameState } from '@/reducer/game';
-import { APP_KEY } from './constants';
-import userReducer, {
-  ActionCreator as UserActionCreator,
-  UserState,
-  getUser,
-} from '@/reducer/user';
 import {
   ActionCreator as ModelActionCreator,
   getModel,
-} from '@/reducer/game/model';
+} from '@/modules/game/model';
 import {
   ActionCreator as SizeActionCreator,
   getSize,
-} from '@/reducer/game/size';
+} from '@/modules/game/size';
 import {
   ActionCreator as SpeedActionCreator,
   getSpeed,
-} from '@/reducer/game/speed';
+} from '@/modules/game/speed';
 
 import {
   ActionCreator as FillActionCreator,
   getFill,
-} from '@/reducer/game/fill';
+} from '@/modules/game/fill';
 
 import {
   ActionCreator as IsPlayingActionCreator,
   getIsPlaying,
-} from '@/reducer/game/isPlaying';
+} from '@/modules/game/isPlaying';
+import gameReducer, {
+  GameState,
+  NAME_SPACE as GAME_NAME_SPACE,
+} from '@/modules/game';
+import userReducer, {
+  ActionCreator as UserActionCreator,
+  UserState,
+  getUser,
+  NAME_SPACE as USER_NAME_SPACE,
+} from '@/modules/user';
+import { APP_KEY } from './constants';
 
 export interface State {
-  [NameSpace.GAME]: GameState;
-  [NameSpace.USER]: UserState;
+  [GAME_NAME_SPACE]: GameState;
+  [USER_NAME_SPACE]: UserState;
 }
 
 export type ThunkResult<R> = ThunkAction<R, State, undefined, AnyAction>;
@@ -66,8 +69,8 @@ export const Operation = {
 };
 
 const reducer = combineReducers({
-  [NameSpace.GAME]: gameReducer,
-  [NameSpace.USER]: userReducer,
+  [GAME_NAME_SPACE]: gameReducer,
+  [USER_NAME_SPACE]: userReducer,
 });
 
 export default reducer;

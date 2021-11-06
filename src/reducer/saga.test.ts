@@ -1,9 +1,9 @@
 import { call, fork, select } from 'redux-saga/effects';
 
 import { State } from '@/reducer';
-import { BoardSize, getSize } from '@/reducer/game/size';
-import { SpeedType } from '@/reducer/game/speed';
-import { FillType, getFill } from '@/reducer/game/fill';
+import { BoardSize, getSize } from '@/modules/game/size';
+import { SpeedType } from '@/modules/game/speed';
+import { FillType, getFill } from '@/modules/game/fill';
 import { createRandomMatrix } from '@/core';
 import {
   getFromLocalStorage,

@@ -8,32 +8,32 @@ import {
 } from 'redux-saga/effects';
 import { APP_KEY } from './constants';
 import { State } from '@/reducer';
-import { ActionCreator as UserActionCreator, getUser } from '@/reducer/user';
+import { ActionCreator as UserActionCreator, getUser } from '@/modules/user';
 import {
   ActionCreator as ModelActionCreator,
   getModel,
   Model,
-} from '@/reducer/game/model';
+} from '@/modules/game/model';
 import {
   ActionCreator as SizeActionCreator,
   getSize,
   BoardSize,
-} from '@/reducer/game/size';
+} from '@/modules/game/size';
 import {
   ActionCreator as SpeedActionCreator,
   getSpeed,
-} from '@/reducer/game/speed';
+} from '@/modules/game/speed';
 
 import {
   ActionCreator as FillActionCreator,
   getFill,
   FillType,
-} from '@/reducer/game/fill';
+} from '@/modules/game/fill';
 
 import {
   ActionCreator as IsPlayingActionCreator,
   getIsPlaying,
-} from '@/reducer/game/isPlaying';
+} from '@/modules/game/isPlaying';
 import { createRandomMatrix } from '@/core';
 
 export const getFromLocalStorage = (key: string): string | null => {

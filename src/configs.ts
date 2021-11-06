@@ -1,6 +1,6 @@
-import { BoardSize } from '@/reducer/game/size';
-import { SpeedType } from '@/reducer/game/speed';
-import { FillType } from '@/reducer/game/fill';
+import { BoardSize } from '@/modules/game/size';
+import { SpeedType } from '@/modules/game/speed';
+import { FillType } from '@/modules/game/fill';
 
 export interface GameOptionsType {
   boardSizes: BoardSize[];
@@ -20,3 +20,9 @@ export const gameOptions = {
   speedTypes: [SpeedType.SLOW, SpeedType.MEDIUM, SpeedType.FAST],
   fillTypes: [FillType.LOW, FillType.MEDIUM, FillType.HIGH],
 };
+
+export enum Controls {
+  PLAY = 'play',
+  PAUSE = 'pause',
+  CLEAR = 'clear',
+}

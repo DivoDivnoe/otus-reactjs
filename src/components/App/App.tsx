@@ -1,21 +1,23 @@
-import React, { FC } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { FC, useEffect, useCallback } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Field } from '@/components/Field';
+import { useSelector, useDispatch } from 'react-redux';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { Bar } from '@/components/Bar';
-import { StartPopup } from '@/components/StartPopup';
-import useAuth from '@/hooks/useAuthRedux';
-import useGameLogic from '@/hooks/useGameLogicRedux';
+import { StartPopup } from '@/modules/user/StartPopup';
 import { PrivateRoute } from '@/components/PrivateRoute';
-import { Logout } from '@/components/Logout';
-
-const Title = styled.h1`
-  align-self: stretch;
-  display: flex;
-  justify-content: space-between;
-  color: #ffffff;
-`;
+import { Header } from '@/components/Header';
+import { InteractiveGame } from '@/modules/game';
+import { State } from '@/reducer';
+import {
+  getUser,
+  UserType,
+  ActionCreator as UserActionCreator,
+} from '@/modules/user';
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,53 +26,29 @@ const Wrapper = styled.div`
 `;
 
 export const AppRoutes: FC = () => {
-  const {
-    size,
-    speed,
-    fill,
-    sizes,
-    speedTypes,
-    fillTypes,
-    changeSize,
-    changeSpeed,
-    changeFill,
-    play,
-    pause,
-    isPlaying,
-    model,
-    clickHandler,
-    clear,
-  } = useGameLogic();
-  const { user, signin, signout } = useAuth();
+  const dispatch = useDispatch();
+
+  const user = useSelector<State, UserType>(getUser);
+  const signout = useCallback(() => dispatch(UserActionCreator.signout()), []);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user) {
+      history.push('/');
+    } else {
+      history.push('/login');
+    }
+  }, [user]);
 
   return (
     <Switch>
       <Route path='/login'>
-        <StartPopup submitHandler={signin} />
+        <StartPopup />
       </Route>
       <PrivateRoute path='/' user='user'>
         <Wrapper>
-          {user && (
-            <Title>
-              Hello, {user}! <Logout logout={signout} />
-            </Title>
-          )}
-          <Field size={size} model={model} clickHandler={clickHandler} />
-          <Bar
-            sizes={sizes}
-            speedTypes={speedTypes}
-            fillTypes={fillTypes}
-            size={size}
-            speed={speed}
-            fill={fill}
-            isPlaying={isPlaying}
-            changeSizeHandler={changeSize}
-            changeSpeedHandler={changeSpeed}
-            changeFillType={changeFill}
-            play={play}
-            pause={pause}
-            clear={clear}
-          />
+          <Header user={user} signout={signout} />
+          <InteractiveGame />
         </Wrapper>
       </PrivateRoute>
     </Switch>

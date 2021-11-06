@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Controls } from '@/constants';
+import { Controls } from '@/configs';
 import { Button } from '@/components/Button';
-import { BoardSize, BoardSizeValue } from '@/reducer/game/size';
-import { SpeedType } from '@/reducer/game/speed';
-import { FillType, BoardFillPercentage } from '@/reducer/game/fill';
+import { BoardSize, BoardSizeValue } from '@/modules/game/size';
+import { SpeedType } from '@/modules/game/speed';
+import { FillType, BoardFillPercentage } from '@/modules/game/fill';
 
 interface BarProps {
   sizes: BoardSize[];

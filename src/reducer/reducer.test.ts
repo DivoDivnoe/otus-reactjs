@@ -1,14 +1,13 @@
 import { applyMiddleware, createStore, AnyAction } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 
-import { State } from '@/reducer';
-import reducer, { Operation } from '@/reducer';
+import reducer, { State, Operation } from './reducer';
 import { APP_KEY } from './constants';
-import { ActionCreator as UserActionCreator } from '@/reducer/user';
-import { ActionCreator as IsPlayingActionCreator } from '@/reducer/game/isPlaying';
-import { BoardSize } from '@/reducer/game/size';
-import { SpeedType } from '@/reducer/game/speed';
-import { FillType } from '@/reducer/game/fill';
+import { ActionCreator as UserActionCreator } from '@/modules/user';
+import { ActionCreator as IsPlayingActionCreator } from '@/modules/game/isPlaying';
+import { BoardSize } from '@/modules/game/size';
+import { SpeedType } from '@/modules/game/speed';
+import { FillType } from '@/modules/game/fill';
 
 describe('Operation', () => {
   describe('getStateFromLocalStorage method works correctly', () => {

@@ -1,4 +1,4 @@
-import { SizeProps } from '@/reducer/game/size';
+import { SizeProps } from '@/modules/game/size';
 
 export const getRandomValuesArr = (
   maxValue: number,

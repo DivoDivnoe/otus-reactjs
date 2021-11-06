@@ -3,9 +3,9 @@ import {
   getZeroMatrix,
   getMatrixItemNeighbours,
 } from '@/utils';
-import { BoardSize, SizeProps, BoardSizeValue } from '@/reducer/game/size';
-import { FillType, BoardFillPercentage } from '@/reducer/game/fill';
-import { Model, CellState } from '@/reducer/game/model';
+import { BoardSize, SizeProps, BoardSizeValue } from '@/modules/game/size';
+import { FillType, BoardFillPercentage } from '@/modules/game/fill';
+import { Model, CellState } from '@/modules/game/model';
 
 export const GameCoreLogicConfig = {
   NEIGHBOURS_AMOUNT_TO_BORN_NEW_ITEM: 3,
