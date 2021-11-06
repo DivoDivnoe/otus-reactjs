@@ -5,7 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { fork } from 'redux-saga/effects';
 
-import { App } from '@/components/App';
+import { App } from '@/App';
 import reducer from '@/reducer';
 import { stateSaga } from '@/reducer/saga';
 import 'normalize.css';

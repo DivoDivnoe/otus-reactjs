@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
-import { AppRoutes } from './';
+import { AppRoutes } from '.';
 
 import reducer from '@/reducer';
 
