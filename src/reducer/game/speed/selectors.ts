@@ -1,6 +1,6 @@
 import NameSpace from '@/reducer/nameSpace';
 import { State } from '@/reducer';
-import { SpeedType } from '@/constants';
+import { SpeedType } from './';
 
 const NAME_SPACE = NameSpace.GAME;
 

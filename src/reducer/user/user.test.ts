@@ -1,23 +1,22 @@
 import reducer, { ActionCreator } from './';
-import { Action, AnyAction } from 'redux';
 
 describe('action creator', () => {
-  describe('SET_USER', () => {
+  describe('signin', () => {
     it('returns correct action', () => {
       const user = 'Andrey';
 
-      const action = ActionCreator.setUser(user);
+      const action = ActionCreator.signin(user);
 
-      expect(action.type).toEqual('SET_USER');
+      expect(action.type).toEqual('user/signin');
       expect(action.payload).toEqual('Andrey');
     });
   });
 
-  describe('RESET_USER ', () => {
+  describe('signout ', () => {
     it('returns correct action', () => {
-      const action = ActionCreator.resetUser();
+      const action = ActionCreator.signout();
 
-      expect(action.type).toEqual('RESET_USER');
+      expect(action.type).toEqual('user/signout');
     });
   });
 });
@@ -25,38 +24,20 @@ describe('action creator', () => {
 describe('reducer', () => {
   describe('returns correct state', () => {
     it('with no state placed', () => {
-      const action: AnyAction = {
-        type: 'SET_USER',
-        payload: 'some user',
-      };
+      const action = ActionCreator.signin('some user');
 
       const state = reducer(undefined, action);
       expect(state.userData).toEqual('some user');
     });
-
-    it('with unknown action placed', () => {
-      const initialState = { userData: 'Andrey' };
-
-      const action: AnyAction = {
-        type: 'SOME_ACTION',
-        payload: 'some payload',
-      };
-
-      const state = reducer(initialState, action);
-      expect(state).toEqual(initialState);
-    });
   });
 
   describe('updates state correctly', () => {
-    it('with SET_USER action', () => {
+    it('with signin action', () => {
       const initialState = {
         userData: '',
       };
 
-      const action: AnyAction = {
-        type: 'SET_USER',
-        payload: 'Andrey',
-      };
+      const action = ActionCreator.signin('Andrey');
 
       const state = reducer(initialState, action);
       expect(state.userData).toEqual('Andrey');
@@ -64,14 +45,12 @@ describe('reducer', () => {
   });
 
   describe('updates state correctly', () => {
-    it('with RESET_USER action', () => {
+    it('with signout action', () => {
       const initialState = {
         userData: 'Andrey',
       };
 
-      const action: Action = {
-        type: 'RESET_USER',
-      };
+      const action = ActionCreator.signout();
 
       const state = reducer(initialState, action);
       expect(state.userData).toBeNull();

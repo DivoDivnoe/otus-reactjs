@@ -1,4 +1,4 @@
-import { getRandomValuesArr, getMatrixItemNeighbours, getZeroMatrix } from '.';
+import { getRandomValuesArr, getMatrixItemNeighbours, getZeroMatrix } from './';
 
 describe('getRandomValuesArr function', () => {
   describe('returns array of correctLength', () => {

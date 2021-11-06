@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { StartPopup } from './StartPopup';
+import { StartPopup } from './';
 
 export default {
   title: 'Example/StartPopup',

@@ -1,26 +1,26 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
-import { AppProps, AppRoutes } from './App';
-import { BoardSize, FillType, SpeedType } from '@/constants';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
+import { AppRoutes } from './';
+
+import reducer from '@/reducer';
 
 describe('AppRoutes', () => {
   it('renders correctly', async () => {
     const history = createMemoryHistory();
-
-    const mocks: AppProps = {
-      size: BoardSize.SMALL,
-      speed: SpeedType.MEDIUM,
-      fill: FillType.HIGH,
-    };
+    const store = createStore(reducer);
 
     render(
-      <Router history={history}>
-        <AppRoutes {...mocks} />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <AppRoutes />
+        </Router>
+      </Provider>
     );
     expect(screen.getByTestId('start-form')).toBeInTheDocument();
 
@@ -30,17 +30,14 @@ describe('AppRoutes', () => {
 
   it('signs in and signs out correctly', async () => {
     const history = createMemoryHistory();
-
-    const mocks: AppProps = {
-      size: BoardSize.SMALL,
-      speed: SpeedType.MEDIUM,
-      fill: FillType.HIGH,
-    };
+    const store = createStore(reducer);
 
     render(
-      <Router history={history}>
-        <AppRoutes {...mocks} />
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <AppRoutes />
+        </Router>
+      </Provider>
     );
     expect(screen.getByTestId('start-form')).toBeInTheDocument();
 

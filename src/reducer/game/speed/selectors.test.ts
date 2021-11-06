@@ -1,6 +1,7 @@
 import { State } from '@/reducer';
-import { getSpeed } from './';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import { getSpeed, SpeedType } from './';
+import { BoardSize } from '@/reducer/game/size';
+import { FillType } from '@/reducer/game/fill';
 
 describe('getSpeed selector', () => {
   it('returns correct state', () => {

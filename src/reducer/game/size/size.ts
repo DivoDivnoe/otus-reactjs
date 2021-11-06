@@ -1,31 +1,35 @@
-import { AnyAction } from 'redux';
-import { ActionType } from '@/reducer/constants';
-import { BoardSize } from '@/constants';
-import { gameProps } from '@/configs';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface GameSizeActionCreator {
-  setSize: (size: BoardSize) => AnyAction;
+export enum BoardSize {
+  LARGE = 'large',
+  MEDIUM = 'medium',
+  SMALL = 'small',
 }
 
-const initialState: BoardSize = gameProps.boardSize;
+export interface SizeProps {
+  width: number;
+  height: number;
+}
 
-export const ActionCreator: GameSizeActionCreator = {
-  setSize: (size: BoardSize) => ({
-    type: ActionType.SET_SIZE,
-    payload: size,
-  }),
+export interface BoardSizeValueType {
+  [BoardSize.LARGE]: SizeProps;
+  [BoardSize.MEDIUM]: SizeProps;
+  [BoardSize.SMALL]: SizeProps;
+}
+
+export const BoardSizeValue: BoardSizeValueType = {
+  [BoardSize.LARGE]: { width: 100, height: 80 },
+  [BoardSize.MEDIUM]: { width: 70, height: 50 },
+  [BoardSize.SMALL]: { width: 50, height: 30 },
 };
 
-const reducer = (
-  state: BoardSize = initialState,
-  action: AnyAction
-): BoardSize => {
-  switch (action.type) {
-    case ActionType.SET_SIZE:
-      return action.payload;
-  }
+const sizeSlice = createSlice({
+  name: 'size',
+  initialState: BoardSize.MEDIUM,
+  reducers: {
+    setSize: (_state, action: PayloadAction<BoardSize>) => action.payload,
+  },
+});
 
-  return state;
-};
-
-export default reducer;
+export const ActionCreator = sizeSlice.actions;
+export default sizeSlice.reducer;

@@ -1,15 +1,21 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import useGameSettings from './useGameSettings';
-import { SpeedType, BoardSize, FillType } from '@/constants';
-import { SpeedValue } from '@/configs';
+import { useEffect, useCallback, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import useGameSettings from './useGameSettingsRedux';
+import { BoardSize } from '@/reducer/game/size';
+import { SpeedType, SpeedValue } from '@/reducer/game/speed';
+import { FillType } from '@/reducer/game/fill';
 import {
-  getNextGenMatrix,
-  createRandomMatrix,
-  createNewSizeMatrix,
-  createZeroMatrix,
+  getIsPlaying,
+  ActionCreator as IsPlayingActionCreator,
+} from '@/reducer/game/isPlaying';
+import {
+  getModel,
   Model,
-} from '@/core/core';
-import { AppProps } from '@/components/App/App';
+  ActionCreator as ModelActionCreator,
+} from '@/reducer/game/model';
+import { State } from '@/reducer';
+import { getNextGenMatrix, createZeroMatrix } from '@/core';
 
 export interface Coords {
   x: number;
@@ -37,7 +43,7 @@ export interface StartGameType {
   clickHandler: ClickCellType;
 }
 
-const useGameLogic = (props: AppProps): StartGameType => {
+const useGameLogic = (): StartGameType => {
   const {
     speed,
     size,
@@ -48,11 +54,40 @@ const useGameLogic = (props: AppProps): StartGameType => {
     sizes,
     speedTypes,
     fillTypes,
-  } = useGameSettings(props);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [model, updateModel] = useState(createRandomMatrix(size, fill));
+  } = useGameSettings();
 
-  const intervalId: { current: NodeJS.Timeout | null } = useRef(null);
+  const dispatch = useDispatch();
+
+  const model = useSelector<State, Model>(getModel);
+  const isPlaying = useSelector<State, boolean>(getIsPlaying);
+
+  const updateModel = useCallback((someModel) => {
+    dispatch(ModelActionCreator.setModel(someModel));
+  }, []);
+
+  const clear = useCallback(() => {
+    pause();
+    updateModel(createZeroMatrix(size));
+  }, [size]);
+
+  const play = useCallback(() => {
+    dispatch(IsPlayingActionCreator.startPlaying());
+  }, []);
+  const pause = useCallback(() => {
+    dispatch(IsPlayingActionCreator.stopPlaying());
+  }, []);
+
+  const updateSize = useCallback((size: BoardSize): void => {
+    pause();
+    changeSize(size);
+  }, []);
+
+  const updateFill = useCallback((fill: FillType): void => {
+    pause();
+    changeFill(fill);
+  }, []);
+
+  const intervalId: { current: number | null } = useRef(null);
 
   const gameIteration = useCallback(() => {
     updateModel(getNextGenMatrix(model));
@@ -66,7 +101,7 @@ const useGameLogic = (props: AppProps): StartGameType => {
 
   useEffect(() => {
     if (isPlaying) {
-      intervalId.current = setInterval(() => {
+      intervalId.current = window.setInterval(() => {
         gameIterationRef.current();
       }, SpeedValue[speed]);
     } else if (!isPlaying && intervalId.current) {
@@ -82,22 +117,6 @@ const useGameLogic = (props: AppProps): StartGameType => {
     };
   }, [isPlaying, speed]);
 
-  useEffect(() => {
-    updateModel(createNewSizeMatrix(size, model));
-  }, [size]);
-
-  useEffect(() => {
-    updateModel(createRandomMatrix(size, fill));
-  }, [fill]);
-
-  const startGame = useCallback(() => {
-    setIsPlaying(true);
-  }, []);
-
-  const stopGame = useCallback(() => {
-    setIsPlaying(false);
-  }, []);
-
   const onClickCell = useCallback(
     (coords: Coords): void => {
       const { x, y } = coords;
@@ -109,28 +128,18 @@ const useGameLogic = (props: AppProps): StartGameType => {
     [model]
   );
 
-  const clear = useCallback((): void => {
-    stopGame();
-    updateModel(createZeroMatrix(size));
-  }, [size]);
-
-  const updateFill = useCallback((fill: FillType): void => {
-    stopGame();
-    changeFill(fill);
-  }, []);
-
   return {
     speed,
     size,
     fill,
-    changeSize,
+    changeSize: updateSize,
     changeSpeed,
     changeFill: updateFill,
     sizes,
     speedTypes,
     fillTypes,
-    play: startGame,
-    pause: stopGame,
+    play,
+    pause,
     isPlaying,
     model,
     updateModel,

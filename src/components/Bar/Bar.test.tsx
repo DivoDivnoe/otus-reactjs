@@ -1,7 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Bar } from './Bar';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import { BoardSize } from '@/reducer/game/size';
+import { SpeedType } from '@/reducer/game/speed';
+import { FillType } from '@/reducer/game/fill';
 
 describe('Bar component', () => {
   it('renders correctly', () => {

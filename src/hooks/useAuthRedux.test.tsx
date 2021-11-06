@@ -1,5 +1,9 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useAuth from './useAuth';
+import useAuth from './useAuthRedux';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from '@/reducer';
+import React, { FC } from 'react';
 
 const mockHistoryPush = jest.fn();
 
@@ -12,7 +16,11 @@ jest.mock('react-router-dom', () => ({
 
 describe('useAuth hook', () => {
   it('should toggle user correctly', () => {
-    const { result } = renderHook(useAuth);
+    const store = createStore(reducer);
+    const wrapper: FC = ({ children }) => (
+      <Provider store={store}>{children}</Provider>
+    );
+    const { result } = renderHook(() => useAuth(), { wrapper });
 
     const { user, signin, signout } = result.current;
     expect(user).toBeNull();

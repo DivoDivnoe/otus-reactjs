@@ -1,31 +1,31 @@
-import { AnyAction } from 'redux';
-import { ActionType } from '@/reducer/constants';
-import { FillType } from '@/constants';
-import { gameProps } from '@/configs';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface GameFillActionCreator {
-  setFill: (fill: FillType) => AnyAction;
+export enum FillType {
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low',
 }
 
-const initialState: FillType = gameProps.fill;
+export interface BoardFillPercentageType {
+  [FillType.HIGH]: number;
+  [FillType.MEDIUM]: number;
+  [FillType.LOW]: number;
+}
 
-export const ActionCreator: GameFillActionCreator = {
-  setFill: (fill: FillType) => ({
-    type: ActionType.SET_FILL,
-    payload: fill,
-  }),
+export const BoardFillPercentage: BoardFillPercentageType = {
+  [FillType.HIGH]: 0.3,
+  [FillType.MEDIUM]: 0.2,
+  [FillType.LOW]: 0.1,
 };
 
-const reducer = (
-  state: FillType = initialState,
-  action: AnyAction
-): FillType => {
-  switch (action.type) {
-    case ActionType.SET_FILL:
-      return action.payload;
-  }
+const fillSlice = createSlice({
+  name: 'fill',
+  initialState: FillType.MEDIUM,
+  reducers: {
+    setFill: (_state: FillType, action: PayloadAction<FillType>) =>
+      action.payload,
+  },
+});
 
-  return state;
-};
-
-export default reducer;
+export const ActionCreator = fillSlice.actions;
+export default fillSlice.reducer;

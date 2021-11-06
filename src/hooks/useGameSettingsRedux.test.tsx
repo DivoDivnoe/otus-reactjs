@@ -1,11 +1,22 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useGameSettings from './useGameSettings';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import React, { FC } from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import useGameSettings from './useGameSettingsRedux';
+import { BoardSize } from '@/reducer/game/size';
+import { SpeedType } from '@/reducer/game/speed';
+import { FillType } from '@/reducer/game/fill';
 import { gameOptions } from '@/configs';
+import reducer from '@/reducer';
 
 describe('useGameSettings hook', () => {
   it('should have correct default settings', () => {
-    const { result } = renderHook(() => useGameSettings({}));
+    const store = createStore(reducer);
+    const wrapper: FC = ({ children }) => (
+      <Provider store={store}>{children}</Provider>
+    );
+    const { result } = renderHook(() => useGameSettings(), { wrapper });
 
     const { size, speed, fill, sizes, speedTypes, fillTypes } = result.current;
 
@@ -18,7 +29,11 @@ describe('useGameSettings hook', () => {
   });
 
   it('should change game settings correctly', () => {
-    const { result } = renderHook(() => useGameSettings({}));
+    const store = createStore(reducer);
+    const wrapper: FC = ({ children }) => (
+      <Provider store={store}>{children}</Provider>
+    );
+    const { result } = renderHook(() => useGameSettings(), { wrapper });
 
     const { changeSize, changeSpeed, changeFill } = result.current;
 

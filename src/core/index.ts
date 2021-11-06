@@ -6,7 +6,4 @@ export {
   getNewSizeMatrix,
   createNewSizeMatrix,
   createZeroMatrix,
-  SizeProps,
-  Binary,
-  Model,
 } from './core';

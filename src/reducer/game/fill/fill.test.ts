@@ -1,14 +1,12 @@
-import reducer, { ActionCreator } from './';
-import { AnyAction } from 'redux';
-import { FillType } from '@/constants';
+import reducer, { ActionCreator, FillType } from './';
 
 describe('action creator', () => {
-  describe('SET_FILL returns correct action', () => {
+  describe('setFill returns correct action', () => {
     it('fill high', () => {
       const fill = FillType.HIGH;
       const action = ActionCreator.setFill(fill);
 
-      expect(action.type).toEqual('SET_FILL');
+      expect(action.type).toEqual('fill/setFill');
       expect(action.payload).toEqual(fill);
     });
   });
@@ -17,36 +15,17 @@ describe('action creator', () => {
 describe('reducer', () => {
   describe('returns correct state', () => {
     it('with no state placed', () => {
-      const action: AnyAction = {
-        type: 'SET_FILL',
-        payload: FillType.HIGH,
-      };
+      const action = ActionCreator.setFill(FillType.HIGH);
 
       const state = reducer(undefined, action);
       expect(state).toEqual(FillType.HIGH);
     });
-
-    it('with unknown action placed', () => {
-      const initialState = FillType.HIGH;
-
-      const action: AnyAction = {
-        type: 'SOME_ACTION',
-        payload: 'some payload',
-      };
-
-      const state = reducer(initialState, action);
-      expect(state).toEqual(initialState);
-    });
   });
 
   describe('updates state correctly', () => {
-    it('with SET_FILL action', () => {
+    it('with setFill action', () => {
       const initialState = FillType.MEDIUM;
-
-      const action: AnyAction = {
-        type: 'SET_FILL',
-        payload: FillType.LOW,
-      };
+      const action = ActionCreator.setFill(FillType.LOW);
 
       const state = reducer(initialState, action);
       expect(state).toEqual(FillType.LOW);

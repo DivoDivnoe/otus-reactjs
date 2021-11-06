@@ -1,37 +1,28 @@
-import { AnyAction } from 'redux';
-import { ActionType } from '@/reducer/constants';
-import { BoardSize } from '@/constants';
-import { createZeroMatrix, Model } from '@/core/core';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { BoardSize } from '@/reducer/game/size';
+import { createZeroMatrix } from '@/core';
 
-export interface GameModelActionCreator {
-  setModel: (model: Model) => AnyAction;
-  resetModel: (size: BoardSize) => AnyAction;
+export type Binary = 0 | 1;
+export type Model = Binary[][];
+export interface CellStateType {
+  DEAD: Binary;
+  ALIVE: Binary;
 }
 
-const initialState: Model = [[]];
+export const CellState: CellStateType = {
+  DEAD: 0,
+  ALIVE: 1,
+};
 
-export const ActionCreator: GameModelActionCreator = {
-  setModel: (model: Model) => ({
-    type: ActionType.SET_MODEL,
-    payload: model,
-  }),
-  resetModel: (size: BoardSize) => {
-    const model = createZeroMatrix(size);
-
-    return {
-      type: ActionType.SET_MODEL,
-      payload: model,
-    };
+const modelSlice = createSlice({
+  name: 'model',
+  initialState: [[]] as Model,
+  reducers: {
+    setModel: (_state, action: PayloadAction<Model>) => action.payload,
+    resetModel: (_state, action: PayloadAction<BoardSize>) =>
+      createZeroMatrix(action.payload),
   },
-};
+});
 
-const reducer = (state: Model = initialState, action: AnyAction): Model => {
-  switch (action.type) {
-    case ActionType.SET_MODEL:
-      return action.payload;
-  }
-
-  return state;
-};
-
-export default reducer;
+export const ActionCreator = modelSlice.actions;
+export default modelSlice.reducer;

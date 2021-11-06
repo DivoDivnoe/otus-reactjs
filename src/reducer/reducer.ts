@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux';
+import { combineReducers, AnyAction } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+
 import NameSpace from './nameSpace';
 import gameReducer, { GameState } from '@/reducer/game';
 import { APP_KEY } from './constants';
-import { ThunkAction } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import userReducer, {
   ActionCreator as UserActionCreator,
   UserState,
@@ -47,7 +47,7 @@ export const Operation = {
       if (rawState) {
         const state: State = JSON.parse(rawState);
 
-        dispatch(UserActionCreator.setUser(getUser(state)));
+        dispatch(UserActionCreator.signin(getUser(state)));
         dispatch(SizeActionCreator.setSize(getSize(state)));
         dispatch(SpeedActionCreator.setSpeed(getSpeed(state)));
         dispatch(FillActionCreator.setFill(getFill(state)));

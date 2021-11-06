@@ -1,6 +1,6 @@
 import NameSpace from '../nameSpace';
 import { State } from '@/reducer';
-import { UserType } from '@/hooks/useAuth';
+import { UserType } from './';
 
 const NAME_SPACE = NameSpace.USER;
 

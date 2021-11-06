@@ -1,11 +1,9 @@
 import { combineReducers } from 'redux';
-import ModelReducer from './model';
+import ModelReducer, { Model } from './model';
 import IsPlayingReducer from './isPlaying';
-import SizeReducer from './size';
-import SpeedReducer from './speed';
-import FillReducer from './fill';
-import { Model } from '@/core';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import SizeReducer, { BoardSize } from './size';
+import SpeedReducer, { SpeedType } from './speed';
+import FillReducer, { FillType } from './fill';
 
 export interface GameState {
   size: BoardSize;

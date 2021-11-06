@@ -3,21 +3,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Field } from '@/components/Field';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { Bar } from '@/components/Bar/Bar';
-import { StartPopup } from '@/components/StartPopup/';
-import useAuth from '@/hooks/useAuth';
-import useGameLogic from '@/hooks/useGameLogic';
-import { BoardSize, SpeedType, FillType } from '@/constants';
+import { Bar } from '@/components/Bar';
+import { StartPopup } from '@/components/StartPopup';
+import useAuth from '@/hooks/useAuthRedux';
+import useGameLogic from '@/hooks/useGameLogicRedux';
 import { PrivateRoute } from '@/components/PrivateRoute';
 import { Logout } from '@/components/Logout';
-import reducer from '@/reducer';
-
-console.log('reducer', reducer);
-export interface AppProps {
-  size?: BoardSize;
-  speed?: SpeedType;
-  fill?: FillType;
-}
 
 const Title = styled.h1`
   align-self: stretch;
@@ -32,7 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const AppRoutes: FC<AppProps> = (props) => {
+export const AppRoutes: FC = () => {
   const {
     size,
     speed,
@@ -49,7 +40,7 @@ export const AppRoutes: FC<AppProps> = (props) => {
     model,
     clickHandler,
     clear,
-  } = useGameLogic(props);
+  } = useGameLogic();
   const { user, signin, signout } = useAuth();
 
   return (
@@ -86,14 +77,12 @@ export const AppRoutes: FC<AppProps> = (props) => {
   );
 };
 
-const App: FC<AppProps> = (props) => {
+export const App: FC = () => {
   return (
     <ErrorBoundary>
       <Router>
-        <AppRoutes {...props} />
+        <AppRoutes />
       </Router>
     </ErrorBoundary>
   );
 };
-
-export default App;
