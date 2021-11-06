@@ -47,7 +47,7 @@ export const Operation = {
       if (rawState) {
         const state: State = JSON.parse(rawState);
 
-        dispatch(UserActionCreator.setUser(getUser(state)));
+        dispatch(UserActionCreator.signin(getUser(state)));
         dispatch(SizeActionCreator.setSize(getSize(state)));
         dispatch(SpeedActionCreator.setSpeed(getSpeed(state)));
         dispatch(FillActionCreator.setFill(getFill(state)));

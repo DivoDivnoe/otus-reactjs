@@ -77,12 +77,17 @@ const useGameLogic = (): StartGameType => {
     dispatch(IsPlayingActionCreator.stopPlaying());
   }, []);
 
+  const updateSize = useCallback((size: BoardSize): void => {
+    pause();
+    changeSize(size);
+  }, []);
+
   const updateFill = useCallback((fill: FillType): void => {
     pause();
     changeFill(fill);
   }, []);
 
-  const intervalId: { current: NodeJS.Timeout | null } = useRef(null);
+  const intervalId: { current: number | null } = useRef(null);
 
   const gameIteration = useCallback(() => {
     updateModel(getNextGenMatrix(model));
@@ -96,7 +101,7 @@ const useGameLogic = (): StartGameType => {
 
   useEffect(() => {
     if (isPlaying) {
-      intervalId.current = setInterval(() => {
+      intervalId.current = window.setInterval(() => {
         gameIterationRef.current();
       }, SpeedValue[speed]);
     } else if (!isPlaying && intervalId.current) {
@@ -127,7 +132,7 @@ const useGameLogic = (): StartGameType => {
     speed,
     size,
     fill,
-    changeSize,
+    changeSize: updateSize,
     changeSpeed,
     changeFill: updateFill,
     sizes,

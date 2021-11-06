@@ -21,10 +21,10 @@ const useAuth = (): UserStateType => {
   const user = useSelector<State, UserType>(getUser);
 
   const signin = useCallback((user: UserType) => {
-    dispatch(UserActionCreator.setUser(user));
+    dispatch(UserActionCreator.signin(user));
   }, []);
   const signout = useCallback(() => {
-    dispatch(UserActionCreator.resetUser());
+    dispatch(UserActionCreator.signout());
   }, []);
 
   useEffect(() => {

@@ -1,22 +1,22 @@
 import reducer, { ActionCreator } from './';
 
 describe('action creator', () => {
-  describe('setUser', () => {
+  describe('signin', () => {
     it('returns correct action', () => {
       const user = 'Andrey';
 
-      const action = ActionCreator.setUser(user);
+      const action = ActionCreator.signin(user);
 
-      expect(action.type).toEqual('user/setUser');
+      expect(action.type).toEqual('user/signin');
       expect(action.payload).toEqual('Andrey');
     });
   });
 
-  describe('resetUser ', () => {
+  describe('signout ', () => {
     it('returns correct action', () => {
-      const action = ActionCreator.resetUser();
+      const action = ActionCreator.signout();
 
-      expect(action.type).toEqual('user/resetUser');
+      expect(action.type).toEqual('user/signout');
     });
   });
 });
@@ -24,7 +24,7 @@ describe('action creator', () => {
 describe('reducer', () => {
   describe('returns correct state', () => {
     it('with no state placed', () => {
-      const action = ActionCreator.setUser('some user');
+      const action = ActionCreator.signin('some user');
 
       const state = reducer(undefined, action);
       expect(state.userData).toEqual('some user');
@@ -32,12 +32,12 @@ describe('reducer', () => {
   });
 
   describe('updates state correctly', () => {
-    it('with setUser action', () => {
+    it('with signin action', () => {
       const initialState = {
         userData: '',
       };
 
-      const action = ActionCreator.setUser('Andrey');
+      const action = ActionCreator.signin('Andrey');
 
       const state = reducer(initialState, action);
       expect(state.userData).toEqual('Andrey');
@@ -45,12 +45,12 @@ describe('reducer', () => {
   });
 
   describe('updates state correctly', () => {
-    it('with resetUser action', () => {
+    it('with signout action', () => {
       const initialState = {
         userData: 'Andrey',
       };
 
-      const action = ActionCreator.resetUser();
+      const action = ActionCreator.signout();
 
       const state = reducer(initialState, action);
       expect(state.userData).toBeNull();

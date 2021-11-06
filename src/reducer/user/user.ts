@@ -15,10 +15,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserType>) => {
+    signin: (state, action: PayloadAction<UserType>) => {
       state.userData = action.payload;
     },
-    resetUser: () => initialState,
+    signout: () => initialState,
   },
 });
 

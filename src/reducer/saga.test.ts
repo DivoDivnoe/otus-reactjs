@@ -144,7 +144,7 @@ describe('helper', () => {
           "payload": Object {
             "action": Object {
               "payload": null,
-              "type": "user/setUser",
+              "type": "user/signin",
             },
             "channel": undefined,
           },
@@ -231,185 +231,185 @@ describe('helper', () => {
       const generator = actionsWatcher();
 
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "user/setUser",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "user/signin",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "user/resetUser",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "user/signout",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "size/setSize",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "size/setSize",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "speed/setSpeed",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "speed/setSpeed",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "fill/setFill",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "fill/setFill",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "model/setModel",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "model/setModel",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "model/resetModel",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "model/resetModel",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "isPlaying/setPlaying",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "isPlaying/setPlaying",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "isPlaying/startPlaying",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "isPlaying/startPlaying",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "isPlaying/stopPlaying",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "isPlaying/stopPlaying",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "size/setSize",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "size/setSize",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
-Object {
-  "@@redux-saga/IO": true,
-  "combinator": false,
-  "payload": Object {
-    "args": Array [
-      "fill/setFill",
-      [Function],
-    ],
-    "context": null,
-    "fn": [Function],
-  },
-  "type": "FORK",
-}
-`);
+        Object {
+          "@@redux-saga/IO": true,
+          "combinator": false,
+          "payload": Object {
+            "args": Array [
+              "fill/setFill",
+              [Function],
+            ],
+            "context": null,
+            "fn": [Function],
+          },
+          "type": "FORK",
+        }
+      `);
 
       expect(generator.next().done).toBe(true);
     });

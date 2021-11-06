@@ -71,7 +71,7 @@ export function* getStateFromLocalStorage(): Generator<
   if (rawState) {
     state = JSON.parse(rawState as string);
 
-    yield put(UserActionCreator.setUser(getUser(state)));
+    yield put(UserActionCreator.signin(getUser(state)));
     yield put(SizeActionCreator.setSize(getSize(state)));
     yield put(SpeedActionCreator.setSpeed(getSpeed(state)));
     yield put(FillActionCreator.setFill(getFill(state)));
@@ -95,8 +95,8 @@ export function* saveStateToLocalStorage(): Generator<
 
 export function* actionsWatcher(): Generator<StrictEffect, void, void> {
   const actions = [
-    UserActionCreator.setUser.type,
-    UserActionCreator.resetUser.type,
+    UserActionCreator.signin.type,
+    UserActionCreator.signout.type,
     SizeActionCreator.setSize.type,
     SpeedActionCreator.setSpeed.type,
     FillActionCreator.setFill.type,

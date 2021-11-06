@@ -39,7 +39,7 @@ describe('Operation', () => {
         applyMiddleware(thunk as ThunkMiddleware<State, AnyAction>)
       );
 
-      store.dispatch(UserActionCreator.setUser('Andrey'));
+      store.dispatch(UserActionCreator.signin('Andrey'));
       store.dispatch(Operation.saveStateToLocalStorage());
 
       store.dispatch(IsPlayingActionCreator.startPlaying());
