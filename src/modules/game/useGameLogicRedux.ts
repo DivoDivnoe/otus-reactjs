@@ -15,7 +15,7 @@ import {
   ActionCreator as ModelActionCreator,
 } from '@/modules/game/model';
 import { State } from '@/reducer';
-import { getNextGenMatrix, createZeroMatrix } from '@/core';
+import { getNextGenMatrix, createZeroMatrix } from '@/modules/game/core';
 
 export interface Coords {
   x: number;

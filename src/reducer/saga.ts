@@ -34,7 +34,7 @@ import {
   ActionCreator as IsPlayingActionCreator,
   getIsPlaying,
 } from '@/modules/game/isPlaying';
-import { createRandomMatrix } from '@/core';
+import { createRandomMatrix } from '@/modules/game/core';
 
 export const getFromLocalStorage = (key: string): string | null => {
   return window.localStorage.getItem(key);

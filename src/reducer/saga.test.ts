@@ -4,7 +4,7 @@ import { State } from '@/reducer';
 import { BoardSize, getSize } from '@/modules/game/size';
 import { SpeedType } from '@/modules/game/speed';
 import { FillType, getFill } from '@/modules/game/fill';
-import { createRandomMatrix } from '@/core';
+import { createRandomMatrix } from '@/modules/game/core';
 import {
   getFromLocalStorage,
   saveToLocalStorage,

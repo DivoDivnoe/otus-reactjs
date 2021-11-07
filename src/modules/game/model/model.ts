@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BoardSize } from '@/modules/game/size';
-import { createZeroMatrix } from '@/core';
+import { createZeroMatrix } from '@/modules/game/core';
 
 export type Binary = 0 | 1;
 export type Model = Binary[][];

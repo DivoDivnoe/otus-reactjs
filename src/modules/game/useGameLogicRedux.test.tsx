@@ -7,7 +7,7 @@ import useGameLogic from './useGameLogicRedux';
 import { CellState } from '@/modules/game/model';
 import { SpeedType, SpeedValue } from '@/modules/game/speed';
 import reducer from '@/reducer';
-import { createRandomMatrix } from '@/core';
+import { createRandomMatrix } from '@/modules/game/core';
 import { BoardSize } from '@/modules/game/size';
 import { FillType } from '@/modules/game/fill';
 
