@@ -1,5 +1,6 @@
 import { call, fork, select } from 'redux-saga/effects';
-import { UserState } from './user';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
+import reducer, { UserState, ActionCreator } from './user';
 import {
   getFromLocalStorage,
   saveToLocalStorage,
@@ -11,9 +12,9 @@ import {
 import { NAME_SPACE as USER_KEY } from './nameSpace';
 import { getUserState } from '@/reducer/selectors';
 
-describe('helper', () => {
-  describe('saveToLocalStorage', () => {
-    it('works correctly', () => {
+describe('userStateSaga', () => {
+  describe('helpers', () => {
+    it('saveToLocalStorage', () => {
       const key = 'some_key';
       const someObj = { some: 'obj' };
 
@@ -21,10 +22,8 @@ describe('helper', () => {
 
       expect(localStorage.getItem(key)).toEqual(JSON.stringify(someObj));
     });
-  });
 
-  describe('getFromLocalStorage', () => {
-    it('works correctly', () => {
+    it('getFromLocalStorage', () => {
       const key = 'some_key';
       const someObj = { some: 'obj' };
 
@@ -35,95 +34,73 @@ describe('helper', () => {
     });
   });
 
-  describe('stateSaga', () => {
-    it('saveStateToLocalStorage', () => {
-      const generator = saveUserStateToLocalStorage();
+  it('saveUserStateToLocalStorage', () => {
+    const defaultState: UserState = {
+      userData: null,
+    };
 
-      expect(generator.next().value).toEqual(select(getUserState));
+    testSaga(saveUserStateToLocalStorage)
+      .next()
+      .select(getUserState)
+      .next(defaultState)
+      .call(saveToLocalStorage, USER_KEY, JSON.stringify(defaultState))
+      .next()
+      .isDone();
+  });
 
+  describe('getUserStateFromLocalStorage', () => {
+    it('localstorage is not empty', () => {
+      const defaultState: UserState = {
+        userData: 'Andrey',
+      };
+
+      saveToLocalStorage(USER_KEY, JSON.stringify(defaultState));
+
+      return expectSaga(getUserStateFromLocalStorage)
+        .withReducer(reducer)
+        .call(getFromLocalStorage, USER_KEY)
+        .put(ActionCreator.signin('Andrey'))
+        .hasFinalState(defaultState)
+        .run();
+    });
+
+    it('localstorage is empty', () => {
       const defaultState: UserState = {
         userData: null,
       };
 
-      expect(generator.next(defaultState).value).toEqual(
-        call(saveToLocalStorage, USER_KEY, JSON.stringify(defaultState))
-      );
-      expect(generator.next().done).toBe(true);
-    });
+      window.localStorage.removeItem(USER_KEY);
 
-    it('getStateFromLocalStorage', () => {
-      const generator = getUserStateFromLocalStorage();
-      const defaultState: UserState = {
-        userData: null,
+      return expectSaga(getUserStateFromLocalStorage)
+        .withReducer(reducer)
+        .call(getFromLocalStorage, USER_KEY)
+        .hasFinalState(defaultState)
+        .run();
+    });
+  });
+
+  it('actionsWatcher', () => {
+    return expectSaga(actionsWatcher)
+      .withReducer(reducer)
+      .dispatch({ type: 'user/signin', payload: 'Andrew' })
+      .hasFinalState({ userData: 'Andrew' })
+      .run();
+  });
+
+  describe('works correctly', () => {
+    it('localstorage is not empty', () => {
+      const defaultState = {
+        userData: 'Ibrahim abasel abdy nursultan',
       };
+      saveToLocalStorage(USER_KEY, JSON.stringify(defaultState));
 
-      expect(generator.next().value).toEqual(
-        call(getFromLocalStorage, USER_KEY)
-      );
-      expect(generator.next(JSON.stringify(defaultState)).value)
-        .toMatchInlineSnapshot(`
-        Object {
-          "@@redux-saga/IO": true,
-          "combinator": false,
-          "payload": Object {
-            "action": Object {
-              "payload": null,
-              "type": "user/signin",
-            },
-            "channel": undefined,
-          },
-          "type": "PUT",
-        }
-      `);
-
-      expect(generator.next().done).toBe(true);
-    });
-
-    it('actionsWatcher', () => {
-      const generator = actionsWatcher();
-
-      expect(generator.next().value).toMatchInlineSnapshot(`
-        Object {
-          "@@redux-saga/IO": true,
-          "combinator": false,
-          "payload": Object {
-            "args": Array [
-              "user/signin",
-              [Function],
-            ],
-            "context": null,
-            "fn": [Function],
-          },
-          "type": "FORK",
-        }
-      `);
-      expect(generator.next().value).toMatchInlineSnapshot(`
-        Object {
-          "@@redux-saga/IO": true,
-          "combinator": false,
-          "payload": Object {
-            "args": Array [
-              "user/signout",
-              [Function],
-            ],
-            "context": null,
-            "fn": [Function],
-          },
-          "type": "FORK",
-        }
-      `);
-
-      expect(generator.next().done).toBe(true);
-    });
-
-    it('works correctly', () => {
-      const generator = userStateSaga();
-
-      expect(generator.next().value).toEqual(
-        fork(getUserStateFromLocalStorage)
-      );
-      expect(generator.next().value).toEqual(fork(actionsWatcher));
-      expect(generator.next().done).toBe(true);
+      return expectSaga(userStateSaga)
+        .withReducer(reducer)
+        .dispatch({ type: 'user/signin', payload: 'Andrew' })
+        .call(getFromLocalStorage, USER_KEY)
+        .put(ActionCreator.signin('Ibrahim abasel abdy nursultan'))
+        .hasFinalState({ userData: 'Ibrahim abasel abdy nursultan' })
+        .run();
     });
   });
 });
