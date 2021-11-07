@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Field } from './';
+import { Field } from './Field';
 import { BoardSize } from '@/modules/game/size';
 import { Model } from '@/modules/game/model';
 

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Field } from '@/components/Field';
-import { Bar } from '@/components/Bar';
+import { Field } from './Field';
+import { Bar } from './Bar';
 import { Model } from '@/modules/game/model';
 import { StartGameType } from '@/modules/game/useGameLogicRedux';
 

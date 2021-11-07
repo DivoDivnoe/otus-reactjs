@@ -3,15 +3,6 @@ import styled from '@emotion/styled';
 import { Button } from '@/components/Button';
 import useAuth from '@/modules/user/useAuthRedux';
 
-const PopupWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(8, 0, 18, 0.85);
-`;
-
 const PopupItem = styled.div`
   position: fixed;
   left: 50%;
@@ -66,10 +57,8 @@ const Form: FC = () => {
 
 export const StartPopup: FC = () => {
   return (
-    <PopupWrapper data-testid='start-popup'>
-      <PopupItem>
-        <Form />
-      </PopupItem>
-    </PopupWrapper>
+    <PopupItem data-testid='start-popup'>
+      <Form />
+    </PopupItem>
   );
 };

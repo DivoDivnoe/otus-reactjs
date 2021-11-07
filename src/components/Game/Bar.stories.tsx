@@ -4,7 +4,7 @@ import { BoardSize } from '@/modules/game/size';
 import { SpeedType } from '@/modules/game/speed';
 import { FillType } from '@/modules/game/fill';
 
-import { Bar } from './';
+import { Bar } from './Bar';
 
 export default {
   title: 'Example/Bar',
