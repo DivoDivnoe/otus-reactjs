@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
+
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { InteractiveGame } from '@/modules/game';
 import { Header, HeaderPropsType } from '@/components/Header';
@@ -15,6 +16,7 @@ export const GameScreen: FC<HeaderPropsType> = ({ user, signout }) => {
     <ErrorBoundary>
       <Wrapper>
         <Header user={user} signout={signout} />
+
         <InteractiveGame />
       </Wrapper>
     </ErrorBoundary>

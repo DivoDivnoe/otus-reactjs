@@ -7,6 +7,7 @@ import FillReducer, { FillType } from './fill';
 
 export { NAME_SPACE } from './nameSpace';
 export { InteractiveGame } from './InteractiveGame';
+export { getGameModule } from './module';
 
 export interface GameState {
   size: BoardSize;

@@ -1,6 +1,4 @@
 import { call, fork, select } from 'redux-saga/effects';
-
-import { State } from '@/reducer';
 import { BoardSize, getSize } from '@/modules/game/size';
 import { SpeedType } from '@/modules/game/speed';
 import { FillType, getFill } from '@/modules/game/fill';
@@ -9,12 +7,12 @@ import {
   getFromLocalStorage,
   saveToLocalStorage,
   createModel,
-  saveStateToLocalStorage,
-  getStateFromLocalStorage,
+  saveGameStateToLocalStorage,
+  getGameStateFromLocalStorage,
   actionsWatcher,
-  stateSaga,
+  gameStateSaga,
 } from './saga';
-import { APP_KEY } from '@/reducer/constants';
+import { GameState, NAME_SPACE as GAME_KEY } from './';
 
 describe('helper', () => {
   describe('saveToLocalStorage', () => {
@@ -84,34 +82,39 @@ describe('helper', () => {
     });
 
     it('saveStateToLocalStorage', () => {
-      const generator = saveStateToLocalStorage();
+      const generator = saveGameStateToLocalStorage();
 
-      expect(generator.next().value).toEqual(select());
+      expect(generator.next().value).toMatchInlineSnapshot(`
+Object {
+  "@@redux-saga/IO": true,
+  "combinator": false,
+  "payload": Object {
+    "args": Array [],
+    "selector": [Function],
+  },
+  "type": "SELECT",
+}
+`);
 
-      const defaultState: State = {
-        game: {
-          size: BoardSize.SMALL,
-          speed: SpeedType.SLOW,
-          fill: FillType.HIGH,
-          isPlaying: false,
-          model: [[]],
-        },
-        user: {
-          userData: null,
-        },
+      const defaultState: GameState = {
+        size: BoardSize.SMALL,
+        speed: SpeedType.SLOW,
+        fill: FillType.HIGH,
+        isPlaying: false,
+        model: [[]],
       };
 
       expect(generator.next(defaultState).value).toEqual(
-        call(saveToLocalStorage, APP_KEY, JSON.stringify(defaultState))
+        call(saveToLocalStorage, GAME_KEY, JSON.stringify(defaultState))
       );
       expect(generator.next().done).toBe(true);
     });
 
     it('getStateFromLocalStorage fail', () => {
-      const generator = getStateFromLocalStorage();
+      const generator = getGameStateFromLocalStorage();
 
       expect(generator.next().value).toEqual(
-        call(getFromLocalStorage, APP_KEY)
+        call(getFromLocalStorage, GAME_KEY)
       );
       expect(generator.next(null).value).toEqual(fork(createModel));
 
@@ -119,39 +122,20 @@ describe('helper', () => {
     });
 
     it('getStateFromLocalStorage success', () => {
-      const generator = getStateFromLocalStorage();
-      const defaultState: State = {
-        game: {
-          size: BoardSize.SMALL,
-          speed: SpeedType.SLOW,
-          fill: FillType.HIGH,
-          isPlaying: false,
-          model: [[]],
-        },
-        user: {
-          userData: null,
-        },
+      const generator = getGameStateFromLocalStorage();
+      const defaultState: GameState = {
+        size: BoardSize.SMALL,
+        speed: SpeedType.SLOW,
+        fill: FillType.HIGH,
+        isPlaying: false,
+        model: [[]],
       };
 
       expect(generator.next().value).toEqual(
-        call(getFromLocalStorage, APP_KEY)
+        call(getFromLocalStorage, GAME_KEY)
       );
       expect(generator.next(JSON.stringify(defaultState)).value)
         .toMatchInlineSnapshot(`
-        Object {
-          "@@redux-saga/IO": true,
-          "combinator": false,
-          "payload": Object {
-            "action": Object {
-              "payload": null,
-              "type": "user/signin",
-            },
-            "channel": undefined,
-          },
-          "type": "PUT",
-        }
-      `);
-      expect(generator.next().value).toMatchInlineSnapshot(`
         Object {
           "@@redux-saga/IO": true,
           "combinator": false,
@@ -165,6 +149,7 @@ describe('helper', () => {
           "type": "PUT",
         }
       `);
+
       expect(generator.next().value).toMatchInlineSnapshot(`
         Object {
           "@@redux-saga/IO": true,
@@ -230,36 +215,6 @@ describe('helper', () => {
     it('actionsWatcher', () => {
       const generator = actionsWatcher();
 
-      expect(generator.next().value).toMatchInlineSnapshot(`
-        Object {
-          "@@redux-saga/IO": true,
-          "combinator": false,
-          "payload": Object {
-            "args": Array [
-              "user/signin",
-              [Function],
-            ],
-            "context": null,
-            "fn": [Function],
-          },
-          "type": "FORK",
-        }
-      `);
-      expect(generator.next().value).toMatchInlineSnapshot(`
-        Object {
-          "@@redux-saga/IO": true,
-          "combinator": false,
-          "payload": Object {
-            "args": Array [
-              "user/signout",
-              [Function],
-            ],
-            "context": null,
-            "fn": [Function],
-          },
-          "type": "FORK",
-        }
-      `);
       expect(generator.next().value).toMatchInlineSnapshot(`
         Object {
           "@@redux-saga/IO": true,
@@ -415,9 +370,11 @@ describe('helper', () => {
     });
 
     it('works correctly', () => {
-      const generator = stateSaga();
+      const generator = gameStateSaga();
 
-      expect(generator.next().value).toEqual(fork(getStateFromLocalStorage));
+      expect(generator.next().value).toEqual(
+        fork(getGameStateFromLocalStorage)
+      );
       expect(generator.next().value).toEqual(fork(actionsWatcher));
       expect(generator.next().done).toBe(true);
     });

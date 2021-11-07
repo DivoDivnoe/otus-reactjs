@@ -6,12 +6,9 @@ import {
   select,
   StrictEffect,
 } from 'redux-saga/effects';
-import { APP_KEY } from './constants';
 import { State } from '@/reducer';
-import { ActionCreator as UserActionCreator, getUser } from '@/modules/user';
 import {
   ActionCreator as ModelActionCreator,
-  getModel,
   Model,
 } from '@/modules/game/model';
 import {
@@ -19,10 +16,7 @@ import {
   getSize,
   BoardSize,
 } from '@/modules/game/size';
-import {
-  ActionCreator as SpeedActionCreator,
-  getSpeed,
-} from '@/modules/game/speed';
+import { ActionCreator as SpeedActionCreator } from '@/modules/game/speed';
 
 import {
   ActionCreator as FillActionCreator,
@@ -30,11 +24,10 @@ import {
   FillType,
 } from '@/modules/game/fill';
 
-import {
-  ActionCreator as IsPlayingActionCreator,
-  getIsPlaying,
-} from '@/modules/game/isPlaying';
+import { ActionCreator as IsPlayingActionCreator } from '@/modules/game/isPlaying';
 import { createRandomMatrix } from '@/modules/game/core';
+import { GameState, NAME_SPACE as GAME_KEY } from './';
+import { getGameState } from '@/reducer';
 
 export const getFromLocalStorage = (key: string): string | null => {
   return window.localStorage.getItem(key);
@@ -60,43 +53,40 @@ export function* createModel(): Generator<
   yield put(ModelActionCreator.setModel(model as Model));
 }
 
-export function* getStateFromLocalStorage(): Generator<
+export function* getGameStateFromLocalStorage(): Generator<
   StrictEffect,
   void,
-  string | null | State
+  string | null | GameState
 > {
-  const rawState = yield call(getFromLocalStorage, APP_KEY);
-  let state: State;
+  const rawState = yield call(getFromLocalStorage, GAME_KEY);
+  let state: GameState;
 
   if (rawState) {
     state = JSON.parse(rawState as string);
 
-    yield put(UserActionCreator.signin(getUser(state)));
-    yield put(SizeActionCreator.setSize(getSize(state)));
-    yield put(SpeedActionCreator.setSpeed(getSpeed(state)));
-    yield put(FillActionCreator.setFill(getFill(state)));
-    yield put(IsPlayingActionCreator.setPlaying(getIsPlaying(state)));
-    yield put(ModelActionCreator.setModel(getModel(state)));
+    yield put(SizeActionCreator.setSize(state.size));
+    yield put(SpeedActionCreator.setSpeed(state.speed));
+    yield put(FillActionCreator.setFill(state.fill));
+    yield put(IsPlayingActionCreator.setPlaying(state.isPlaying));
+    yield put(ModelActionCreator.setModel(state.model));
   } else {
     yield fork(createModel);
   }
 }
 
-export function* saveStateToLocalStorage(): Generator<
+export function* saveGameStateToLocalStorage(): Generator<
   StrictEffect,
   void,
-  State
+  GameState
 > {
-  const state: State = yield select();
+  const state: GameState = yield select(getGameState);
   const serializedState = JSON.stringify(state);
 
-  yield call(saveToLocalStorage, APP_KEY, serializedState);
+  yield call(saveToLocalStorage, GAME_KEY, serializedState);
 }
 
 export function* actionsWatcher(): Generator<StrictEffect, void, void> {
   const actions = [
-    UserActionCreator.signin.type,
-    UserActionCreator.signout.type,
     SizeActionCreator.setSize.type,
     SpeedActionCreator.setSpeed.type,
     FillActionCreator.setFill.type,
@@ -108,14 +98,14 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
   ];
 
   for (const action of actions) {
-    yield takeEvery(action, saveStateToLocalStorage);
+    yield takeEvery(action, saveGameStateToLocalStorage);
   }
 
   yield takeEvery(SizeActionCreator.setSize.type, createModel);
   yield takeEvery(FillActionCreator.setFill.type, createModel);
 }
 
-export function* stateSaga(): Generator<StrictEffect, void, void> {
-  yield fork(getStateFromLocalStorage);
+export function* gameStateSaga(): Generator<StrictEffect, void, void> {
+  yield fork(getGameStateFromLocalStorage);
   yield fork(actionsWatcher);
 }
