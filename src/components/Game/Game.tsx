@@ -12,6 +12,9 @@ const Wrapper = styled.div`
 `;
 
 export interface GameProps {
+  /**
+   *  matrix for rendering game field
+   */
   model?: Model;
 }
 

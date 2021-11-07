@@ -5,8 +5,17 @@ import { ClickCellType } from '@/modules/game/useGameLogicRedux';
 import { BoardSize } from '@/modules/game/size';
 import { Model } from '@/modules/game/model';
 export interface FieldProps {
+  /**
+   * field current size, used just for styles
+   */
   size: BoardSize;
+  /**
+   * matrix for rendering cells
+   */
   model: Model;
+  /**
+   * callback to fire when field is clicked
+   */
   clickHandler: ClickCellType;
 }
 

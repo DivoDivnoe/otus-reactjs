@@ -7,18 +7,57 @@ import { SpeedType } from '@/modules/game/speed';
 import { FillType, BoardFillPercentage } from '@/modules/game/fill';
 
 interface BarProps {
+  /**
+   * list of available sizes
+   */
   sizes: BoardSize[];
+  /**
+   * list of available speedTypes
+   */
   speedTypes: SpeedType[];
+  /**
+   * list of available fillTypes
+   */
   fillTypes: FillType[];
+  /**
+   * bar current size
+   */
   size: BoardSize;
+  /**
+   * bar current speed
+   */
   speed: SpeedType;
+  /**
+   * bar current fill
+   */
   fill: FillType;
+  /**
+   * play or pause button is active flag
+   */
   isPlaying: boolean;
+  /**
+   * callback to fire when size changes
+   */
   changeSizeHandler: (size: BoardSize) => void;
+  /**
+   * callback to fire when speed changes
+   */
   changeSpeedHandler: (speedType: SpeedType) => void;
+  /**
+   * callback to fire when fillType changes
+   */
   changeFillType: (fill: FillType) => void;
+  /**
+   * callback to fire when play button is clicked
+   */
   [Controls.PLAY]: () => void;
+  /**
+   * callback to fire when pause button is clicked
+   */
   [Controls.PAUSE]: () => void;
+  /**
+   * callback to fire when clear button is clicked
+   */
   [Controls.CLEAR]: () => void;
 }
 

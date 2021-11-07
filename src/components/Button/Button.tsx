@@ -2,9 +2,21 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 
 interface ButtonProps {
+  /**
+   * text inside button
+   */
   children?: string;
+  /**
+   * button active flag
+   */
   isActive?: boolean;
+  /**
+   * button disabled flag
+   */
   isDisabled?: boolean;
+  /**
+   * callback to fire event on button click
+   */
   clickHandler?: () => void;
 }
 

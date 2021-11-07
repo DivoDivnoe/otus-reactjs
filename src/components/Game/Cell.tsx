@@ -3,8 +3,17 @@ import styled from '@emotion/styled';
 import { Coords, ClickCellType } from '@/modules/game/useGameLogicRedux';
 
 export interface CellProps {
+  /**
+   *cell coords
+   */
   coords: Coords;
+  /**
+   * is cell active flag
+   */
   isActive: boolean;
+  /**
+   * callback to fire when cell is clicked
+   */
   clickHandler: ClickCellType;
 }
 

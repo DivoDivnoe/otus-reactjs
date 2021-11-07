@@ -21,7 +21,13 @@ const LogoutItem = styled.span`
 `;
 
 export interface HeaderPropsType {
+  /**
+   * user name
+   */
   user: UserType;
+  /**
+   * dispatches logout action
+   */
   signout: () => void;
 }
 

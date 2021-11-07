@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { StartPopup } from '@/modules/user/StartPopup';
 import { PrivateRoute } from '@/components/PrivateRoute';
 import { State } from '@/reducer';
 import {
