@@ -9,7 +9,7 @@ import {
   userStateSaga,
 } from './saga';
 import { NAME_SPACE as USER_KEY } from './nameSpace';
-import { getUserState } from '@/reducer';
+import { getUserState } from '@/reducer/selectors';
 
 describe('helper', () => {
   describe('saveToLocalStorage', () => {

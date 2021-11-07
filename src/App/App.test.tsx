@@ -9,11 +9,11 @@ import '@testing-library/jest-dom';
 import { AppRoutes } from '.';
 
 import reducer from '@/reducer';
+import store from '@/store';
 
 describe('AppRoutes', () => {
   it('renders correctly', async () => {
     const history = createMemoryHistory();
-    const store = createStore(reducer);
 
     render(
       <Provider store={store}>
@@ -30,7 +30,6 @@ describe('AppRoutes', () => {
 
   it('signs in and signs out correctly', async () => {
     const history = createMemoryHistory();
-    const store = createStore(reducer);
 
     render(
       <Provider store={store}>

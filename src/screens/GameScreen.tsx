@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
+import { DynamicModuleLoader } from 'redux-dynamic-modules';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { InteractiveGame } from '@/modules/game';
 import { Header, HeaderPropsType } from '@/components/Header';
+
+import { getGameModule } from '@/modules/game';
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,13 +14,16 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const dynamicReduxModules = [getGameModule()];
+
 export const GameScreen: FC<HeaderPropsType> = ({ user, signout }) => {
   return (
     <ErrorBoundary>
       <Wrapper>
         <Header user={user} signout={signout} />
-
-        <InteractiveGame />
+        <DynamicModuleLoader modules={dynamicReduxModules}>
+          <InteractiveGame />
+        </DynamicModuleLoader>
       </Wrapper>
     </ErrorBoundary>
   );

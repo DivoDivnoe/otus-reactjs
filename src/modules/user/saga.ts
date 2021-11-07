@@ -9,7 +9,7 @@ import {
 import { ActionCreator as UserActionCreator } from '@/modules/user';
 import { UserState } from './user';
 import { NAME_SPACE as USER_KEY } from './nameSpace';
-import { getUserState } from '@/reducer';
+import { getUserState } from '@/reducer/selectors';
 
 export const getFromLocalStorage = (key: string): string | null => {
   return window.localStorage.getItem(key);

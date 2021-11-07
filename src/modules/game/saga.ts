@@ -6,7 +6,6 @@ import {
   select,
   StrictEffect,
 } from 'redux-saga/effects';
-import { State } from '@/reducer';
 import {
   ActionCreator as ModelActionCreator,
   Model,
@@ -27,7 +26,8 @@ import {
 import { ActionCreator as IsPlayingActionCreator } from '@/modules/game/isPlaying';
 import { createRandomMatrix } from '@/modules/game/core';
 import { GameState, NAME_SPACE as GAME_KEY } from './';
-import { getGameState } from '@/reducer';
+import { State } from '@/reducer';
+import { getGameState } from '@/reducer/selectors';
 
 export const getFromLocalStorage = (key: string): string | null => {
   return window.localStorage.getItem(key);

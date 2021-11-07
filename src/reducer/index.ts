@@ -1,5 +1,4 @@
 import reducer from './reducer';
 
-export { Operation, State } from './reducer';
-export { getGameState, getUserState } from './selectors';
+export { State } from './reducer';
 export default reducer;

@@ -1,10 +1,8 @@
 import { State } from '@/reducer';
-import { getUserState, getGameState } from '.';
+import { getUserState, getGameState } from './selectors';
 import { BoardSize } from '@/modules/game/size';
 import { SpeedType } from '@/modules/game/speed';
 import { FillType } from '@/modules/game/fill';
-import { UserState } from '@/modules/user';
-import { GameState } from '@/modules/game';
 
 describe('getUserState selector', () => {
   it('returns correct state', () => {
