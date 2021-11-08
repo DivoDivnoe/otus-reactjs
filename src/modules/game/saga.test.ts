@@ -1,5 +1,4 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
-import { call, fork, select } from 'redux-saga/effects';
 import { BoardSize, getSize, ActionCreator as SizeActionCreator } from './size';
 import { SpeedType, ActionCreator as SpeedActionCreator } from './speed';
 import { ActionCreator as ModelActionCreator, Model } from './model';
@@ -13,7 +12,6 @@ import {
   saveGameStateToLocalStorage,
   getGameStateFromLocalStorage,
   actionsWatcher,
-  gameStateSaga,
 } from './saga';
 import { getGameState } from '@/reducer/selectors';
 import { GameState, NAME_SPACE as GAME_KEY } from './';
@@ -124,6 +122,43 @@ describe('gameStateSaga', () => {
     const model: Model = Array.from({ length: 50 }, () =>
       Array.from({ length: 70 }, () => 0)
     );
+
+    testSaga(actionsWatcher)
+      .next()
+      .takeEvery(SizeActionCreator.setSize.type, saveGameStateToLocalStorage)
+      .next()
+      .takeEvery(SpeedActionCreator.setSpeed.type, saveGameStateToLocalStorage)
+      .next()
+      .takeEvery(FillActionCreator.setFill.type, saveGameStateToLocalStorage)
+      .next()
+      .takeEvery(ModelActionCreator.setModel.type, saveGameStateToLocalStorage)
+      .next()
+      .takeEvery(
+        ModelActionCreator.resetModel.type,
+        saveGameStateToLocalStorage
+      )
+      .next()
+      .takeEvery(
+        IsPlayingActionCreator.setPlaying.type,
+        saveGameStateToLocalStorage
+      )
+      .next()
+      .takeEvery(
+        IsPlayingActionCreator.startPlaying.type,
+        saveGameStateToLocalStorage
+      )
+      .next()
+      .takeEvery(
+        IsPlayingActionCreator.stopPlaying.type,
+        saveGameStateToLocalStorage
+      )
+      .next()
+      .takeEvery(SizeActionCreator.setSize.type, createModel)
+      .next()
+      .takeEvery(FillActionCreator.setFill.type, createModel)
+      .next()
+      .isDone();
+
     return expectSaga(actionsWatcher)
       .withReducer(reducer)
       .dispatch({ type: 'speed/setSpeed', payload: SpeedType.SLOW })
@@ -140,13 +175,5 @@ describe('gameStateSaga', () => {
         user: { userData: null },
       })
       .run();
-  });
-
-  it('works correctly', () => {
-    const generator = gameStateSaga();
-
-    expect(generator.next().value).toEqual(fork(getGameStateFromLocalStorage));
-    expect(generator.next().value).toEqual(fork(actionsWatcher));
-    expect(generator.next().done).toBe(true);
   });
 });

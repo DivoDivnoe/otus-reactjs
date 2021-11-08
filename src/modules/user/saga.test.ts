@@ -1,4 +1,3 @@
-import { call, fork, select } from 'redux-saga/effects';
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import reducer, { UserState, ActionCreator } from './user';
 import {
@@ -7,7 +6,6 @@ import {
   saveUserStateToLocalStorage,
   getUserStateFromLocalStorage,
   actionsWatcher,
-  userStateSaga,
 } from './saga';
 import { NAME_SPACE as USER_KEY } from './nameSpace';
 import { getUserState } from '@/reducer/selectors';
@@ -85,22 +83,5 @@ describe('userStateSaga', () => {
       .dispatch({ type: 'user/signin', payload: 'Andrew' })
       .hasFinalState({ userData: 'Andrew' })
       .run();
-  });
-
-  describe('works correctly', () => {
-    it('localstorage is not empty', () => {
-      const defaultState = {
-        userData: 'Ibrahim abasel abdy nursultan',
-      };
-      saveToLocalStorage(USER_KEY, JSON.stringify(defaultState));
-
-      return expectSaga(userStateSaga)
-        .withReducer(reducer)
-        .dispatch({ type: 'user/signin', payload: 'Andrew' })
-        .call(getFromLocalStorage, USER_KEY)
-        .put(ActionCreator.signin('Ibrahim abasel abdy nursultan'))
-        .hasFinalState({ userData: 'Ibrahim abasel abdy nursultan' })
-        .run();
-    });
   });
 });
