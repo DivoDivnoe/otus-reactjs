@@ -13,9 +13,11 @@ import {
   getModel,
   Model,
   ActionCreator as ModelActionCreator,
+  getNextGenModel,
+  getZeroMatrix,
 } from '@/modules/game/model';
 import { State } from '@/reducer';
-import { getNextGenMatrix, createZeroMatrix } from '@/modules/game/core';
+// import { createZeroMatrix } from '@/modules/game/core';
 
 export interface Coords {
   x: number;
@@ -59,6 +61,8 @@ const useGameLogic = (): StartGameType => {
   const dispatch = useDispatch();
 
   const model = useSelector<State, Model>(getModel);
+  const nextGenModel = useSelector<State, Model>(getNextGenModel);
+  const zeroMatrix = useSelector<State, Model>(getZeroMatrix);
   const isPlaying = useSelector<State, boolean>(getIsPlaying);
 
   const updateModel = useCallback((someModel) => {
@@ -67,7 +71,7 @@ const useGameLogic = (): StartGameType => {
 
   const clear = useCallback(() => {
     pause();
-    updateModel(createZeroMatrix(size));
+    updateModel(zeroMatrix);
   }, [size]);
 
   const play = useCallback(() => {
@@ -90,8 +94,8 @@ const useGameLogic = (): StartGameType => {
   const intervalId: { current: number | null } = useRef(null);
 
   const gameIteration = useCallback(() => {
-    updateModel(getNextGenMatrix(model));
-  }, [model]);
+    updateModel(nextGenModel);
+  }, [nextGenModel]);
 
   const gameIterationRef: { current: () => void } = useRef(gameIteration);
 

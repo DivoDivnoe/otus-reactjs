@@ -7,6 +7,6 @@ export {
   CellState,
   CellStateType,
 } from './model';
-export { getModel } from './selectors';
+export { getModel, getNextGenModel, getZeroMatrix } from './selectors';
 
 export default reducer;
