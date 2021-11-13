@@ -5,3 +5,5 @@ dist
 *.log
 *.DS_Store
 coverage
+# stryker temp files
+.stryker-tmp

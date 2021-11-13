@@ -90,4 +90,46 @@ describe('useGameLogic hook', () => {
     });
     expect(isEveryItemEqualsZero).toEqual(true);
   });
+
+  it('should change size correctly and stop game', () => {
+    const store = createStore(reducer);
+    const wrapper: FC = ({ children }) => (
+      <Provider store={store}>{children}</Provider>
+    );
+    const { result } = renderHook(() => useGameLogic(), { wrapper });
+
+    act(() => result.current.play());
+    expect(result.current.isPlaying).toBe(true);
+    act(() => result.current.changeSize(BoardSize.SMALL));
+    expect(result.current.isPlaying).toBe(false);
+    expect(result.current.size).toBe(BoardSize.SMALL);
+  });
+
+  it('should change speed correctly', () => {
+    const store = createStore(reducer);
+    const wrapper: FC = ({ children }) => (
+      <Provider store={store}>{children}</Provider>
+    );
+    const { result } = renderHook(() => useGameLogic(), { wrapper });
+
+    const { changeSpeed } = result.current;
+    result.current.pause = jest.fn();
+
+    act(() => changeSpeed(SpeedType.FAST));
+    expect(result.current.speed).toBe(SpeedType.FAST);
+  });
+
+  it('should change fill correctly', () => {
+    const store = createStore(reducer);
+    const wrapper: FC = ({ children }) => (
+      <Provider store={store}>{children}</Provider>
+    );
+    const { result } = renderHook(() => useGameLogic(), { wrapper });
+
+    act(() => result.current.play());
+    expect(result.current.isPlaying).toBe(true);
+    act(() => result.current.changeFill(FillType.LOW));
+    expect(result.current.isPlaying).toBe(false);
+    expect(result.current.fill).toBe(FillType.LOW);
+  });
 });

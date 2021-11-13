@@ -38,32 +38,6 @@ export const createRandomMatrix = (
   return getRandomMatrix(size, fill);
 };
 
-export const getNewSizeMatrix = (size: SizeProps, prevMatrix: Model): Model => {
-  const prevMatrixHeight = prevMatrix.length;
-  const prevMatrixWidth = prevMatrix[0].length;
-  const { width, height } = size;
-
-  if (width === prevMatrixWidth && height === prevMatrixHeight)
-    return prevMatrix;
-
-  return Array.from({ length: height }, (_, rowIndex) => {
-    return Array.from({ length: width }, (_, columnIndex) => {
-      const prevItem = prevMatrix[rowIndex]?.[columnIndex];
-
-      return prevItem === undefined ? CellState.DEAD : prevItem;
-    });
-  });
-};
-
-export const createNewSizeMatrix = (
-  sizeType: BoardSize,
-  prevMatrix: Model
-): Model => {
-  const size = BoardSizeValue[sizeType];
-
-  return getNewSizeMatrix(size, prevMatrix);
-};
-
 export const createZeroMatrix = (sizeType: BoardSize): Model => {
   const size = BoardSizeValue[sizeType];
 

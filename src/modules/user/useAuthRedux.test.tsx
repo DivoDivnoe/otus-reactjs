@@ -8,7 +8,7 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('useAuth hook', () => {
-  it('should toggle user correctly', () => {
+  it('sets user correctly', () => {
     const { result } = renderHook(() => useAuth());
 
     const { currentName, setName, resetName } = result.current;
@@ -25,5 +25,12 @@ describe('useAuth hook', () => {
 
     act(resetName);
     expect(result.current.currentName).toBe('');
+
+    act(() => setName(''));
+    act(() => result.current.signin());
+    expect(mockDispatch).toBeCalledWith({
+      payload: null,
+      type: 'user/signin',
+    });
   });
 });

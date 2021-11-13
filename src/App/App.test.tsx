@@ -1,23 +1,17 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom';
-import { AppRoutes } from '.';
+import { App } from '.';
 
 import store from '@/store';
 
-describe('AppRoutes', () => {
+describe('App', () => {
   it('renders correctly', async () => {
-    const history = createMemoryHistory();
-
     render(
       <Provider store={store}>
-        <Router history={history}>
-          <AppRoutes />
-        </Router>
+        <App />
       </Provider>
     );
     expect(screen.getByTestId('start-form')).toBeInTheDocument();
@@ -27,13 +21,9 @@ describe('AppRoutes', () => {
   });
 
   it('signs in and signs out correctly', async () => {
-    const history = createMemoryHistory();
-
     render(
       <Provider store={store}>
-        <Router history={history}>
-          <AppRoutes />
-        </Router>
+        <App />
       </Provider>
     );
     expect(screen.getByTestId('start-form')).toBeInTheDocument();

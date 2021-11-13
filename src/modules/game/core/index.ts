@@ -3,7 +3,5 @@ export {
   GameCoreLogicConfig,
   getRandomMatrix,
   createRandomMatrix,
-  getNewSizeMatrix,
-  createNewSizeMatrix,
   createZeroMatrix,
 } from './core';

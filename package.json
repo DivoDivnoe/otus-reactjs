@@ -6,6 +6,7 @@
   "scripts": {
     "test-ts": "tsc --noEmit",
     "test": "jest",
+    "test:stryker": "stryker run",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix ./",
     "build": "webpack --mode production --node-env production",
     "start": "webpack serve --mode development --open --hot",
@@ -36,6 +37,8 @@
     "@storybook/builder-webpack5": "^6.3.7",
     "@storybook/manager-webpack5": "^6.3.7",
     "@storybook/react": "^6.3.7",
+    "@stryker-mutator/core": "^5.4.1",
+    "@stryker-mutator/jest-runner": "^5.4.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.2",
