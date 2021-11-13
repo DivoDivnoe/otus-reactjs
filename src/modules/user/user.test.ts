@@ -42,9 +42,7 @@ describe('reducer', () => {
       const state = reducer(initialState, action);
       expect(state.userData).toEqual('Andrey');
     });
-  });
 
-  describe('updates state correctly', () => {
     it('with signout action', () => {
       const initialState = {
         userData: 'Andrey',

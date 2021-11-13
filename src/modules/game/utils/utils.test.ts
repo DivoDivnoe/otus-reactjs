@@ -3,15 +3,15 @@ import { getRandomValuesArr, getMatrixItemNeighbours, getZeroMatrix } from './';
 describe('getRandomValuesArr function', () => {
   describe('returns array of correctLength', () => {
     it('length 10', () => {
-      expect(getRandomValuesArr(100, 10).length).toBe(10);
+      expect(getRandomValuesArr(100, 10)).toHaveLength(10);
     });
 
     it('length 0', () => {
-      expect(getRandomValuesArr(100, 0).length).toBe(0);
+      expect(getRandomValuesArr(100, 0)).toHaveLength(0);
     });
 
     it('length -5', () => {
-      expect(getRandomValuesArr(100, -5).length).toBe(0);
+      expect(getRandomValuesArr(100, -5)).toHaveLength(0);
     });
   });
 
