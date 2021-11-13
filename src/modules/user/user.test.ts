@@ -12,7 +12,7 @@ describe('action creator', () => {
     });
   });
 
-  describe('signout ', () => {
+  describe('signout', () => {
     it('returns correct action', () => {
       const action = ActionCreator.signout();
 
