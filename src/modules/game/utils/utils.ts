@@ -78,3 +78,14 @@ export const getZeroMatrix = (size: SizeProps): number[][] => {
     return Array.from({ length: width }, () => 0);
   });
 };
+
+export const delay = (duration: number): Promise<void> =>
+  new Promise((resolve) => window.setTimeout(resolve, duration));
+
+export const getFromLocalStorage = (key: string): string | null => {
+  return window.localStorage.getItem(key);
+};
+
+export const saveToLocalStorage = (key: string, state: string): void => {
+  window.localStorage.setItem(key, state);
+};

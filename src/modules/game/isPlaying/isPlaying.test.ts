@@ -1,13 +1,6 @@
 import reducer, { ActionCreator } from '.';
 
 describe('action creator', () => {
-  it('setPlaying returns correct action', () => {
-    const action = ActionCreator.setPlaying(true);
-
-    expect(action.type).toEqual('isPlaying/setPlaying');
-    expect(action.payload).toEqual(true);
-  });
-
   it('startPlaying returns correct action', () => {
     const action = ActionCreator.startPlaying();
 
@@ -43,14 +36,6 @@ describe('reducer', () => {
     it('with STOP_PLAYING action', () => {
       const initialState = true;
       const action = ActionCreator.stopPlaying();
-      const state = reducer(initialState, action);
-
-      expect(state).toEqual(false);
-    });
-
-    it('with setPlaying action', () => {
-      const initialState = true;
-      const action = ActionCreator.setPlaying(false);
       const state = reducer(initialState, action);
 
       expect(state).toEqual(false);

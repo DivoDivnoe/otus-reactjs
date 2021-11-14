@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import useGameSettings from './useGameSettingsRedux';
 import { BoardSize } from '@/modules/game/size';
-import { SpeedType, SpeedValue } from '@/modules/game/speed';
+import { SpeedType } from '@/modules/game/speed';
 import { FillType } from '@/modules/game/fill';
 import {
   getIsPlaying,
@@ -13,7 +13,6 @@ import {
   getModel,
   Model,
   ActionCreator as ModelActionCreator,
-  getNextGenModel,
   getZeroMatrix,
 } from '@/modules/game/model';
 import { State } from '@/reducer';
@@ -61,7 +60,6 @@ const useGameLogic = (): StartGameType => {
   const dispatch = useDispatch();
 
   const model = useSelector<State, Model>(getModel);
-  const nextGenModel = useSelector<State, Model>(getNextGenModel);
   const zeroMatrix = useSelector<State, Model>(getZeroMatrix);
   const isPlaying = useSelector<State, boolean>(getIsPlaying);
 
@@ -90,36 +88,6 @@ const useGameLogic = (): StartGameType => {
     pause();
     changeFill(fill);
   }, []);
-
-  const intervalId: { current: number | null } = useRef(null);
-
-  const gameIteration = useCallback(() => {
-    updateModel(nextGenModel);
-  }, [nextGenModel]);
-
-  const gameIterationRef: { current: () => void } = useRef(gameIteration);
-
-  useEffect(() => {
-    gameIterationRef.current = gameIteration;
-  }, [model]);
-
-  useEffect(() => {
-    if (isPlaying) {
-      intervalId.current = window.setInterval(() => {
-        gameIterationRef.current();
-      }, SpeedValue[speed]);
-    } else if (!isPlaying && intervalId.current) {
-      clearInterval(intervalId.current);
-      intervalId.current = null;
-    }
-
-    return () => {
-      if (intervalId.current) {
-        clearInterval(intervalId.current);
-        intervalId.current = null;
-      }
-    };
-  }, [isPlaying, speed]);
 
   const onClickCell = useCallback(
     (coords: Coords): void => {

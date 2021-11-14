@@ -10,14 +10,7 @@ import { ActionCreator as UserActionCreator } from '@/modules/user';
 import { UserState } from './user';
 import { NAME_SPACE as USER_KEY } from './nameSpace';
 import { getUserState } from '@/reducer/selectors';
-
-export const getFromLocalStorage = (key: string): string | null => {
-  return window.localStorage.getItem(key);
-};
-
-export const saveToLocalStorage = (key: string, state: string): void => {
-  window.localStorage.setItem(key, state);
-};
+import { getFromLocalStorage, saveToLocalStorage } from '@/modules/game/utils';
 
 export function* getUserStateFromLocalStorage(): Generator<
   StrictEffect,

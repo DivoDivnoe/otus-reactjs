@@ -1,4 +1,10 @@
-import { getRandomValuesArr, getMatrixItemNeighbours, getZeroMatrix } from './';
+import {
+  getRandomValuesArr,
+  getMatrixItemNeighbours,
+  getZeroMatrix,
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from './';
 
 describe('getRandomValuesArr function', () => {
   describe('returns array of correctLength', () => {
@@ -108,5 +114,28 @@ describe('getZeroMatrix function', () => {
       [0, 0, 0],
       [0, 0, 0],
     ]);
+  });
+});
+
+describe('saveToLocalStorage', () => {
+  it('works correctly', () => {
+    const key = 'some_key';
+    const someObj = { some: 'obj' };
+
+    saveToLocalStorage(key, JSON.stringify(someObj));
+
+    expect(localStorage.getItem(key)).toEqual(JSON.stringify(someObj));
+  });
+});
+
+describe('getFromLocalStorage', () => {
+  it('works correctly', () => {
+    const key = 'some_key';
+    const someObj = { some: 'obj' };
+
+    localStorage.setItem(key, JSON.stringify(someObj));
+    const objFromStorage = getFromLocalStorage(key);
+
+    expect(objFromStorage).toEqual(JSON.stringify(someObj));
   });
 });

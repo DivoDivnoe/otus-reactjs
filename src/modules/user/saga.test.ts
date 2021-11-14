@@ -1,37 +1,16 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import reducer, { UserState, ActionCreator } from './user';
 import {
-  getFromLocalStorage,
-  saveToLocalStorage,
   saveUserStateToLocalStorage,
   getUserStateFromLocalStorage,
   actionsWatcher,
+  userStateSaga,
 } from './saga';
 import { NAME_SPACE as USER_KEY } from './nameSpace';
 import { getUserState } from '@/reducer/selectors';
+import { getFromLocalStorage, saveToLocalStorage } from '@/modules/game/utils';
 
 describe('userStateSaga', () => {
-  describe('helpers', () => {
-    it('saveToLocalStorage', () => {
-      const key = 'some_key';
-      const someObj = { some: 'obj' };
-
-      saveToLocalStorage(key, JSON.stringify(someObj));
-
-      expect(localStorage.getItem(key)).toEqual(JSON.stringify(someObj));
-    });
-
-    it('getFromLocalStorage', () => {
-      const key = 'some_key';
-      const someObj = { some: 'obj' };
-
-      localStorage.setItem(key, JSON.stringify(someObj));
-      const objFromStorage = getFromLocalStorage(key);
-
-      expect(objFromStorage).toEqual(JSON.stringify(someObj));
-    });
-  });
-
   it('saveUserStateToLocalStorage', () => {
     const defaultState: UserState = {
       userData: null,
@@ -82,6 +61,6 @@ describe('userStateSaga', () => {
       .withReducer(reducer)
       .dispatch({ type: 'user/signin', payload: 'Andrew' })
       .hasFinalState({ userData: 'Andrew' })
-      .run();
+      .silentRun();
   });
 });

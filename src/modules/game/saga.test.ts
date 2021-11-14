@@ -1,20 +1,38 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
+import { fork, select, call } from 'redux-saga/effects';
+import * as matchers from 'redux-saga-test-plan/matchers';
 import { BoardSize, getSize, ActionCreator as SizeActionCreator } from './size';
-import { SpeedType, ActionCreator as SpeedActionCreator } from './speed';
-import { ActionCreator as ModelActionCreator, Model } from './model';
+import {
+  SpeedType,
+  ActionCreator as SpeedActionCreator,
+  getSpeed,
+  SpeedValue,
+} from './speed';
+import {
+  ActionCreator as ModelActionCreator,
+  Model,
+  getNextGenModel,
+  getModel,
+} from './model';
 import { FillType, getFill, ActionCreator as FillActionCreator } from './fill';
 import { ActionCreator as IsPlayingActionCreator } from './isPlaying';
-import { createRandomMatrix } from '@/modules/game/core';
+import { createRandomMatrix, getNextGenMatrix } from '@/modules/game/core';
 import {
-  getFromLocalStorage,
-  saveToLocalStorage,
   createModel,
   saveGameStateToLocalStorage,
   getGameStateFromLocalStorage,
   actionsWatcher,
+  start,
+  play,
+  gameStateSaga,
 } from './saga';
 import { getGameState } from '@/reducer/selectors';
 import { GameState, NAME_SPACE as GAME_KEY } from './';
+import {
+  delay,
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from '@/modules/game/utils';
 
 import reducer, { State } from '@/reducer';
 
@@ -41,6 +59,58 @@ describe('gameStateSaga', () => {
       .isDone();
   });
 
+  it('start', () => {
+    testSaga(start)
+      .next()
+      .select(getNextGenModel)
+      .next([
+        [0, 1, 1],
+        [1, 0, 1],
+        [0, 1, 0],
+      ])
+      .select(getSpeed)
+      .next(SpeedType.FAST)
+      .put(
+        ModelActionCreator.setModel([
+          [0, 1, 1],
+          [1, 0, 1],
+          [0, 1, 0],
+        ])
+      )
+      .next()
+      .call(delay, SpeedValue[SpeedType.FAST])
+      .next()
+      .select(getNextGenModel)
+      .finish();
+  });
+
+  it('play', () => {
+    const model = createRandomMatrix(BoardSize.MEDIUM, FillType.MEDIUM);
+
+    const state: State = {
+      game: {
+        size: BoardSize.MEDIUM,
+        speed: SpeedType.MEDIUM,
+        fill: FillType.MEDIUM,
+        isPlaying: false,
+        model,
+      },
+      user: {
+        userData: null,
+      },
+    };
+
+    return expectSaga(play)
+      .withReducer(reducer)
+      .provide([[select(getNextGenModel), model]])
+      .dispatch({ type: 'isPlaying/startPlaying' })
+      .put(ModelActionCreator.setModel(model))
+      .call(delay, 150)
+      .dispatch({ type: 'isPlaying/stopPlaying' })
+      .hasFinalState(state)
+      .silentRun();
+  });
+
   it('saveGameStateToLocalStorage', () => {
     const defaultState: GameState = {
       size: BoardSize.SMALL,
@@ -63,10 +133,23 @@ describe('gameStateSaga', () => {
     it('fail', () => {
       window.localStorage.removeItem(GAME_KEY);
 
+      const state: State = {
+        game: {
+          size: BoardSize.MEDIUM,
+          speed: SpeedType.MEDIUM,
+          fill: FillType.MEDIUM,
+          isPlaying: false,
+          model: [[]],
+        },
+        user: {
+          userData: null,
+        },
+      };
+
       return expectSaga(getGameStateFromLocalStorage)
         .withReducer(reducer)
         .call(getFromLocalStorage, GAME_KEY)
-        .call(createRandomMatrix, BoardSize.MEDIUM, FillType.MEDIUM)
+        .hasFinalState(state)
         .run();
     });
 
@@ -106,7 +189,7 @@ describe('gameStateSaga', () => {
         .put(SizeActionCreator.setSize(BoardSize.SMALL))
         .put(SpeedActionCreator.setSpeed(SpeedType.SLOW))
         .put(FillActionCreator.setFill(FillType.HIGH))
-        .put(IsPlayingActionCreator.setPlaying(true))
+        .put(IsPlayingActionCreator.startPlaying())
         .put(
           ModelActionCreator.setModel([
             [0, 1],
@@ -135,11 +218,6 @@ describe('gameStateSaga', () => {
       .next()
       .takeEvery(
         ModelActionCreator.resetModel.type,
-        saveGameStateToLocalStorage
-      )
-      .next()
-      .takeEvery(
-        IsPlayingActionCreator.setPlaying.type,
         saveGameStateToLocalStorage
       )
       .next()
@@ -174,6 +252,16 @@ describe('gameStateSaga', () => {
         },
         user: { userData: null },
       })
-      .run();
+      .silentRun();
+  });
+
+  it('gameStateSaga works correctly', () => {
+    return expectSaga(gameStateSaga)
+      .withReducer(reducer)
+      .fork(createModel)
+      .fork(play)
+      .fork(getGameStateFromLocalStorage)
+      .fork(actionsWatcher)
+      .silentRun();
   });
 });

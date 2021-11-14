@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 
 import useGameLogic from './useGameLogicRedux';
 import { CellState } from '@/modules/game/model';
-import { SpeedType, SpeedValue } from '@/modules/game/speed';
+import { SpeedType } from '@/modules/game/speed';
 import reducer from '@/reducer';
 import { createRandomMatrix } from '@/modules/game/core';
 import { BoardSize } from '@/modules/game/size';
@@ -27,32 +27,6 @@ describe('useGameLogic hook', () => {
 
     act(pause);
     expect(result.current.isPlaying).toEqual(false);
-  });
-
-  it('should update state with speed interval', () => {
-    const mockFn = jest.fn();
-    const store = createStore(reducer);
-    const wrapper: FC = ({ children }) => (
-      <Provider store={store}>{children}</Provider>
-    );
-    const { result } = renderHook(() => useGameLogic(), { wrapper });
-
-    const timeMustPass = 1000;
-    const interval = SpeedValue[SpeedType.MEDIUM];
-
-    const moveTimersByTime = (): void => {
-      for (let i = 0; i < timeMustPass; i += interval) {
-        result.current.updateModel = mockFn();
-
-        act(() => {
-          jest.advanceTimersByTime(interval);
-        });
-      }
-    };
-    jest.useFakeTimers();
-
-    moveTimersByTime();
-    expect(mockFn).toHaveBeenCalledTimes(7);
   });
 
   it('handles clickHandler correctly', () => {

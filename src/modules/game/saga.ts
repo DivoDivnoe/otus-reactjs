@@ -5,16 +5,21 @@ import {
   fork,
   select,
   StrictEffect,
+  take,
+  cancel,
 } from 'redux-saga/effects';
+import { Task } from 'redux-saga';
 import {
   ActionCreator as ModelActionCreator,
   Model,
+  getNextGenModel,
 } from '@/modules/game/model';
 import {
   ActionCreator as SizeActionCreator,
   getSize,
   BoardSize,
 } from '@/modules/game/size';
+import { getSpeed, SpeedType, SpeedValue } from '@/modules/game/speed';
 import { ActionCreator as SpeedActionCreator } from '@/modules/game/speed';
 
 import {
@@ -28,14 +33,11 @@ import { createRandomMatrix } from '@/modules/game/core';
 import { GameState, NAME_SPACE as GAME_KEY } from './';
 import { State } from '@/reducer';
 import { getGameState } from '@/reducer/selectors';
-
-export const getFromLocalStorage = (key: string): string | null => {
-  return window.localStorage.getItem(key);
-};
-
-export const saveToLocalStorage = (key: string, state: string): void => {
-  window.localStorage.setItem(key, state);
-};
+import {
+  delay,
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from '@/modules/game/utils';
 
 export function* createModel(): Generator<
   StrictEffect,
@@ -67,10 +69,12 @@ export function* getGameStateFromLocalStorage(): Generator<
     yield put(SizeActionCreator.setSize(state.size));
     yield put(SpeedActionCreator.setSpeed(state.speed));
     yield put(FillActionCreator.setFill(state.fill));
-    yield put(IsPlayingActionCreator.setPlaying(state.isPlaying));
+    yield put(
+      state.isPlaying
+        ? IsPlayingActionCreator.startPlaying()
+        : IsPlayingActionCreator.stopPlaying()
+    );
     yield put(ModelActionCreator.setModel(state.model));
-  } else {
-    yield fork(createModel);
   }
 }
 
@@ -92,7 +96,6 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
     FillActionCreator.setFill.type,
     ModelActionCreator.setModel.type,
     ModelActionCreator.resetModel.type,
-    IsPlayingActionCreator.setPlaying.type,
     IsPlayingActionCreator.startPlaying.type,
     IsPlayingActionCreator.stopPlaying.type,
   ];
@@ -105,7 +108,29 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
   yield takeEvery(FillActionCreator.setFill.type, createModel);
 }
 
+export function* start(): Generator<StrictEffect, void, Model | SpeedType> {
+  while (true) {
+    const nextGeneration = yield select(getNextGenModel);
+    const speed = yield select(getSpeed);
+    const gameIterationDelay = SpeedValue[speed as SpeedType];
+
+    yield put(ModelActionCreator.setModel(nextGeneration as Model));
+    yield call(delay, gameIterationDelay);
+  }
+}
+
+export function* play(): Generator<StrictEffect, void, Task> {
+  while (yield take(IsPlayingActionCreator.startPlaying.type)) {
+    const startGame = yield fork(start);
+
+    yield take(IsPlayingActionCreator.stopPlaying.type);
+    yield cancel(startGame);
+  }
+}
+
 export function* gameStateSaga(): Generator<StrictEffect, void, void> {
+  yield fork(createModel);
+  yield fork(play);
   yield fork(getGameStateFromLocalStorage);
   yield fork(actionsWatcher);
 }

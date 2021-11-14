@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = false;
 
@@ -6,7 +6,6 @@ const isPlayingSlice = createSlice({
   name: 'isPlaying',
   initialState,
   reducers: {
-    setPlaying: (_state, action: PayloadAction<boolean>) => action.payload,
     startPlaying: () => true,
     stopPlaying: () => false,
   },
