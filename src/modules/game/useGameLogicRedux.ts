@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useGameSettings from './useGameSettingsRedux';
@@ -16,7 +16,6 @@ import {
   getZeroMatrix,
 } from '@/modules/game/model';
 import { State } from '@/reducer';
-// import { createZeroMatrix } from '@/modules/game/core';
 
 export interface Coords {
   x: number;

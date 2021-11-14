@@ -1,6 +1,5 @@
 import { expectSaga, testSaga } from 'redux-saga-test-plan';
-import { fork, select, call } from 'redux-saga/effects';
-import * as matchers from 'redux-saga-test-plan/matchers';
+import { select } from 'redux-saga/effects';
 import { BoardSize, getSize, ActionCreator as SizeActionCreator } from './size';
 import {
   SpeedType,
@@ -12,11 +11,10 @@ import {
   ActionCreator as ModelActionCreator,
   Model,
   getNextGenModel,
-  getModel,
 } from './model';
 import { FillType, getFill, ActionCreator as FillActionCreator } from './fill';
 import { ActionCreator as IsPlayingActionCreator } from './isPlaying';
-import { createRandomMatrix, getNextGenMatrix } from '@/modules/game/core';
+import { createRandomMatrix } from '@/modules/game/core';
 import {
   createModel,
   saveGameStateToLocalStorage,
