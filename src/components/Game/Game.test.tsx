@@ -31,7 +31,6 @@ describe('Game component', () => {
       changeSize: jest.fn(),
       changeSpeed: jest.fn(),
       changeFill: jest.fn(),
-      updateModel: jest.fn(),
       clickHandler: jest.fn(),
     };
 
@@ -61,7 +60,6 @@ describe('Game component', () => {
       changeSize: jest.fn(),
       changeSpeed: jest.fn(),
       changeFill: jest.fn(),
-      updateModel: jest.fn(),
       clickHandler: jest.fn(),
     };
 
@@ -93,7 +91,6 @@ describe('Game component', () => {
       changeSize: jest.fn(),
       changeSpeed: jest.fn(),
       changeFill: jest.fn(),
-      updateModel: jest.fn(),
       clickHandler: jest.fn(),
     };
 
@@ -128,7 +125,6 @@ describe('Game component', () => {
       changeSize: jest.fn(),
       changeSpeed: jest.fn(),
       changeFill: jest.fn(),
-      updateModel: jest.fn(),
       clickHandler: jest.fn(),
     };
 
@@ -163,7 +159,6 @@ describe('Game component', () => {
       changeSize: jest.fn(),
       changeSpeed: jest.fn(),
       changeFill: jest.fn(),
-      updateModel: jest.fn(),
       clickHandler: jest.fn(),
     };
 
@@ -198,7 +193,6 @@ describe('Game component', () => {
       changeSize: jest.fn(),
       changeSpeed: jest.fn(),
       changeFill: jest.fn(),
-      updateModel: jest.fn(),
       clickHandler: jest.fn(),
     };
 

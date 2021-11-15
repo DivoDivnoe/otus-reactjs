@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BoardSize } from '@/modules/game/size';
-import { createZeroMatrix } from '@/modules/game/core';
 
 export type Binary = 0 | 1;
 export type Model = Binary[][];
@@ -14,13 +12,23 @@ export const CellState: CellStateType = {
   ALIVE: 1,
 };
 
+export interface Coords {
+  x: number;
+  y: number;
+}
+
 const modelSlice = createSlice({
   name: 'model',
   initialState: [[]] as Model,
   reducers: {
     setModel: (_state, action: PayloadAction<Model>) => action.payload,
-    resetModel: (_state, action: PayloadAction<BoardSize>) =>
-      createZeroMatrix(action.payload),
+    updateModel: (state, action: PayloadAction<Coords>) => {
+      const { x, y } = action.payload;
+
+      state[y][x] =
+        state[y][x] === CellState.DEAD ? CellState.ALIVE : CellState.DEAD;
+      return state;
+    },
   },
 });
 

@@ -1,5 +1,4 @@
 import reducer, { ActionCreator, Model } from '.';
-import { BoardSize } from '@/modules/game/size';
 
 describe('action creator', () => {
   describe('setModel returns correct action', () => {
@@ -13,16 +12,6 @@ describe('action creator', () => {
 
       expect(action.type).toEqual('model/setModel');
       expect(action.payload).toStrictEqual(model);
-    });
-  });
-
-  describe('resetModel returns correct action', () => {
-    it('size small', () => {
-      const size = BoardSize.SMALL;
-      const action = ActionCreator.resetModel(size);
-
-      expect(action.type).toEqual('model/resetModel');
-      expect(action.payload).toEqual(BoardSize.SMALL);
     });
   });
 });
@@ -54,21 +43,6 @@ describe('reducer', () => {
 
       const state = reducer(initialState, action);
       expect(state).toEqual(action.payload);
-    });
-
-    it('with resetModel action', () => {
-      const initialState: Model = [
-        [1, 1],
-        [1, 1],
-      ];
-
-      const action = ActionCreator.resetModel(BoardSize.SMALL);
-      const expectedState = Array.from({ length: 30 }, () =>
-        Array.from({ length: 50 }, () => 0)
-      );
-
-      const state = reducer(initialState, action);
-      expect(state).toEqual(expectedState);
     });
   });
 });

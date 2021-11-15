@@ -23,6 +23,7 @@ import {
   start,
   play,
   gameStateSaga,
+  stopPlaying,
 } from './saga';
 import { getGameState } from '@/reducer/selectors';
 import { GameState, NAME_SPACE as GAME_KEY } from './';
@@ -200,9 +201,12 @@ describe('gameStateSaga', () => {
   });
 
   it('actionsWatcher', () => {
-    const model: Model = Array.from({ length: 50 }, () =>
+    const zeroMatrix: Model = Array.from({ length: 50 }, () =>
       Array.from({ length: 70 }, () => 0)
     );
+
+    const model = zeroMatrix.map((row) => [...row]);
+    model[0][0] = 1;
 
     testSaga(actionsWatcher)
       .next()
@@ -215,7 +219,7 @@ describe('gameStateSaga', () => {
       .takeEvery(ModelActionCreator.setModel.type, saveGameStateToLocalStorage)
       .next()
       .takeEvery(
-        ModelActionCreator.resetModel.type,
+        ModelActionCreator.updateModel.type,
         saveGameStateToLocalStorage
       )
       .next()
@@ -233,19 +237,22 @@ describe('gameStateSaga', () => {
       .next()
       .takeEvery(FillActionCreator.setFill.type, createModel)
       .next()
+      .takeEvery(ModelActionCreator.setModel.type, stopPlaying)
+      .next()
       .isDone();
 
     return expectSaga(actionsWatcher)
       .withReducer(reducer)
       .dispatch({ type: 'speed/setSpeed', payload: SpeedType.SLOW })
       .dispatch({ type: 'isPlaying/startPlaying' })
-      .dispatch({ type: 'model/resetModel', payload: BoardSize.MEDIUM })
+      .dispatch({ type: 'model/setModel', payload: zeroMatrix })
+      .dispatch({ type: 'model/updateModel', payload: { x: 0, y: 0 } })
       .hasFinalState({
         game: {
           size: BoardSize.MEDIUM,
           speed: SpeedType.SLOW,
           fill: FillType.MEDIUM,
-          isPlaying: true,
+          isPlaying: false,
           model,
         },
         user: { userData: null },

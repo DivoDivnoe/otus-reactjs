@@ -19,7 +19,6 @@ export const InteractiveGame: FC = () => {
     model,
     clickHandler,
     clear,
-    updateModel,
   } = useGameLogic();
 
   return (
@@ -39,7 +38,6 @@ export const InteractiveGame: FC = () => {
       isPlaying={isPlaying}
       model={model}
       clickHandler={clickHandler}
-      updateModel={updateModel}
     />
   );
 };

@@ -4,7 +4,10 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import useGameLogic from './useGameLogicRedux';
-import { CellState } from '@/modules/game/model';
+import {
+  CellState,
+  ActionCreator as ModelActionCreator,
+} from '@/modules/game/model';
 import { SpeedType } from '@/modules/game/speed';
 import reducer from '@/reducer';
 import { createRandomMatrix } from '@/modules/game/core';
@@ -36,9 +39,8 @@ describe('useGameLogic hook', () => {
     );
     const { result } = renderHook(() => useGameLogic(), { wrapper });
 
-    const { updateModel } = result.current;
     const model = createRandomMatrix(BoardSize.SMALL, FillType.LOW);
-    act(() => updateModel(model));
+    store.dispatch(ModelActionCreator.setModel(model));
 
     const mockCoords = { x: 11, y: 29 };
     const cellState = result.current.model[mockCoords.y][mockCoords.x];
@@ -65,17 +67,14 @@ describe('useGameLogic hook', () => {
     expect(isEveryItemEqualsZero).toEqual(true);
   });
 
-  it('should change size correctly and stop game', () => {
+  it('should change size correctly', () => {
     const store = createStore(reducer);
     const wrapper: FC = ({ children }) => (
       <Provider store={store}>{children}</Provider>
     );
     const { result } = renderHook(() => useGameLogic(), { wrapper });
 
-    act(() => result.current.play());
-    expect(result.current.isPlaying).toBe(true);
     act(() => result.current.changeSize(BoardSize.SMALL));
-    expect(result.current.isPlaying).toBe(false);
     expect(result.current.size).toBe(BoardSize.SMALL);
   });
 
@@ -100,10 +99,7 @@ describe('useGameLogic hook', () => {
     );
     const { result } = renderHook(() => useGameLogic(), { wrapper });
 
-    act(() => result.current.play());
-    expect(result.current.isPlaying).toBe(true);
     act(() => result.current.changeFill(FillType.LOW));
-    expect(result.current.isPlaying).toBe(false);
     expect(result.current.fill).toBe(FillType.LOW);
   });
 });

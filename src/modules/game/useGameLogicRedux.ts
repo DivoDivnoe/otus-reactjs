@@ -39,7 +39,6 @@ export interface StartGameType {
   pause: () => void;
   clear: () => void;
   model: Model;
-  updateModel: (model: Model) => void;
   clickHandler: ClickCellType;
 }
 
@@ -62,13 +61,8 @@ const useGameLogic = (): StartGameType => {
   const zeroMatrix = useSelector<State, Model>(getZeroMatrix);
   const isPlaying = useSelector<State, boolean>(getIsPlaying);
 
-  const updateModel = useCallback((someModel) => {
-    dispatch(ModelActionCreator.setModel(someModel));
-  }, []);
-
   const clear = useCallback(() => {
-    pause();
-    updateModel(zeroMatrix);
+    dispatch(ModelActionCreator.setModel(zeroMatrix));
   }, [size]);
 
   const play = useCallback(() => {
@@ -78,23 +72,9 @@ const useGameLogic = (): StartGameType => {
     dispatch(IsPlayingActionCreator.stopPlaying());
   }, []);
 
-  const updateSize = useCallback((size: BoardSize): void => {
-    pause();
-    changeSize(size);
-  }, []);
-
-  const updateFill = useCallback((fill: FillType): void => {
-    pause();
-    changeFill(fill);
-  }, []);
-
   const onClickCell = useCallback(
     (coords: Coords): void => {
-      const { x, y } = coords;
-      const newModel = model.map((row) => row.slice());
-      newModel[y][x] = model[y][x] ? 0 : 1;
-
-      updateModel(newModel);
+      dispatch(ModelActionCreator.updateModel(coords));
     },
     [model]
   );
@@ -103,9 +83,9 @@ const useGameLogic = (): StartGameType => {
     speed,
     size,
     fill,
-    changeSize: updateSize,
+    changeSize,
     changeSpeed,
-    changeFill: updateFill,
+    changeFill,
     sizes,
     speedTypes,
     fillTypes,
@@ -113,7 +93,6 @@ const useGameLogic = (): StartGameType => {
     pause,
     isPlaying,
     model,
-    updateModel,
     clickHandler: onClickCell,
     clear,
   };

@@ -39,6 +39,10 @@ import {
   saveToLocalStorage,
 } from '@/modules/game/utils';
 
+export function* stopPlaying(): Generator<StrictEffect, void, void> {
+  yield put(IsPlayingActionCreator.stopPlaying());
+}
+
 export function* createModel(): Generator<
   StrictEffect,
   void,
@@ -95,7 +99,7 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
     SpeedActionCreator.setSpeed.type,
     FillActionCreator.setFill.type,
     ModelActionCreator.setModel.type,
-    ModelActionCreator.resetModel.type,
+    ModelActionCreator.updateModel.type,
     IsPlayingActionCreator.startPlaying.type,
     IsPlayingActionCreator.stopPlaying.type,
   ];
@@ -106,6 +110,7 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
 
   yield takeEvery(SizeActionCreator.setSize.type, createModel);
   yield takeEvery(FillActionCreator.setFill.type, createModel);
+  yield takeEvery(ModelActionCreator.setModel.type, stopPlaying);
 }
 
 export function* start(): Generator<StrictEffect, void, Model | SpeedType> {
