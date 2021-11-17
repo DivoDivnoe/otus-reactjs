@@ -4,6 +4,7 @@ import {
   saveUserStateToLocalStorage,
   getUserStateFromLocalStorage,
   actionsWatcher,
+  userAuth,
 } from './saga';
 import { NAME_SPACE as USER_KEY } from './nameSpace';
 import { getUserState } from '@/reducer/selectors';

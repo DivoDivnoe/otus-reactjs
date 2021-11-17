@@ -5,9 +5,10 @@ import {
   fork,
   select,
   StrictEffect,
+  take,
 } from 'redux-saga/effects';
-import { ActionCreator as UserActionCreator } from '@/modules/user';
-import { UserState } from './user';
+import history from '@/history';
+import { ActionCreator as UserActionCreator, UserState } from './user';
 import { NAME_SPACE as USER_KEY } from './nameSpace';
 import { getUserState } from '@/reducer/selectors';
 import { getFromLocalStorage, saveToLocalStorage } from '@/modules/game/utils';
@@ -23,7 +24,10 @@ export function* getUserStateFromLocalStorage(): Generator<
   if (rawUserState) {
     userState = JSON.parse(rawUserState as string);
 
-    yield put(UserActionCreator.signin(userState.userData));
+    if (userState.userData) {
+      console.log('data', userState.userData);
+      yield put(UserActionCreator.signin(userState.userData));
+    }
   }
 }
 
@@ -49,7 +53,17 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
   }
 }
 
+export function* userAuth(): Generator<StrictEffect, void, string> {
+  while (yield take(UserActionCreator.signin.type)) {
+    yield call([history, history.push], '/');
+
+    yield take(UserActionCreator.signout.type);
+    yield call([history, history.push], '/login');
+  }
+}
+
 export function* userStateSaga(): Generator<StrictEffect, void, void> {
+  yield fork(userAuth);
   yield fork(getUserStateFromLocalStorage);
   yield fork(actionsWatcher);
 }
