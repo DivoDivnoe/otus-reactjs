@@ -23,7 +23,7 @@ describe('useGameSettings hook', () => {
     expect(size).toEqual(BoardSize.MEDIUM);
     expect(speed).toEqual(SpeedType.MEDIUM);
     expect(fill).toEqual(FillType.MEDIUM);
-    expect(sizes).toBe(gameOptions.boardSizes);
+    expect(sizes).toBe(gameOptions.sizes);
     expect(speedTypes).toBe(gameOptions.speedTypes);
     expect(fillTypes).toBe(gameOptions.fillTypes);
   });

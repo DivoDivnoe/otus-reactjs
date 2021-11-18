@@ -31,7 +31,7 @@ export interface GameSettings {
 }
 
 const useGameSettings = (): GameSettings => {
-  const { boardSizes: sizes, speedTypes, fillTypes } = gameOptions;
+  const { sizes, speedTypes, fillTypes } = gameOptions;
 
   const size = useSelector<State, BoardSize>(getSize);
   const speed = useSelector<State, SpeedType>(getSpeed);

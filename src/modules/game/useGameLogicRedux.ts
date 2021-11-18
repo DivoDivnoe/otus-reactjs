@@ -65,12 +65,20 @@ const useGameLogic = (): StartGameType => {
     dispatch(ModelActionCreator.setModel(zeroMatrix));
   }, [size]);
 
-  const play = useCallback(() => {
-    dispatch(IsPlayingActionCreator.startPlaying());
-  }, []);
-  const pause = useCallback(() => {
-    dispatch(IsPlayingActionCreator.stopPlaying());
-  }, []);
+  const play = useCallback(
+    () => {
+      dispatch(IsPlayingActionCreator.startPlaying());
+    },
+    // Stryker disable next-line ArrayDeclaration
+    []
+  );
+  const pause = useCallback(
+    () => {
+      dispatch(IsPlayingActionCreator.stopPlaying());
+    },
+    // Stryker disable next-line ArrayDeclaration
+    []
+  );
 
   const onClickCell = useCallback(
     (coords: Coords): void => {

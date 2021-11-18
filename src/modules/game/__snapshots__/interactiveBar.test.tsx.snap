@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InteractiveBar test cases InteractiveBar check 1`] = `
+<DocumentFragment>
+  <div
+    class="css-oyac82"
+  >
+    <div
+      class="css-1aljmas"
+    >
+      <span
+        class="css-c5nu7q"
+      >
+        Board Size: 
+      </span>
+      <div
+        class="css-lue796"
+      >
+        <button
+          class="css-som8ht"
+        >
+          Size: 50x30
+        </button>
+        <button
+          class="css-1u5m4u0"
+        >
+          Size: 70x50
+        </button>
+        <button
+          class="css-som8ht"
+        >
+          Size: 100x80
+        </button>
+      </div>
+    </div>
+    <div
+      class="css-1aljmas"
+    >
+      <span
+        class="css-c5nu7q"
+      >
+        Sim Speed: 
+      </span>
+      <div
+        class="css-lue796"
+      >
+        <button
+          class="css-som8ht"
+        >
+          slow
+        </button>
+        <button
+          class="css-1u5m4u0"
+        >
+          medium
+        </button>
+        <button
+          class="css-som8ht"
+        >
+          fast
+        </button>
+      </div>
+    </div>
+    <div
+      class="css-1aljmas"
+    >
+      <span
+        class="css-c5nu7q"
+      >
+        Fill: 
+      </span>
+      <div
+        class="css-lue796"
+      >
+        <button
+          class="css-som8ht"
+        >
+          10%
+        </button>
+        <button
+          class="css-nm0pqm"
+        >
+          20%
+        </button>
+        <button
+          class="css-som8ht"
+        >
+          30%
+        </button>
+      </div>
+    </div>
+    <div
+      class="css-1aljmas"
+    >
+      <span
+        class="css-c5nu7q"
+      >
+        Controls: 
+      </span>
+      <div
+        class="css-lue796"
+      >
+        <button
+          class="css-som8ht"
+        >
+          play
+        </button>
+        <button
+          class="css-1u5m4u0"
+        >
+          pause
+        </button>
+        <button
+          class="css-som8ht"
+        >
+          clear
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
