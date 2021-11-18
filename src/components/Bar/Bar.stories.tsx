@@ -1,10 +1,10 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { BoardSize } from '@/reducer/game/size';
-import { SpeedType } from '@/reducer/game/speed';
-import { FillType } from '@/reducer/game/fill';
+import { BoardSize } from '@/modules/game/size';
+import { SpeedType } from '@/modules/game/speed';
+import { FillType } from '@/modules/game/fill';
 
-import { Bar } from './';
+import { Bar } from './Bar';
 
 export default {
   title: 'Example/Bar',

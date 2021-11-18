@@ -8,6 +8,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:jest/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -17,7 +18,7 @@ module.exports = {
     sourceType: 'module',
     parser: 'babel-eslint',
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'jest'],
   rules: {
     'prettier/prettier': [
       'error',
@@ -29,6 +30,12 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     // '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/prop-types': 0,
+    'jest/expect-expect': [
+      'error',
+      {
+        assertFunctionNames: ['expect', 'expectSaga', 'testSaga'],
+      },
+    ],
   },
   settings: {
     react: {

@@ -1,73 +1,22 @@
-import { combineReducers, AnyAction } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { combineReducers } from 'redux';
 
-import NameSpace from './nameSpace';
-import gameReducer, { GameState } from '@/reducer/game';
-import { APP_KEY } from './constants';
+import gameReducer, {
+  GameState,
+  NAME_SPACE as GAME_NAME_SPACE,
+} from '@/modules/game';
 import userReducer, {
-  ActionCreator as UserActionCreator,
   UserState,
-  getUser,
-} from '@/reducer/user';
-import {
-  ActionCreator as ModelActionCreator,
-  getModel,
-} from '@/reducer/game/model';
-import {
-  ActionCreator as SizeActionCreator,
-  getSize,
-} from '@/reducer/game/size';
-import {
-  ActionCreator as SpeedActionCreator,
-  getSpeed,
-} from '@/reducer/game/speed';
-
-import {
-  ActionCreator as FillActionCreator,
-  getFill,
-} from '@/reducer/game/fill';
-
-import {
-  ActionCreator as IsPlayingActionCreator,
-  getIsPlaying,
-} from '@/reducer/game/isPlaying';
+  NAME_SPACE as USER_NAME_SPACE,
+} from '@/modules/user';
 
 export interface State {
-  [NameSpace.GAME]: GameState;
-  [NameSpace.USER]: UserState;
+  [GAME_NAME_SPACE]: GameState;
+  [USER_NAME_SPACE]: UserState;
 }
 
-export type ThunkResult<R> = ThunkAction<R, State, undefined, AnyAction>;
-
-export const Operation = {
-  getStateFromLocalStorage: (): ThunkResult<void> => {
-    return (dispatch) => {
-      const rawState = window.localStorage.getItem(APP_KEY);
-
-      if (rawState) {
-        const state: State = JSON.parse(rawState);
-
-        dispatch(UserActionCreator.signin(getUser(state)));
-        dispatch(SizeActionCreator.setSize(getSize(state)));
-        dispatch(SpeedActionCreator.setSpeed(getSpeed(state)));
-        dispatch(FillActionCreator.setFill(getFill(state)));
-        dispatch(ModelActionCreator.setModel(getModel(state)));
-        dispatch(IsPlayingActionCreator.setPlaying(getIsPlaying(state)));
-      }
-    };
-  },
-  saveStateToLocalStorage: (): ThunkResult<void> => {
-    return (_dispatch, getState) => {
-      const serializedState = JSON.stringify(getState());
-
-      window.localStorage.setItem(APP_KEY, serializedState);
-    };
-  },
-};
-
 const reducer = combineReducers({
-  [NameSpace.GAME]: gameReducer,
-  [NameSpace.USER]: userReducer,
+  [GAME_NAME_SPACE]: gameReducer,
+  [USER_NAME_SPACE]: userReducer,
 });
 
 export default reducer;
