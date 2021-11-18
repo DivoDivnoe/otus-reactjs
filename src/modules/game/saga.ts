@@ -110,7 +110,9 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
 
   yield takeEvery(SizeActionCreator.setSize.type, createModel);
   yield takeEvery(FillActionCreator.setFill.type, createModel);
-  yield takeEvery(ModelActionCreator.setModel.type, stopPlaying);
+
+  yield takeEvery(SizeActionCreator.setSize.type, stopPlaying);
+  yield takeEvery(FillActionCreator.setFill.type, stopPlaying);
 }
 
 export function* start(): Generator<StrictEffect, void, Model | SpeedType> {

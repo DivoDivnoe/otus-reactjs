@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { DynamicModuleLoader } from 'redux-dynamic-modules';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { InteractiveGame } from '@/modules/game';
+import { Game } from '@/modules/game';
 import { Header, HeaderPropsType } from '@/components/Header';
 
 import { getGameModule } from '@/modules/game';
@@ -15,7 +15,7 @@ export const GameScreen: FC<HeaderPropsType> = ({ user, signout }) => {
       <div>
         <Header user={user} signout={signout} />
         <DynamicModuleLoader modules={dynamicReduxModules}>
-          <InteractiveGame />
+          <Game />
         </DynamicModuleLoader>
       </div>
     </ErrorBoundary>

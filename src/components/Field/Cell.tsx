@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Coords, ClickCellType } from '@/modules/game/useGameLogicRedux';
+import { Coords } from '@/modules/game/model';
 
 export interface CellProps {
   /**
@@ -14,7 +14,7 @@ export interface CellProps {
   /**
    * callback to fire when cell is clicked
    */
-  clickHandler: ClickCellType;
+  clickHandler: (coords: Coords) => void;
 }
 
 const CellItem = styled.div`

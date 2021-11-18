@@ -6,7 +6,7 @@ import SpeedReducer, { SpeedType } from './speed';
 import FillReducer, { FillType } from './fill';
 
 export { NAME_SPACE } from './nameSpace';
-export { InteractiveGame } from './InteractiveGame';
+export { Game } from './Game';
 export { getGameModule } from './module';
 
 export interface GameState {

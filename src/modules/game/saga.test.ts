@@ -237,7 +237,9 @@ describe('gameStateSaga', () => {
       .next()
       .takeEvery(FillActionCreator.setFill.type, createModel)
       .next()
-      .takeEvery(ModelActionCreator.setModel.type, stopPlaying)
+      .takeEvery(SizeActionCreator.setSize.type, stopPlaying)
+      .next()
+      .takeEvery(FillActionCreator.setFill.type, stopPlaying)
       .next()
       .isDone();
 
@@ -252,7 +254,7 @@ describe('gameStateSaga', () => {
           size: BoardSize.MEDIUM,
           speed: SpeedType.SLOW,
           fill: FillType.MEDIUM,
-          isPlaying: false,
+          isPlaying: true,
           model,
         },
         user: { userData: null },

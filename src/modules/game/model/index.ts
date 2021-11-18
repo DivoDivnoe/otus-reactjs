@@ -6,6 +6,7 @@ export {
   Binary,
   CellState,
   CellStateType,
+  Coords,
 } from './model';
 export { getModel, getNextGenModel, getZeroMatrix } from './selectors';
 
