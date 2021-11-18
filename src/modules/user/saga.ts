@@ -25,7 +25,6 @@ export function* getUserStateFromLocalStorage(): Generator<
     userState = JSON.parse(rawUserState as string);
 
     if (userState.userData) {
-      console.log('data', userState.userData);
       yield put(UserActionCreator.signin(userState.userData));
     }
   }
