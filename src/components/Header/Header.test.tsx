@@ -19,7 +19,7 @@ describe('Header', () => {
     };
     render(<Header {...mocks} />);
 
-    fireEvent.click(screen.getByText('Выйти'));
+    fireEvent.click(screen.getByText('Logout'));
     expect(mocks.signout).toHaveBeenCalledTimes(1);
   });
 });

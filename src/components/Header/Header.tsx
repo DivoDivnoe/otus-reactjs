@@ -37,7 +37,7 @@ export const Header: FC<HeaderPropsType> = ({ user, signout }) => {
       {user && (
         <Title>
           <span data-testid='user'>Hello, {user}! </span>
-          <LogoutItem onClick={signout}>Выйти</LogoutItem>
+          <LogoutItem onClick={signout}>Logout</LogoutItem>
         </Title>
       )}
     </Wrapper>

@@ -16,7 +16,7 @@ exports[`Header renders correctly 1`] = `
       <span
         class="css-1b0a5un"
       >
-        Выйти
+        Logout
       </span>
     </h1>
   </div>

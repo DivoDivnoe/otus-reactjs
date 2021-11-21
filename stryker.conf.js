@@ -7,5 +7,5 @@ module.exports = {
   testRunner: 'jest',
   coverageAnalysis: 'perTest',
   thresholds: { high: 90, low: 88, break: 85 },
-  mutate: ['src/**/*.ts?(x)', '!src/**/*@(.test|stories).ts?(x)'],
+  mutate: ['src/**/*.ts?(x)', '!src/**/*@(.test|.spec|stories).ts?(x)'],
 };
