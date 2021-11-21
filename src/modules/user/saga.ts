@@ -16,7 +16,7 @@ import { getFromLocalStorage, saveToLocalStorage } from '@/modules/game/utils';
 export function* getUserStateFromLocalStorage(): Generator<
   StrictEffect,
   void,
-  string | null | UserState
+  unknown
 > {
   const rawUserState = yield call(getFromLocalStorage, USER_KEY);
   let userState: UserState;

@@ -3,8 +3,7 @@ import { DynamicModuleLoader } from 'redux-dynamic-modules';
 import styled from '@emotion/styled';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Game } from '@/modules/game';
-import { Header, HeaderPropsType } from '@/components/Header';
-
+import { InteractiveHeader } from '@/modules/user/InteractiveHeader';
 import { getGameModule } from '@/modules/game';
 
 const dynamicReduxModules = [getGameModule()];
@@ -23,12 +22,12 @@ const Wrapper = styled.div`
   );
 `;
 
-export const GameScreen: FC<HeaderPropsType> = ({ user, signout }) => {
+export const GameScreen: FC = () => {
   return (
     <ErrorBoundary>
       <Wrapper>
         <div>
-          <Header user={user} signout={signout} />
+          <InteractiveHeader />
           <DynamicModuleLoader modules={dynamicReduxModules}>
             <Game />
           </DynamicModuleLoader>
