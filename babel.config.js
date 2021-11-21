@@ -4,4 +4,9 @@ module.exports = {
     '@babel/preset-typescript',
     '@babel/preset-react',
   ],
+  env: {
+    production: {
+      plugins: ['babel-plugin-jsx-remove-data-test-id'],
+    },
+  },
 };

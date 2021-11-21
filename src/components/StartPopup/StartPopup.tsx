@@ -3,9 +3,21 @@ import styled from '@emotion/styled';
 import { Button } from '@/components/Button';
 
 export interface StartPopupProps {
+  /**
+   * user name input value
+   */
   currentName: string;
+  /**
+   * dispatches signin action
+   */
   signin: () => void;
+  /**
+   * changes user name input value
+   */
   setName: (name: string) => void;
+  /**
+   * resets user name input value
+   */
   resetName: () => void;
 }
 
