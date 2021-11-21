@@ -13,29 +13,23 @@ import {
 import { GameScreen } from '@/screens/GameScreen';
 import { SigninScreen } from '@/screens/SigninScreen';
 
-export const AppRoutes: FC = () => {
+export const App: FC = () => {
   const dispatch = useDispatch();
 
   const user = useSelector<State, UserType>(getUser);
   const signout = useCallback(() => dispatch(UserActionCreator.signout()), []);
 
   return (
-    <Switch>
-      <Route path='/login'>
-        <SigninScreen />
-      </Route>
-      <PrivateRoute path='/' user={user}>
-        <GameScreen user={user} signout={signout} />
-      </PrivateRoute>
-    </Switch>
-  );
-};
-
-export const App: FC = () => {
-  return (
     <ErrorBoundary>
       <Router history={history}>
-        <AppRoutes />
+        <Switch>
+          <Route path='/login'>
+            <SigninScreen />
+          </Route>
+          <PrivateRoute path='/' user={user}>
+            <GameScreen user={user} signout={signout} />
+          </PrivateRoute>
+        </Switch>
       </Router>
     </ErrorBoundary>
   );

@@ -47,7 +47,10 @@ const CellCompoment: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
   );
 };
 
-const areEqual = (prevProps: CellProps, nextProps: CellProps) => {
+export const areEqual = (
+  prevProps: CellProps,
+  nextProps: CellProps
+): boolean => {
   return (
     prevProps.isActive === nextProps.isActive &&
     prevProps.clickHandler === nextProps.clickHandler &&

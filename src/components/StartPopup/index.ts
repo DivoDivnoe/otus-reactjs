@@ -1,1 +1,1 @@
-export { StartPopup } from './StartPopup';
+export { StartPopup, StartPopupProps } from './StartPopup';
