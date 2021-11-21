@@ -13,8 +13,5 @@ export default {
 
 const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
 
-export const Default = Template.bind(this);
-Default.args = { user: null };
-
-export const withUser = Template.bind(this);
+export const Default = Template;
 Default.args = { user: 'Andrey' };

@@ -9,6 +9,11 @@ import reducer from '@/reducer';
 export default {
   title: 'Example/StartPopup',
   component: StartPopup,
+  argTypes: {
+    signin: { action: 'sign' },
+    setName: { action: 'setName' },
+    resetName: { action: 'resetName' },
+  },
 } as ComponentMeta<typeof StartPopup>;
 
 const store = createStore(reducer);
@@ -19,4 +24,7 @@ const Template: ComponentStory<typeof StartPopup> = (args) => (
   </Provider>
 );
 
-export const Popup = Template;
+export const MainStartPopup = Template.bind({});
+MainStartPopup.args = {
+  currentName: 'Andrey',
+};
