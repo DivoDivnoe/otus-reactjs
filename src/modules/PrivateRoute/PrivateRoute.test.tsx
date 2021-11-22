@@ -6,14 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute';
 import reducer from '@/reducer';
 
-// jest.mock('react-router-dom', () => ({
-//   Redirect: (props: unknown) => {
-//     return <div>Redirect: {JSON.stringify(props)}</div>;
-//   },
-// }));
-
-// afterEach(cleanup);
-
 describe('PrivateRoute test', () => {
   it('renders Login component if no user defined', () => {
     const store = configureStore({ reducer });
