@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component renders correctly not signed in 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1i7ph3n"
+  >
+    <div
+      class="css-1p0rybr"
+      data-testid="start-popup"
+    >
+      <form
+        class="css-qztj7d"
+        data-testid="start-form"
+      >
+        <input
+          class="css-1oh381d"
+          data-testid="name-input"
+          placeholder="Enter Your Name:"
+          required=""
+          value=""
+        />
+        <button
+          class="css-som8ht"
+        >
+          Start
+        </button>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`App component renders correctly signed in 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1i7ph3n"
+  >
+    <div
+      class="css-1p0rybr"
+      data-testid="start-popup"
+    >
+      <form
+        class="css-qztj7d"
+        data-testid="start-form"
+      >
+        <input
+          class="css-1oh381d"
+          data-testid="name-input"
+          placeholder="Enter Your Name:"
+          required=""
+          value=""
+        />
+        <button
+          class="css-som8ht"
+        >
+          Start
+        </button>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

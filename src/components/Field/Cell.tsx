@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import styled from '@emotion/styled';
 import { Coords } from '@/modules/game/model';
+import _ from 'underscore';
 
 export interface CellProps {
   /**
@@ -36,7 +37,7 @@ const CellItem = styled.div`
   cursor: pointer;
 `;
 
-export const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
+const CellCompoment: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
   return (
     <CellItem
       data-testid='cell'
@@ -45,3 +46,16 @@ export const Cell: FC<CellProps> = ({ coords, isActive, clickHandler }) => {
     ></CellItem>
   );
 };
+
+export const areEqual = (
+  prevProps: CellProps,
+  nextProps: CellProps
+): boolean => {
+  return (
+    prevProps.isActive === nextProps.isActive &&
+    prevProps.clickHandler === nextProps.clickHandler &&
+    _.isEqual(prevProps.coords, nextProps.coords)
+  );
+};
+
+export const Cell = memo(CellCompoment, areEqual);

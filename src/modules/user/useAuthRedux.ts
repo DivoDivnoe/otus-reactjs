@@ -1,15 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ActionCreator as UserActionCreator } from '@/modules/user';
+import { StartPopupProps } from '@/components/StartPopup';
 
-interface UserStateType {
-  currentName: string;
-  signin: () => void;
-  setName: (name: string) => void;
-  resetName: () => void;
-}
-
-const useAuth = (): UserStateType => {
+const useAuth = (): StartPopupProps => {
   const [name, setName] = useState<string>('');
 
   const dispatch = useDispatch();

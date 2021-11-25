@@ -15,7 +15,7 @@ exports[`StartPopup is rendered correctly 1`] = `
         data-testid="name-input"
         placeholder="Enter Your Name:"
         required=""
-        value=""
+        value="Andrey"
       />
       <button
         class="css-som8ht"

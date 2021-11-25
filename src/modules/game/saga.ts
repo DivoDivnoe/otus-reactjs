@@ -31,7 +31,6 @@ import {
 import { ActionCreator as IsPlayingActionCreator } from '@/modules/game/isPlaying';
 import { createRandomMatrix } from '@/modules/game/core';
 import { GameState, NAME_SPACE as GAME_KEY } from './';
-import { State } from '@/reducer';
 import { getGameState } from '@/reducer/selectors';
 import {
   delay,
@@ -43,11 +42,7 @@ export function* stopPlaying(): Generator<StrictEffect, void, void> {
   yield put(IsPlayingActionCreator.stopPlaying());
 }
 
-export function* createModel(): Generator<
-  StrictEffect,
-  void,
-  Model | State | BoardSize | FillType
-> {
+export function* createModel(): Generator<StrictEffect, void, unknown> {
   const size = yield select(getSize);
   const fill = yield select(getFill);
 
@@ -62,7 +57,7 @@ export function* createModel(): Generator<
 export function* getGameStateFromLocalStorage(): Generator<
   StrictEffect,
   void,
-  string | null | GameState
+  unknown
 > {
   const rawState = yield call(getFromLocalStorage, GAME_KEY);
   let state: GameState;
@@ -115,7 +110,7 @@ export function* actionsWatcher(): Generator<StrictEffect, void, void> {
   yield takeEvery(FillActionCreator.setFill.type, stopPlaying);
 }
 
-export function* start(): Generator<StrictEffect, void, Model | SpeedType> {
+export function* start(): Generator<StrictEffect, void, unknown> {
   while (true) {
     const nextGeneration = yield select(getNextGenModel);
     const speed = yield select(getSpeed);
