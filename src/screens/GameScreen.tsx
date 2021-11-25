@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 100vw;
+  min-width: 100%;
   min-height: 100vh;
   background: radial-gradient(
     ellipse at center,
