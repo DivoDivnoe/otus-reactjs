@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InteractiveHeader test cases InteractiveHeader check 1`] = `
+<DocumentFragment>
+  <div
+    class="css-quy5tq"
+  >
+    <h1
+      class="css-hfi35m"
+    >
+      <span
+        data-testid="user"
+      >
+        Hello, Andrey! 
+      </span>
+      <span
+        class="css-1b0a5un"
+      >
+        Logout
+      </span>
+    </h1>
+  </div>
+</DocumentFragment>
+`;
